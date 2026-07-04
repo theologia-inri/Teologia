@@ -1,0 +1,1257 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Las Procesiones — Tratado Bíblico, Histórico y Teológico</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,500&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;1,8..60,400&family=Cinzel:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1c1714;
+    --ink-soft:#2c2420;
+    --parchment:#f0e6d2;
+    --parchment-dim:#e3d6b8;
+    --parchment-faint:#cfc09b;
+    --seal:#9c2b1f;
+    --seal-bright:#c23b2c;
+    --bronze:#8a7340;
+    --bronze-light:#b89e63;
+    --vesper:#3d4a3a;
+    --vesper-light:#5a6b54;
+    --shadow:0 18px 40px -20px rgba(0,0,0,.6);
+    --display:'Cinzel', serif;
+    --script:'Cormorant Garamond', serif;
+    --body:'Source Serif 4', serif;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+
+  body{
+    margin:0;
+    background:var(--ink);
+    color:var(--parchment);
+    font-family:var(--body);
+    font-size:17px;
+    line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    z-index:1;
+    opacity:.05;
+    background-image:
+      repeating-linear-gradient(0deg, transparent, transparent 2px, #000 2px, #000 3px);
+    mix-blend-mode:overlay;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important; scroll-behavior:auto !important;}
+  }
+
+  a{color:inherit;}
+  ::selection{background:var(--seal); color:var(--parchment);}
+
+  /* ---------- focus ---------- */
+  a:focus-visible, button:focus-visible{
+    outline:2px solid var(--bronze-light);
+    outline-offset:3px;
+  }
+
+  /* ===================== TOP RAIL NAV ===================== */
+  .railnav{
+    position:fixed;
+    top:0; left:0; right:0;
+    z-index:60;
+    background:linear-gradient(180deg, rgba(28,23,20,.97), rgba(28,23,20,.9));
+    border-bottom:1px solid rgba(184,158,99,.25);
+    backdrop-filter:blur(6px);
+  }
+  .railnav-inner{
+    max-width:1280px;
+    margin:0 auto;
+    display:flex;
+    align-items:center;
+    gap:18px;
+    padding:14px 28px;
+  }
+  .railnav-mark{
+    font-family:var(--display);
+    font-size:14px;
+    letter-spacing:.14em;
+    color:var(--bronze-light);
+    white-space:nowrap;
+    text-decoration:none;
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .railnav-mark .glyph{font-size:18px; color:var(--seal-bright);}
+  .railnav-scroll{
+    flex:1;
+    overflow-x:auto;
+    overflow-y:hidden;
+    scrollbar-width:thin;
+    scrollbar-color:var(--bronze) transparent;
+  }
+  .railnav-list{
+    display:flex;
+    gap:4px;
+    list-style:none;
+    margin:0; padding:0;
+    white-space:nowrap;
+  }
+  .railnav-list button{
+    font-family:var(--body);
+    font-size:13px;
+    letter-spacing:.03em;
+    background:transparent;
+    border:1px solid transparent;
+    color:var(--parchment-faint);
+    padding:7px 13px;
+    border-radius:3px;
+    cursor:pointer;
+    transition:color .25s ease, border-color .25s ease, background .25s ease;
+  }
+  .railnav-list button:hover{ color:var(--parchment); border-color:rgba(184,158,99,.3);}
+  .railnav-list button.active{
+    color:var(--ink);
+    background:var(--bronze-light);
+    border-color:var(--bronze-light);
+    font-weight:600;
+  }
+
+  /* ===================== LAYOUT SHELL ===================== */
+  .shell{
+    max-width:880px;
+    margin:0 auto;
+    padding:0 28px;
+    position:relative;
+    z-index:2;
+  }
+
+  section.page{
+    min-height:100vh;
+    padding-top:128px;
+    padding-bottom:90px;
+    display:none;
+  }
+  section.page.active{ display:block; animation:fadein .5s ease; }
+  @keyframes fadein{ from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:translateY(0);} }
+
+  .eyebrow{
+    font-family:var(--body);
+    font-size:12.5px;
+    letter-spacing:.22em;
+    text-transform:uppercase;
+    color:var(--bronze-light);
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin-bottom:18px;
+  }
+  .eyebrow::before{
+    content:"";
+    width:34px; height:1px;
+    background:var(--bronze);
+  }
+
+  h1.page-title{
+    font-family:var(--display);
+    font-weight:600;
+    font-size:clamp(2.1rem, 5vw, 3.4rem);
+    line-height:1.15;
+    margin:0 0 .5rem 0;
+    color:var(--parchment);
+    text-shadow:0 2px 24px rgba(156,43,31,.25);
+  }
+  .page-sub{
+    font-family:var(--script);
+    font-style:italic;
+    font-size:1.35rem;
+    color:var(--parchment-faint);
+    margin:0 0 3rem 0;
+    max-width:60ch;
+    border-left:2px solid var(--seal);
+    padding-left:18px;
+  }
+
+  h2{
+    font-family:var(--display);
+    font-weight:600;
+    font-size:1.5rem;
+    letter-spacing:.01em;
+    color:var(--bronze-light);
+    margin:3.2rem 0 1.1rem 0;
+    padding-bottom:.6rem;
+    border-bottom:1px solid rgba(184,158,99,.28);
+  }
+  h2:first-of-type{margin-top:0;}
+  h2 .num{
+    color:var(--seal-bright);
+    font-size:1.05rem;
+    margin-right:10px;
+    font-family:var(--body);
+    font-weight:600;
+  }
+
+  h3{
+    font-family:var(--script);
+    font-weight:700;
+    font-style:italic;
+    font-size:1.32rem;
+    color:var(--parchment);
+    margin:2rem 0 .7rem 0;
+  }
+
+  p{ margin:0 0 1.1rem 0; color:#e7dcc4; }
+  strong{ color:var(--parchment); font-weight:600; }
+  em{ color:var(--bronze-light); font-style:italic; }
+
+  .lede{
+    font-family:var(--script);
+    font-size:1.28rem;
+    line-height:1.55;
+    color:var(--parchment);
+    margin-bottom:1.6rem;
+  }
+
+  ul, ol{ padding-left:1.4rem; margin:0 0 1.2rem 0; color:#e7dcc4;}
+  li{ margin-bottom:.5rem; }
+  ul.plain{list-style:none; padding-left:0;}
+  ul.plain li{
+    padding-left:1.4rem;
+    position:relative;
+  }
+  ul.plain li::before{
+    content:"✦";
+    position:absolute; left:0; top:1px;
+    color:var(--seal);
+    font-size:.8em;
+  }
+
+  /* ---------- citation block ---------- */
+  blockquote{
+    margin:1.6rem 0;
+    padding:1.3rem 1.6rem 1.3rem 1.8rem;
+    background:rgba(184,158,99,.06);
+    border-left:3px solid var(--seal);
+    border-radius:0 4px 4px 0;
+    font-family:var(--script);
+    font-size:1.15rem;
+    font-style:italic;
+    color:var(--parchment);
+    position:relative;
+  }
+  blockquote .cite-source{
+    display:block;
+    margin-top:.7rem;
+    font-family:var(--body);
+    font-style:normal;
+    font-size:.82rem;
+    letter-spacing:.05em;
+    text-transform:uppercase;
+    color:var(--bronze-light);
+  }
+
+  /* ---------- panel / callout ---------- */
+  .panel{
+    background:linear-gradient(160deg, rgba(61,74,58,.18), rgba(61,74,58,.05));
+    border:1px solid rgba(90,107,84,.4);
+    border-radius:6px;
+    padding:1.5rem 1.7rem;
+    margin:1.8rem 0;
+  }
+  .panel-title{
+    font-family:var(--display);
+    font-size:.85rem;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:var(--vesper-light);
+    margin-bottom:.7rem;
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .panel-title::before{ content:"❧"; color:var(--vesper-light); font-size:1.1em;}
+  .panel p:last-child{margin-bottom:0;}
+
+  .seal-panel{
+    background:linear-gradient(160deg, rgba(156,43,31,.14), rgba(156,43,31,.04));
+    border:1px solid rgba(156,43,31,.4);
+  }
+  .seal-panel .panel-title{ color:var(--seal-bright); }
+  .seal-panel .panel-title::before{ content:"†"; color:var(--seal-bright);}
+
+  /* ---------- objection cards ---------- */
+  .objection{
+    border:1px solid rgba(184,158,99,.25);
+    border-radius:8px;
+    margin:2rem 0;
+    overflow:hidden;
+    background:rgba(240,230,210,.02);
+  }
+  .objection-head{
+    background:rgba(156,43,31,.16);
+    padding:1rem 1.5rem;
+    border-bottom:1px solid rgba(184,158,99,.2);
+  }
+  .objection-head .tag{
+    font-family:var(--body);
+    font-size:.75rem;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:var(--seal-bright);
+    display:block;
+    margin-bottom:.3rem;
+  }
+  .objection-head .claim{
+    font-family:var(--script);
+    font-style:italic;
+    font-size:1.25rem;
+    color:var(--parchment);
+  }
+  .objection-body{ padding:1.3rem 1.5rem 1.6rem 1.5rem; }
+  .resp-label{
+    font-family:var(--body);
+    font-weight:600;
+    font-size:.78rem;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    color:var(--bronze-light);
+    margin:1.1rem 0 .4rem 0;
+  }
+  .resp-label.exeg::before{content:"⌖ "; color:var(--vesper-light);}
+  .resp-label.hist::before{content:"⌛ "; color:var(--bronze-light);}
+  .resp-label.theo::before{content:"✚ "; color:var(--seal-bright);}
+
+  /* ---------- timeline ---------- */
+  .tl{ position:relative; margin:2rem 0; padding-left:2.4rem; }
+  .tl::before{
+    content:"";
+    position:absolute; left:.5rem; top:.4rem; bottom:.4rem;
+    width:1px;
+    background:linear-gradient(180deg, var(--seal), var(--bronze) 50%, transparent);
+  }
+  .tl-item{ position:relative; margin-bottom:1.7rem; }
+  .tl-item::before{
+    content:"";
+    position:absolute; left:-2.4rem; top:.35rem;
+    width:9px; height:9px;
+    border-radius:50%;
+    background:var(--parchment);
+    border:2px solid var(--seal);
+  }
+  .tl-date{
+    font-family:var(--display);
+    font-size:.95rem;
+    color:var(--seal-bright);
+    letter-spacing:.04em;
+    margin-bottom:.2rem;
+  }
+  .tl-title{ font-weight:600; color:var(--parchment); margin-bottom:.25rem;}
+  .tl-item p{margin-bottom:0; font-size:.96rem;}
+
+  /* ---------- comparison table ---------- */
+  .tbl-wrap{ overflow-x:auto; margin:1.8rem 0; border:1px solid rgba(184,158,99,.3); border-radius:6px;}
+  table{ width:100%; border-collapse:collapse; font-size:.92rem; min-width:640px;}
+  thead th{
+    background:rgba(156,43,31,.2);
+    font-family:var(--display);
+    font-size:.78rem;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    color:var(--parchment);
+    text-align:left;
+    padding:.85rem 1rem;
+    border-bottom:1px solid var(--bronze);
+  }
+  tbody td{
+    padding:.8rem 1rem;
+    border-bottom:1px solid rgba(184,158,99,.15);
+    color:#e7dcc4;
+    vertical-align:top;
+  }
+  tbody tr:last-child td{border-bottom:none;}
+  tbody tr:hover{background:rgba(184,158,99,.05);}
+  td strong{display:block; margin-bottom:.2rem;}
+
+  /* ---------- footnote-style errors list ---------- */
+  .err-grid{ display:grid; gap:1.1rem; margin:1.6rem 0;}
+  .err-card{
+    border:1px solid rgba(184,158,99,.22);
+    border-radius:6px;
+    padding:1.2rem 1.4rem;
+    background:rgba(240,230,210,.015);
+  }
+  .err-card .err-wrong{
+    font-family:var(--script);
+    font-style:italic;
+    color:#d99488;
+    font-size:1.08rem;
+    margin-bottom:.5rem;
+  }
+  .err-card .err-wrong::before{ content:"✗ "; }
+  .err-card .err-right{
+    color:var(--vesper-light);
+    font-size:.85rem;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    font-weight:600;
+    margin-bottom:.3rem;
+  }
+  .err-card .err-right::before{ content:"✓ "; }
+  .err-card p:last-child{margin-bottom:0;}
+
+  /* ---------- nav between pages bottom ---------- */
+  .page-foot{
+    display:flex;
+    justify-content:space-between;
+    gap:1rem;
+    margin-top:4.5rem;
+    padding-top:2rem;
+    border-top:1px solid rgba(184,158,99,.25);
+  }
+  .footnav-btn{
+    flex:1;
+    max-width:48%;
+    background:rgba(184,158,99,.06);
+    border:1px solid rgba(184,158,99,.3);
+    border-radius:6px;
+    padding:1rem 1.2rem;
+    cursor:pointer;
+    text-align:left;
+    color:var(--parchment);
+    font-family:var(--body);
+    transition:border-color .25s ease, background .25s ease, transform .2s ease;
+  }
+  .footnav-btn:hover{ border-color:var(--bronze-light); background:rgba(184,158,99,.12); transform:translateY(-2px);}
+  .footnav-btn.next{ text-align:right; margin-left:auto;}
+  .footnav-btn .dir{
+    display:block; font-size:.72rem; letter-spacing:.12em; text-transform:uppercase;
+    color:var(--bronze-light); margin-bottom:.3rem;
+  }
+  .footnav-btn .lbl{ font-family:var(--display); font-size:1rem; }
+
+  /* ===================== HERO / COVER ===================== */
+  .cover{
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:140px 24px 80px;
+    position:relative;
+    overflow:hidden;
+  }
+  .cover::before{
+    content:"";
+    position:absolute; inset:0;
+    background:
+      radial-gradient(ellipse 70% 50% at 50% 0%, rgba(156,43,31,.22), transparent 60%),
+      radial-gradient(ellipse 60% 40% at 80% 100%, rgba(61,74,58,.18), transparent 60%);
+    pointer-events:none;
+  }
+  .cover-crest{
+    font-size:2.6rem;
+    color:var(--seal-bright);
+    margin-bottom:1.6rem;
+    opacity:.9;
+    letter-spacing:.3em;
+  }
+  .cover-eyebrow{
+    font-family:var(--body);
+    letter-spacing:.32em;
+    text-transform:uppercase;
+    font-size:.78rem;
+    color:var(--bronze-light);
+    margin-bottom:1.6rem;
+  }
+  .cover h1{
+    font-family:var(--display);
+    font-weight:700;
+    font-size:clamp(2.6rem, 8vw, 5.2rem);
+    line-height:1.05;
+    margin:0 auto 1.4rem auto;
+    color:var(--parchment);
+    text-shadow:0 4px 50px rgba(156,43,31,.35);
+    max-width:16ch;
+    text-align:center;
+  }
+  .cover-sub{
+    font-family:var(--script);
+    font-style:italic;
+    font-size:clamp(1.2rem, 2.4vw, 1.6rem);
+    color:var(--parchment-faint);
+    max-width:50ch;
+    margin:0 auto 3rem auto;
+    line-height:1.5;
+    text-align:center;
+  }
+  .cover-divider{
+    width:120px; height:1px;
+    background:linear-gradient(90deg, transparent, var(--bronze-light), transparent);
+    margin-bottom:3rem;
+  }
+  .cover-cta{
+    display:flex;
+    gap:14px;
+    flex-wrap:wrap;
+    justify-content:center;
+    margin-bottom:4rem;
+  }
+  .btn{
+    font-family:var(--body);
+    font-size:.92rem;
+    letter-spacing:.04em;
+    padding:.9rem 1.8rem;
+    border-radius:3px;
+    cursor:pointer;
+    border:1px solid var(--bronze-light);
+    background:transparent;
+    color:var(--parchment);
+    transition:all .25s ease;
+  }
+  .btn:hover{ background:var(--bronze-light); color:var(--ink); }
+  .btn.primary{ background:var(--seal); border-color:var(--seal); color:var(--parchment);}
+  .btn.primary:hover{ background:var(--seal-bright); border-color:var(--seal-bright); }
+
+  .cover-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(220px,1fr));
+    gap:14px;
+    max-width:880px;
+    width:100%;
+  }
+  .toc-card{
+    border:1px solid rgba(184,158,99,.28);
+    border-radius:8px;
+    padding:1.5rem 1.4rem;
+    text-align:left;
+    background:rgba(240,230,210,.02);
+    cursor:pointer;
+    transition:border-color .25s ease, transform .2s ease, background .25s ease;
+  }
+  .toc-card:hover{
+    border-color:var(--seal-bright);
+    transform:translateY(-3px);
+    background:rgba(156,43,31,.08);
+  }
+  .toc-card .toc-num{
+    font-family:var(--display);
+    font-size:.78rem;
+    color:var(--seal-bright);
+    letter-spacing:.1em;
+    margin-bottom:.6rem;
+  }
+  .toc-card .toc-title{
+    font-family:var(--display);
+    font-size:1.05rem;
+    color:var(--parchment);
+    margin-bottom:.5rem;
+    line-height:1.3;
+  }
+  .toc-card .toc-desc{
+    font-size:.85rem;
+    color:var(--parchment-faint);
+    line-height:1.5;
+  }
+
+  .cover-footer{
+    margin-top:5rem;
+    font-size:.78rem;
+    letter-spacing:.08em;
+    color:var(--parchment-faint);
+    text-transform:uppercase;
+  }
+
+  /* ---------- responsive ---------- */
+  @media (max-width:640px){
+    .shell{padding:0 18px;}
+    section.page{padding-top:118px;}
+    .railnav-inner{padding:12px 16px;}
+    .objection-head, .objection-body{padding-left:1.1rem; padding-right:1.1rem;}
+    .page-foot{flex-direction:column;}
+    .footnav-btn{max-width:100%;}
+  }
+</style>
+<style>
+  .tl-portal-fab{
+    position:fixed; left:18px; bottom:18px; z-index:99999;
+    display:inline-flex; align-items:center; gap:9px;
+    padding:10px 16px 10px 12px;
+    border-radius:999px;
+    background:rgba(20,15,10,0.82);
+    border:1px solid rgba(201,164,73,0.55);
+    box-shadow:0 8px 22px rgba(0,0,0,0.35), inset 0 0 0 1px rgba(255,255,255,0.04);
+    backdrop-filter:blur(6px);
+    -webkit-backdrop-filter:blur(6px);
+    text-decoration:none;
+    font-family:'Cormorant SC','Georgia',serif;
+    font-size:14.5px;
+    letter-spacing:0.06em;
+    color:#F1DFA9 !important;
+    transition:transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+  }
+  .tl-portal-fab:hover{
+    transform:translateY(-3px);
+    background:rgba(30,22,14,0.92);
+    box-shadow:0 14px 28px rgba(0,0,0,0.45), inset 0 0 0 1px rgba(255,255,255,0.06);
+  }
+  .tl-portal-fab svg{flex:none; width:17px; height:17px;}
+  .tl-portal-fab span{white-space:nowrap;}
+  @media (max-width:560px){
+    .tl-portal-fab{left:12px; bottom:12px; padding:9px 13px 9px 10px; font-size:13.5px;}
+    .tl-portal-fab svg{width:15px; height:15px;}
+  }
+</style>
+
+</head>
+<body>
+<a href="index.html" class="tl-portal-fab" title="Volver a la Biblioteca de Teología">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v18M6 8h12"/></svg>
+  <span>Biblioteca</span>
+</a>
+
+
+<nav class="railnav">
+  <div class="railnav-inner">
+    <a href="#" class="railnav-mark" data-nav="cover"><span class="glyph">✦</span> PROCESSIO</a>
+    <div class="railnav-scroll">
+      <ul class="railnav-list" id="navlist">
+        <li><button data-nav="cover">Portada</button></li>
+        <li><button data-nav="s1">I. Escritura</button></li>
+        <li><button data-nav="s2">II. Objeciones</button></li>
+        <li><button data-nav="s3">III. Padres</button></li>
+        <li><button data-nav="s4">IV. Historia</button></li>
+        <li><button data-nav="s5">V. Magisterio</button></li>
+        <li><button data-nav="s6">VI. Comparativa</button></li>
+        <li><button data-nav="s7">VII. Errores</button></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="shell">
+
+  <!-- ===================== COVER ===================== -->
+  <section class="page active cover" id="cover">
+    <div class="cover-crest">✦ ☩ ✦</div>
+    <div class="cover-eyebrow">Estudio apologético · Biblia, Padres y Magisterio</div>
+    <h1>Las Procesiones</h1>
+    <p class="cover-sub">Un recorrido por el fundamento bíblico, la voz de los Padres, el desarrollo histórico de ocho siglos y la doctrina vigente sobre el culto procesional cristiano.</p>
+    <div class="cover-divider"></div>
+    <div class="cover-cta">
+      <button class="btn primary" data-nav="s1">Comenzar la lectura →</button>
+    </div>
+
+    <div class="cover-grid">
+      <div class="toc-card" data-nav="s1">
+        <div class="toc-num">I</div>
+        <div class="toc-title">Fundamento Bíblico</div>
+        <div class="toc-desc">Del Arca de la Alianza a la entrada en Jerusalén: el desplazamiento corporal como culto a lo largo de toda la Escritura.</div>
+      </div>
+      <div class="toc-card" data-nav="s2">
+        <div class="toc-num">II</div>
+        <div class="toc-title">Objeciones Protestantes</div>
+        <div class="toc-desc">Seis objeciones mayores, con sus textos, su exégesis y la respuesta histórica y teológica a cada una.</div>
+      </div>
+      <div class="toc-card" data-nav="s3">
+        <div class="toc-num">III</div>
+        <div class="toc-title">Padres de la Iglesia</div>
+        <div class="toc-desc">De Policarpo a Juan Damasceno: diecinueve testigos de los primeros ocho siglos del cristianismo.</div>
+      </div>
+      <div class="toc-card" data-nav="s4">
+        <div class="toc-num">IV</div>
+        <div class="toc-title">Desarrollo Histórico</div>
+        <div class="toc-desc">Cronología completa desde la Iglesia apostólica hasta el Vaticano II, con un cuadro sinóptico de hitos.</div>
+      </div>
+      <div class="toc-card" data-nav="s5">
+        <div class="toc-num">V</div>
+        <div class="toc-title">Magisterio</div>
+        <div class="toc-desc">Catecismo, Nicea II, Trento y los documentos papales que sostienen la doctrina hoy.</div>
+      </div>
+      <div class="toc-card" data-nav="s6">
+        <div class="toc-num">VI</div>
+        <div class="toc-title">Análisis Comparativo</div>
+        <div class="toc-desc">Segundo Templo, Iglesia primitiva, protestantismo y ortodoxia oriental, lado a lado.</div>
+      </div>
+      <div class="toc-card" data-nav="s7">
+        <div class="toc-num">VII</div>
+        <div class="toc-title">Errores Comunes</div>
+        <div class="toc-desc">Lo que se cree que enseña la Iglesia, lo que enseña realmente, y los abusos históricos reconocidos.</div>
+      </div>
+    </div>
+
+    <div class="cover-footer">Manual apologético · Tres tratados sobre los santos, los patronos y las procesiones</div>
+  </section>
+
+  <!-- ===================== I. ESCRITURA ===================== -->
+  <section class="page" id="s1">
+    <div class="eyebrow">Parte Primera</div>
+    <h1 class="page-title">Fundamento Bíblico</h1>
+    <p class="page-sub">El desplazamiento corporal organizado como acto de culto público: un principio que recorre toda la historia de la salvación.</p>
+
+    <h2><span class="num">1.1</span>¿Qué es una procesión?</h2>
+    <p class="lede">Antes de ir al texto, conviene fijar la definición que vamos a defender, porque parte del desacuerdo con el protestantismo es semántico antes de ser teológico.</p>
+    <p>Una <strong>procesión litúrgica</strong> es: un desplazamiento corporal, organizado y comunitario de un pueblo (o de sus representantes) hacia o en torno a un lugar sagrado, con frecuencia acompañando un objeto sagrado (Arca, Torá, Sacramento, reliquia, imagen), como acto público de culto, súplica, acción de gracias o conmemoración.</p>
+    <div class="panel">
+      <div class="panel-title">La pregunta correcta</div>
+      <p>La pregunta bíblica no es "¿aparece la palabra <em>procesión</em>?" — es un término litúrgico técnico posterior — sino "¿existe en la Escritura la forma de culto que la procesión encarna: desplazamiento corporal organizado como acto de adoración pública?". La respuesta es inequívocamente sí, y no de forma marginal sino estructural en la piedad bíblica.</p>
+    </div>
+
+    <h2><span class="num">1.2</span>Procesiones en el Antiguo Testamento</h2>
+
+    <h3>a) El Arca de la Alianza: el paradigma procesional</h3>
+    <p>El texto fundante es <strong>2 Samuel 6:1-15</strong> (paralelo en 1 Crónicas 13 y 15). David reúne treinta mil hombres escogidos y traslada el Arca desde Baalá de Judá hasta Jerusalén. El relato tiene todos los elementos de una procesión litúrgica:</p>
+    <ul class="plain">
+      <li>Multitud organizada que acompaña el objeto sagrado (2 Sam 6:1-2)</li>
+      <li>Música y danza litúrgica delante de Yahvé "con toda clase de instrumentos" (2 Sam 6:5)</li>
+      <li>Sacrificios rituales durante el trayecto, cada seis pasos (2 Sam 6:13)</li>
+      <li>El propio rey participa corporalmente, vistiendo el efod y danzando "con todas sus fuerzas" (2 Sam 6:14)</li>
+      <li>Aclamación pública con gritos de júbilo y son de cuerno (2 Sam 6:15)</li>
+    </ul>
+    <p>La crítica de Mical a David (2 Sam 6:20) y la respuesta del rey ("delante de Yahvé danzaré... y seré honrado", v. 21-22) establecen un principio central: <strong>el culto corporal externo y públicamente visible no es indigno de la majestad divina</strong>, sino la forma en que Israel reconoce y honra la presencia de Dios entre su pueblo.</p>
+    <p>1 Crónicas 15:25-29 añade que ya había levitas cantores, instrumentos específicos y organización jerárquica del cortejo — es decir, la procesión bíblica tiene <em>rúbrica</em>, no es espontaneísmo.</p>
+
+    <h3>b) Dedicación del Templo de Salomón</h3>
+    <p><strong>1 Reyes 8:1-11</strong> y <strong>2 Crónicas 5:2-14</strong> narran el traslado solemne del Arca a la Casa de Yahvé, con sacrificios incontables (8:5) y el clímax teofánico: la nube que llena el Templo (8:10-11). El patrón teológico es claro: <strong>el traslado procesional del objeto sagrado culmina en manifestación de la gloria divina</strong> (kabod Yahvé).</p>
+
+    <h3>c) Procesiones festivas: las peregrinaciones (ḥaggim)</h3>
+    <p>El Antiguo Testamento prescribe tres peregrinaciones anuales obligatorias a Jerusalén (Éx 23:14-17; 34:23; Dt 16:16). El verbo hebreo <strong>ḥagag</strong> (חָגַג), raíz de <em>ḥag</em> ("fiesta de peregrinación"), implica ya movimiento circular-procesional.</p>
+    <blockquote>
+      "Me alegré cuando me dijeron: Vamos a la casa de Yahvé... Allá subieron las tribus, las tribus de Yah, según la costumbre de Israel."
+      <span class="cite-source">Salmo 122:1-4 — uno de los Salmos graduales (Shir ha-Maalot)</span>
+    </blockquote>
+    <p>El Salmo 68:24-27 describe explícitamente coreografía procesional al santuario: cantores delante, músicos detrás, doncellas con panderos en medio.</p>
+
+    <h3>d) Las siete vueltas a Jericó</h3>
+    <p><strong>Josué 6</strong>: Israel marcha procesionalmente alrededor de Jericó durante siete días, portando el Arca, precedida por sacerdotes con trompetas. El patrón "marcha procesional + objeto sagrado + clímax de poder divino" reaparece con total claridad.</p>
+
+    <h3>e) Estandartes y orden de marcha en el desierto</h3>
+    <p><strong>Números 2 y 10</strong> establecen el orden exacto de marcha de las tribus alrededor del Tabernáculo y registran una fórmula litúrgica recitada cada vez que el Arca se ponía en movimiento (Nm 10:35-36) — precedente directo de la liturgia verbal procesional cristiana posterior.</p>
+
+    <h2><span class="num">1.3</span>Procesiones en el Nuevo Testamento</h2>
+
+    <h3>a) La entrada mesiánica en Jerusalén</h3>
+    <p>Este es el texto neotestamentario central. Los cuatro evangelios (Mt 21:1-11; Mc 11:1-11; Lc 19:28-40; Jn 12:12-19) coinciden en describir un acto formalmente procesional: multitud organizada, aclamación litúrgica del Salmo 118 (precisamente el salmo de procesión de la fiesta de Tabernáculos), ramas y vestidos extendidos en el camino, movimiento dirigido hacia un lugar sagrado.</p>
+    <div class="seal-panel panel">
+      <div class="panel-title">Por qué es decisivo</div>
+      <p>Lucas conecta el episodio con la realeza de Cristo (19:38) y Mateo lo presenta como cumplimiento profético de Zacarías 9:9. Los cuatro evangelistas seleccionan este episodio como bisagra entre el ministerio público y la Pasión: la procesión mesiánica inaugura litúrgicamente la semana de la redención. El Domingo de Ramos no inventa una forma de culto ajena al texto — la re-actualiza.</p>
+    </div>
+
+    <h3>b) El Templo como centro de movimiento ritual continuo</h3>
+    <p>Lucas 2:22-38, Hechos 3:1 ("subían" al Templo a la hora de la oración) y Hechos 21:26 muestran que el Nuevo Testamento presupone, sin romperla, la lógica espacial-procesional del culto judío.</p>
+
+    <h3>c) El "desfile triunfal" paulino</h3>
+    <p>2 Corintios 2:14: Pablo usa <strong>thriambeuonti</strong> (θριαμβεύοντι), término técnico del desfile triunfal romano, con incienso ("olor de Cristo", v.15) — el imaginario procesional es, para Pablo, vehículo natural de teología.</p>
+
+    <h3>d) La liturgia celestial del Apocalipsis</h3>
+    <p>Apocalipsis 7:9-10: la gran multitud con palmas ante el trono reproduce conscientemente el lenguaje de Tabernáculos. La liturgia terrena, incluida la procesional, es anticipo e icono de la liturgia celestial.</p>
+
+    <h2><span class="num">1.4</span>Síntesis exegética</h2>
+    <p class="lede">Lo que conecta estos textos —desde el Arca hasta los Ramos— es un principio teológico constante: la presencia de Dios entre su pueblo se celebra mediante desplazamiento corporal público, organizado y festivo. El cuerpo, el espacio público y el movimiento colectivo son medios legítimos de culto en la economía bíblica de la salvación, desde el Sinaí hasta el Apocalipsis.</p>
+
+    <div class="page-foot">
+      <div></div>
+      <button class="footnav-btn next" data-nav="s2"><span class="dir">Siguiente</span><span class="lbl">II. Objeciones Protestantes →</span></button>
+    </div>
+  </section>
+
+  <!-- ===================== II. OBJECIONES ===================== -->
+  <section class="page" id="s2">
+    <div class="eyebrow">Parte Segunda</div>
+    <h1 class="page-title">Objeciones Protestantes</h1>
+    <p class="page-sub">Seis objeciones mayores, presentadas con honestidad, junto a la respuesta exegética, histórica y teológica a cada una.</p>
+
+    <div class="objection">
+      <div class="objection-head">
+        <span class="tag">Objeción 1</span>
+        <span class="claim">"Las procesiones son una innovación medieval sin base en el cristianismo primitivo"</span>
+      </div>
+      <div class="objection-body">
+        <p>El principio regulativo del culto (Westminster XXI) sostiene que el Nuevo Testamento no manda procesiones litúrgicas, y que estas serían acumulación medieval de piedad popular. Apelan al silencio de Hechos y las Epístolas, y a Colosenses 2:8 contra "tradiciones de los hombres".</p>
+        <div class="resp-label exeg">Respuesta exegética</div>
+        <p>El argumento del silencio es débil: Hechos y las Epístolas son literatura ocasional, no manuales litúrgicos. El silencio sobre la forma exacta de muchas prácticas es la norma, no la excepción. Además, el principio teológico de la procesión está firmemente presente en el Antiguo Testamento y en el propio ministerio de Jesús.</p>
+        <div class="resp-label hist">Respuesta histórica</div>
+        <p>Ya en el siglo IV —antes de cualquier Edad Media— tenemos testimonio directo de procesiones litúrgicas cristianas en Jerusalén, documentadas por la peregrina Egeria (381-384), incluyendo el Domingo de Ramos con palmas.</p>
+        <div class="resp-label theo">Respuesta teológica</div>
+        <p>La objeción presupone el principio regulativo del culto, que es en sí mismo una tesis teológica reformada particular, no compartida ni siquiera por todo el protestantismo (luteranismo y anglicanismo histórico operan con el principio normativo: lícito lo no prohibido).</p>
+      </div>
+    </div>
+
+    <div class="objection">
+      <div class="objection-head">
+        <span class="tag">Objeción 2</span>
+        <span class="claim">"Las imágenes están prohibidas — llevarlas en procesión es idolatría"</span>
+      </div>
+      <div class="objection-body">
+        <p>El segundo mandamiento prohíbe explícitamente hacer y postrarse ante imágenes esculpidas (Éx 20:4-5; Dt 4:15-16; Is 44:9-20; Rom 1:23).</p>
+        <div class="resp-label exeg">Respuesta exegética</div>
+        <p>El contexto inmediato de Éxodo 20:4-5 es decisivo: prohíbe hacer imágenes <em>para postrarse y servirles como dioses</em> (v.5). El objeto de la prohibición es la latría dirigida a la imagen como divinidad — lo cual queda demostrado en el mismo Pentateuco: Dios manda fabricar los querubines de oro (Éx 25:18-20) y la serpiente de bronce (Nm 21:8-9), ambas imágenes esculpidas de uso litúrgico ordenado por Yahvé.</p>
+        <div class="resp-label theo">Respuesta teológica — el punto decisivo</div>
+        <p>La Encarnación cambia los términos del debate. Antes de Cristo, Dios era invisible e incircunscribible, y cualquier imagen suya sería idolátrica. Pero "el Verbo se hizo carne" (Jn 1:14): Dios se hizo visible, representable. Representar a Cristo —y a sus santos transformados a su imagen (Rom 8:29)— no viola el segundo mandamiento entendido en su sentido propio.</p>
+        <div class="resp-label hist">Respuesta histórica</div>
+        <p>Esta distinción fue definida dogmáticamente por el Segundo Concilio de Nicea (787) contra la iconoclasia.</p>
+      </div>
+    </div>
+
+    <div class="objection">
+      <div class="objection-head">
+        <span class="tag">Objeción 3</span>
+        <span class="claim">"Eso es paganismo cristianizado — los romanos y griegos ya hacían procesiones con ídolos"</span>
+      </div>
+      <div class="objection-body">
+        <p>Las procesiones cristianas con imágenes serían adaptación de las <em>pompae</em> paganas grecorromanas, bautizadas con nombres cristianos (cf. 2 Cor 6:14-17; 1 Tes 5:22).</p>
+        <div class="resp-label hist">Respuesta histórica</div>
+        <p>Es la falacia genética: que una forma cultural exista también en el paganismo no prueba que su uso cristiano sea idolátrico — igual que el bautismo por inmersión o el lenguaje de "salvador" tenían paralelos paganos sin que eso invalide su uso cristiano. Las procesiones bíblicas (el Arca, los Ramos) son anteriores y ajenas a cualquier préstamo helenístico.</p>
+        <div class="resp-label theo">Respuesta teológica</div>
+        <p>La objeción prueba demasiado: si toda forma con paralelo pagano fuera idolátrica, habría que eliminar también la predicación pública, la música litúrgica y el calendario litúrgico. El criterio bíblico de discernimiento es a quién se dirige el culto, no si la forma externa se parece a algo circundante.</p>
+      </div>
+    </div>
+
+    <div class="objection">
+      <div class="objection-head">
+        <span class="tag">Objeción 4</span>
+        <span class="claim">"Honrar imágenes de santos difuntos es necromancia, prohibida en Deuteronomio 18"</span>
+      </div>
+      <div class="objection-body">
+        <p>Llevar imágenes de santos con velas, incienso y cánticos repetiría la práctica condenada de consultar a los muertos (Dt 18:10-11; Lv 19:31; 20:6; 1 Sam 28).</p>
+        <div class="resp-label exeg">Respuesta exegética</div>
+        <p>Deuteronomio 18 prohíbe una práctica técnicamente definida: la necromancia (<em>doresh el-ha-metim</em>), el intento de obtener información oculta o predecir el futuro mediante invocación ritual de espíritus. Esto es categóricamente distinto de honrar la memoria de un justo fallecido o pedir su intercesión, análogo a pedir a un hermano que ore por uno (Stgo 5:16). No hay intento de extraer conocimiento oculto mediante ritual mágico — el elemento definitorio de la necromancia bíblica está ausente.</p>
+        <div class="resp-label theo">Respuesta teológica</div>
+        <p>La Iglesia nunca ha enseñado que se "invoque el espíritu" en sentido necromántico, ni que la imagen tenga poder mágico. El honor tributado a la imagen "pasa" al prototipo (Basilio Magno, <em>De Spiritu Sancto</em> 18,45).</p>
+      </div>
+    </div>
+
+    <div class="objection">
+      <div class="objection-head">
+        <span class="tag">Objeción 5</span>
+        <span class="claim">"Solo Cristo es mediador — honrar a María o los santos compite con su mediación única"</span>
+      </div>
+      <div class="objection-body">
+        <p>1 Timoteo 2:5 establece un mediador único; cualquier honor litúrgico público a otra figura oscurecería esta verdad (cf. Jn 14:6).</p>
+        <div class="resp-label theo">Respuesta teológica</div>
+        <p>Hay que distinguir entre la <strong>mediación única de redención</strong> (que Cristo no comparte — CIC 846-848) y la <strong>mediación subordinada de intercesión</strong> (pedir oración a otro miembro del Cuerpo de Cristo), que el mismo Pablo practica al pedir oraciones a las iglesias (Rom 15:30; Ef 6:19; 1 Tes 5:25). Portar la imagen de un santo no es ofrecerle culto redentor rival de Cristo, sino honrar (dulía) a quien ya vive unido a Él.</p>
+      </div>
+    </div>
+
+    <div class="objection">
+      <div class="objection-head">
+        <span class="tag">Objeción 6</span>
+        <span class="claim">"Jesús condenó la religiosidad externa y ostentosa — las procesiones son exactamente eso"</span>
+      </div>
+      <div class="objection-body">
+        <p>Mateo 6:1-6: Jesús critica hacer actos de piedad "para ser vistos"; Mateo 23:5 condena a los fariseos por el mismo motivo.</p>
+        <div class="resp-label exeg">Respuesta exegética</div>
+        <p>El contexto de Mateo 6 es clave: Jesús no condena la piedad pública —Él mismo enseña y ora públicamente—; condena la <em>intención</em> de buscar gloria humana. El criterio no es público/privado sino la disposición del corazón. El propio Jesús protagoniza el acto público más procesional de los evangelios: la entrada en Jerusalén, presentada como cumplimiento profético, no como contradicción.</p>
+        <div class="resp-label theo">Respuesta teológica</div>
+        <p>Tomás de Aquino distingue entre la ostentación viciosa (buscar la propia gloria) y la confesión pública legítima de la fe que Pablo manda (Rom 10:10). La procesión bien entendida es confesión pública comunitaria, no vanagloria individual.</p>
+      </div>
+    </div>
+
+    <div class="page-foot">
+      <button class="footnav-btn" data-nav="s1"><span class="dir">Anterior</span><span class="lbl">← I. Fundamento Bíblico</span></button>
+      <button class="footnav-btn next" data-nav="s3"><span class="dir">Siguiente</span><span class="lbl">III. Padres de la Iglesia →</span></button>
+    </div>
+  </section>
+
+  <!-- ===================== III. PADRES ===================== -->
+  <section class="page" id="s3">
+    <div class="eyebrow">Parte Tercera</div>
+    <h1 class="page-title">Padres de la Iglesia</h1>
+    <p class="page-sub">De Policarpo a Juan Damasceno: cómo entendieron el tema los cristianos de los primeros ocho siglos, sin ruptura doctrinal.</p>
+
+    <h2><span class="num">3.1</span>Período preniceno (siglos II-III)</h2>
+    <h3>Martirio de Policarpo (c. 156)</h3>
+    <blockquote>
+      "Allí, según podamos, reunidos con alegría y gozo, nos concederá el Señor celebrar el día del nacimiento de su martirio, en memoria de los que ya lucharon, y para ejercicio y preparación de los que han de luchar."
+      <span class="cite-source">Martirio de Policarpo, anónimo de la Iglesia de Esmirna, c. 156</span>
+    </blockquote>
+    <p>El testimonio más antiguo para este propósito. Establece ya el patrón completo: reunión comunitaria organizada, en un lugar sagrado ligado a un santo, en fecha fija anual, como acto de honor público — germen directo de las procesiones a santuarios.</p>
+
+    <h3>Tertuliano de Cartago (c. 160-220)</h3>
+    <p>En <em>De Corona</em> 3, enumera prácticas litúrgicas no escritas explícitamente en el Nuevo Testamento pero recibidas por tradición continuada — el principio metodológico que sostiene toda la apologética sobre tradición viva.</p>
+
+    <h2><span class="num">3.2</span>Siglo IV: el testimonio decisivo</h2>
+    <h3>Egeria, <em>Itinerarium Egeriae</em> (381-384)</h3>
+    <p>El documento más importante de toda la sección, porque no es un texto teológico que <em>habla</em> de procesiones, sino un diario de viaje que las describe en vivo. Sobre el Domingo de Ramos en Jerusalén (cap. 31): el pueblo entero sube al Monte de los Olivos y desciende en procesión hasta el Santo Sepulcro, con el obispo a la cabeza, niños y adultos con ramas de palmera y olivo, cantando antífonas, "de la misma manera que antaño el Señor fue conducido".</p>
+    <div class="panel">
+      <div class="panel-title">Por qué es decisivo</div>
+      <p>Fecha (381-384, siglo IV, no medieval); continuidad consciente con el Evangelio; carácter litúrgico pleno con obispo, antífonas e itinerario fijo. Refuta directamente la Objeción 1.</p>
+    </div>
+
+    <h3>San Basilio Magno (330-379)</h3>
+    <p>En <em>De Spiritu Sancto</em> 18,45 (c. 375) establece el principio teológico que sostendrá toda la veneración de imágenes: <strong>"el honor tributado a la imagen pasa al prototipo"</strong>. El honor no termina en la materia, sino que pasa a la persona representada.</p>
+
+    <h3>San Juan Crisóstomo (c. 347-407)</h3>
+    <p>Describe en varias homilías las multitudinarias reuniones procesionales hacia los santuarios de mártires en Antioquía y Constantinopla, interpretándolas como comunión con el santo. También critica los abusos de ostentación que podían acompañarlas — distinguiendo ya en el siglo IV entre práctica legítima y abuso.</p>
+
+    <h3>San Ambrosio de Milán (c. 340-397)</h3>
+    <p>En 386 organiza el traslado procesional de las reliquias de los mártires Gervasio y Protasio hasta la Basílica Ambrosiana, narrado en su <em>Epístola</em> 22: procesión nocturna con velas, multitudes y curaciones atribuidas al contacto con las reliquias. Uno de los testimonios más detallados de una procesión de reliquias.</p>
+
+    <h3>San Jerónimo (c. 347-420)</h3>
+    <p>En <em>Contra Vigilantium</em> responde a Vigilancio —quien atacó el culto a reliquias como superstición, antecedente casi literal de las objeciones protestantes modernas— defendiendo que honrar las tumbas de Pedro y Pablo no es idolatría sino honor a los siervos de Dios.</p>
+
+    <h2><span class="num">3.3</span>Siglo V: consolidación tras Éfeso</h2>
+    <p><strong>San Cirilo de Alejandría</strong> y la definición de María como <em>Theotokos</em> en Éfeso (431) desencadenan una explosión de devoción mariana pública en todo el Mediterráneo. <strong>Proclo de Constantinopla</strong>, discípulo de Crisóstomo, pronuncia homilías marianas en celebraciones públicas que anteceden directamente las grandes procesiones marianas bizantinas.</p>
+
+    <h2><span class="num">3.4</span>Siglos V-VII: estaciones y rogativas</h2>
+    <p><strong>San León Magno</strong> (papa 440-461) hace referencia a las <em>estaciones romanas</em>: el Papa y el pueblo se desplazaban procesionalmente cada día litúrgico a una iglesia distinta de la ciudad — sistema ya consolidado en el siglo V.</p>
+    <p><strong>San Gregorio Magno</strong> (papa 590-604) organiza en 590, durante una plaga, la <em>letania septiformis</em>: procesión penitencial de siete grupos convergiendo en Santa María la Mayor. Origen documentado de las Letanías Mayores.</p>
+
+    <h2><span class="num">3.5</span>Siglo VIII: la defensa teológica definitiva</h2>
+    <h3>San Juan Damasceno (c. 675-749)</h3>
+    <p>En sus <em>Tres discursos apologéticos contra los que impugnan las santas imágenes</em>, escritos en respuesta a la persecución iconoclasta de León III, sistematiza el argumento de la Encarnación: antes de Cristo era imposible representar a Dios; ahora que "se ha hecho visible en la carne", es lícito representar lo que de Dios se ha hecho visible.</p>
+    <p>Distingue con precisión técnica entre <strong>latría</strong> (adoración debida solo a Dios) y <strong>proskynesis/honor</strong> debido a las imágenes y los santos — distinción que Nicea II adoptará casi literalmente.</p>
+    <p><strong>San Germán de Constantinopla</strong>, patriarca depuesto por su resistencia a la iconoclasia, defiende la misma doctrina en cartas conservadas en las actas de Nicea II.</p>
+
+    <h2><span class="num">3.6</span>Síntesis del consenso y sus matices</h2>
+    <p>Desde el siglo II hasta el siglo VIII hay una línea de desarrollo continua y sin ruptura doctrinal. Ningún Padre condena la procesión litúrgica como tal. Con honestidad, hay que señalar tres matices:</p>
+    <div class="err-grid">
+      <div class="err-card">
+        <div class="err-right">Eusebio de Cesarea</div>
+        <p>Más reticente hacia imágenes pictóricas de Cristo en su carta a Constancia — voz minoritaria, irrelevante en la corriente principal.</p>
+      </div>
+      <div class="err-card">
+        <div class="err-right">Vigilancio (m. c. 406)</div>
+        <p>Voz disidente real contra el culto a reliquias — condenada como aislada y errónea por sus contemporáneos, notablemente Jerónimo.</p>
+      </div>
+      <div class="err-card">
+        <div class="err-right">Iconoclasia bizantina (726-843)</div>
+        <p>Única ruptura institucional seria, protagonizada por el poder imperial, derrotada doctrinalmente en dos concilios ecuménicos.</p>
+      </div>
+    </div>
+
+    <div class="page-foot">
+      <button class="footnav-btn" data-nav="s2"><span class="dir">Anterior</span><span class="lbl">← II. Objeciones Protestantes</span></button>
+      <button class="footnav-btn next" data-nav="s4"><span class="dir">Siguiente</span><span class="lbl">IV. Desarrollo Histórico →</span></button>
+    </div>
+  </section>
+
+  <!-- ===================== IV. HISTORIA ===================== -->
+  <section class="page" id="s4">
+    <div class="eyebrow">Parte Cuarta</div>
+    <h1 class="page-title">Desarrollo Histórico</h1>
+    <p class="page-sub">Cuándo aparece cada elemento de la práctica procesional, y qué lo motiva — una cronología verificable, no una proyección retroactiva.</p>
+
+    <h2><span class="num">4.1</span>Línea cronológica</h2>
+
+    <div class="tl">
+      <div class="tl-item">
+        <div class="tl-date">Siglo I</div>
+        <div class="tl-title">Iglesia apostólica</div>
+        <p>Base bíblica: entrada mesiánica, herencia procesional judía del Templo. Sin testimonio detallado de procesión específicamente cristiana aún — las fuentes son ocasionales, no litúrgicas, y la Iglesia es perseguida.</p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">c. 156</div>
+        <div class="tl-title">Martirio de Policarpo</div>
+        <p>Primer testimonio de honor litúrgico anual a un mártir en su sepultura — matriz del culto procesional posterior.</p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">313</div>
+        <div class="tl-title">Edicto de Milán</div>
+        <p>Condiciones materiales para la liturgia pública masiva. No crea la teología procesional, pero permite su despliegue institucional a gran escala.</p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">325</div>
+        <div class="tl-title">Concilio de Nicea I</div>
+        <p>Base cristológica (consustancialidad del Hijo) necesaria para la futura lógica de la representabilidad de Cristo.</p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">381-384</div>
+        <div class="tl-title">Egeria documenta Jerusalén</div>
+        <p>Primera documentación detallada de una procesión de Ramos plenamente litúrgica, apenas dos generaciones tras Constantino.</p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">386</div>
+        <div class="tl-title">Ambrosio y Gervasio/Protasio</div>
+        <p>Primera procesión de reliquias detalladamente documentada, con función apologética frente al arrianismo imperial.</p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">431</div>
+        <div class="tl-title">Concilio de Éfeso</div>
+        <p><em>Theotokos</em>: catalizador directo de la devoción y procesión mariana pública en todo el Mediterráneo.</p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">451</div>
+        <div class="tl-title">Concilio de Calcedonia</div>
+        <p>Unión hipostática: base cristológica citada después por los defensores de las imágenes en el siglo VIII.</p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">590</div>
+        <div class="tl-title">Gregorio Magno, letanía séptuple</div>
+        <p>Modelo fundacional de la procesión penitencial de rogativas, origen de las Letanías Mayores.</p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">726-787</div>
+        <div class="tl-title">Primera crisis iconoclasta</div>
+        <p>León III prohíbe las imágenes (730); Juan Damasceno escribe su defensa teológica sistemática desde territorio islámico.</p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">787</div>
+        <div class="tl-title">Concilio II de Nicea</div>
+        <p>VII Concilio Ecuménico: define dogmáticamente la distinción <em>proskynesis</em> (honor) vs. <em>latría</em> (adoración).</p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">814-843</div>
+        <div class="tl-title">Segunda crisis iconoclasta</div>
+        <p>Derrotada definitivamente en 843 — la "Fiesta de la Ortodoxia", ella misma una procesión litúrgica, lo conmemora hasta hoy.</p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">1264</div>
+        <div class="tl-title">Institución de Corpus Christi</div>
+        <p>Urbano IV instituye la procesión eucarística: culminación de toda la lógica procesional bíblica.</p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">1347-1351</div>
+        <div class="tl-title">Peste Negra y flagelantes</div>
+        <p>Primer gran ejemplo documentado de abuso popular (flagelantismo, violencia antisemita), condenado por Clemente VI en 1349.</p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">1545-1563</div>
+        <div class="tl-title">Concilio de Trento</div>
+        <p>Reafirmación dogmática frente a la Reforma; distingue explícitamente entre dogma y abuso popular.</p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">1962-1965</div>
+        <div class="tl-title">Concilio Vaticano II</div>
+        <p><em>Sacrosanctum Concilium</em> re-encuadra la piedad popular sin ruptura doctrinal con Trento o Nicea II.</p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2001</div>
+        <div class="tl-title">Directorio sobre Piedad Popular</div>
+        <p>Norma magisterial vigente más reciente sobre procesiones, peregrinaciones y discernimiento pastoral.</p>
+      </div>
+    </div>
+
+    <h2><span class="num">4.2</span>La crisis iconoclasta en detalle</h2>
+    <p>Esta es la controversia más importante de toda la historia doctrinal del tema. El emperador <strong>León III Isáurico</strong> inicia en 726 una campaña contra las imágenes, probablemente por una mezcla de presión teológica de minorías monofisitas extremas, posible influjo del aniconismo islámico y judío circundante, y cálculo político de centralización imperial. Su sucesor <strong>Constantino V</strong> (741-775) radicaliza la persecución contra los monjes, principales defensores de los íconos.</p>
+    <p>La resistencia teológica de Juan Damasceno y el patriarca Germán de Constantinopla culmina en el <strong>Concilio II de Nicea (787)</strong>, convocado por la emperatriz Irene, que define el "honor venerable" (<em>timētikēn proskynēsin</em>) frente a la "verdadera adoración" (<em>alēthinēn latreian</em>) reservada solo a Dios. Tras una segunda fase iconoclasta (814-843), la cuestión queda dogmáticamente cerrada en 843 — setecientos años antes de que la Reforma la reabra.</p>
+
+    <h2><span class="num">4.3</span>Edad Media: expansión sin innovación doctrinal</h2>
+    <p>La base teológica ya estaba fijada por Nicea II; lo que ocurre es expansión cuantitativa: multiplicación de procesiones de patronos locales, institución de <strong>Corpus Christi</strong> (1264) como culminación de toda la lógica procesional, y también —con honestidad histórica— abusos documentados como el movimiento flagelante, condenado activamente por el Magisterio cuando ocurrió.</p>
+
+    <div class="page-foot">
+      <button class="footnav-btn" data-nav="s3"><span class="dir">Anterior</span><span class="lbl">← III. Padres de la Iglesia</span></button>
+      <button class="footnav-btn next" data-nav="s5"><span class="dir">Siguiente</span><span class="lbl">V. Magisterio →</span></button>
+    </div>
+  </section>
+
+  <!-- ===================== V. MAGISTERIO ===================== -->
+  <section class="page" id="s5">
+    <div class="eyebrow">Parte Quinta</div>
+    <h1 class="page-title">Magisterio</h1>
+    <p class="page-sub">Catecismo, concilios y documentos papales — el razonamiento doctrinal, no solo los números de referencia.</p>
+
+    <h2><span class="num">5.1</span>El Catecismo: estructura doctrinal</h2>
+    <p>El CIC no trata "las procesiones" como tema autónomo: las procesiones son <em>expresión</em> de doctrinas más amplias (la liturgia, la veneración de imágenes, la piedad popular).</p>
+
+    <h3>CIC 1674-1676 — Piedad popular</h3>
+    <p>Define la religiosidad popular —"las peregrinaciones, las procesiones, los viacrucis"— como expresión de fe que "tiene su lugar junto a la liturgia sacramental", sin equivaler a ella. Citando <em>Evangelii Nuntiandi</em> de Pablo VI, afirma que esta piedad, bien orientada, manifiesta "sed de Dios" y genera virtudes — pero requiere "discernimiento pastoral" para purificarla.</p>
+
+    <h3>CIC 2129-2132 — Veneración de imágenes</h3>
+    <p>Recuerda la prohibición veterotestamentaria de imágenes "de un Dios invisible", y explica que el Hijo de Dios "inauguró una nueva economía de las imágenes" al hacerse hombre: la contemplación de su imagen conduce a la contemplación del misterio de la Encarnación. Cita explícitamente a Basilio Magno: <strong>"el honor rendido a una imagen se dirige a la persona representada"</strong>.</p>
+
+    <h2><span class="num">5.2</span>Nicea II (787): el texto exacto</h2>
+    <p>Establece que se debe dar a las imágenes <strong>veneración honorífica</strong> (<em>aspasmon kai timētikēn proskynēsin</em>), no la <strong>verdadera adoración</strong> (<em>alēthinēn latreian</em>) reservada a la naturaleza divina.</p>
+    <div class="panel">
+      <div class="panel-title">Precisión filológica honesta</div>
+      <p><em>Proskynesis</em> (postración de honor) se rendía en el uso bíblico cotidiano a reyes y ancianos sin implicar divinización (Gn 23:7; 1 Re 1:16), mientras <em>latría</em> está reservada al culto debido a Dios. Pero el propio Mateo 4:10 usa ambos verbos casi sinónimamente — la distinción técnica es un desarrollo doctrinal patrístico-conciliar que precisa una realidad bíblica fluida, no un tecnicismo ya cerrado en el texto mismo.</p>
+    </div>
+
+    <h2><span class="num">5.3</span>Trento (Sesión XXV, 1563): el texto exacto</h2>
+    <p>Tres afirmaciones precisas:</p>
+    <ol>
+      <li><strong>Lo que se cree:</strong> deben conservarse las imágenes y dárseles el debido honor, no porque haya en ellas divinidad o virtud propia, ni se les pida nada, ni se ponga en ellas la confianza.</li>
+      <li><strong>Lo que se rechaza:</strong> el Concilio condena explícitamente cualquier culto que atribuya divinidad a la materia de la imagen — cerrando la acusación de que el catolicismo no distingue veneración de idolatría.</li>
+      <li><strong>Corrección de abusos:</strong> ordena a los obispos eliminar superstición, lucro deshonesto y desorden en las fiestas de los santos.</li>
+    </ol>
+
+    <h2><span class="num">5.4</span>Documentos papales</h2>
+    <ul class="plain">
+      <li><strong>Pío XII, <em>Mediator Dei</em> (1947):</strong> primer gran documento moderno sobre la relación entre liturgia oficial y piedad popular, exigiendo que esta esté subordinada a la Eucaristía, no compita con ella.</li>
+      <li><strong>Pablo VI, <em>Marialis Cultus</em> (1974):</strong> reafirma el valor de las procesiones marianas siempre que estén ancladas en Escritura, liturgia y teología correcta.</li>
+      <li><strong>Directorio sobre la Piedad Popular y la Liturgia (2001):</strong> documento más detallado y reciente, con secciones explícitas sobre procesiones de Semana Santa y Corpus Christi.</li>
+    </ul>
+
+    <h2><span class="num">5.5</span>El razonamiento sintetizado</h2>
+    <div class="seal-panel panel">
+      <div class="panel-title">Por qué no es opcional ni periférico</div>
+      <p>Dios actúa en la historia de forma corporal y visible (creación, Encarnación, sacramentos) → el culto puede expresarse corporal y públicamente → la Encarnación hace lícita la representación de Cristo y, por participación, de sus santos → el honor se dirige siempre al prototipo, nunca a la materia → esta práctica fue definida dogmáticamente en Nicea II y reafirmada en Trento → el Magisterio reciente la depura de abusos sin abandonarla.</p>
+    </div>
+
+    <div class="page-foot">
+      <button class="footnav-btn" data-nav="s4"><span class="dir">Anterior</span><span class="lbl">← IV. Desarrollo Histórico</span></button>
+      <button class="footnav-btn next" data-nav="s6"><span class="dir">Siguiente</span><span class="lbl">VI. Análisis Comparativo →</span></button>
+    </div>
+  </section>
+
+  <!-- ===================== VI. COMPARATIVA ===================== -->
+  <section class="page" id="s6">
+    <div class="eyebrow">Parte Sexta</div>
+    <h1 class="page-title">Análisis Comparativo</h1>
+    <p class="page-sub">Segundo Templo, Iglesia primitiva, protestantismo y ortodoxia oriental — semejanzas y diferencias reales, sin generalizar.</p>
+
+    <h2><span class="num">6.1</span>Judaísmo del Segundo Templo</h2>
+    <p>Las tres peregrinaciones (<em>shalosh regalim</em>) estaban en pleno vigor en tiempos de Jesús. Es durante una de ellas, Pascua, donde ocurre la entrada mesiánica — inserta deliberadamente en un patrón procesional ya reconocible. El ritual diario de Sukkot incluía una procesión sacerdotal con agua y el canto del Hallel (Sal 113-118), el mismo salmo que la multitud aplica a Jesús.</p>
+    <div class="panel">
+      <div class="panel-title">Diferencia clave con el desarrollo cristiano posterior</div>
+      <p>El judaísmo del Segundo Templo centraba sus procesiones exclusivamente en el culto a Yahvé; no existía la categoría de "santo intercesor" venerado en procesión propia, ni imágenes. El cristianismo hereda la forma pero la transforma: la centra en Cristo y, derivadamente, en sus santos, e introduce imágenes — novedad justificada por una revelación nueva, la Encarnación, no una ruptura arbitraria.</p>
+    </div>
+
+    <h2><span class="num">6.2</span>Protestantismo: diversidad interna real</h2>
+    <p>"El protestantismo" no es monolítico en este punto — distinción indispensable para un debate serio.</p>
+
+    <h3>Luteranismo clásico</h3>
+    <p>Lutero sostuvo el <em>principio normativo</em> (lícito lo no prohibido), no el regulativo. Se opuso activamente al iconoclasmo radical de Karlstadt en Wittenberg (1521-1522), defendiendo las imágenes como <em>adiaphora</em>. Las iglesias luteranas escandinavas conservaron crucifijos e incluso ciertas procesiones (Santa Lucía).</p>
+
+    <h3>Calvinismo / Reformados</h3>
+    <p>Aquí se aplica con rigor el <em>principio regulativo del culto</em> (Westminster XXI.1, 1646). Calvino ataca la veneración de imágenes apoyándose en el segundo mandamiento, sin aceptar que la distinción <em>latría/dulía</em> sea suficiente en la práctica popular. Esta es la tradición que con más consistencia rechaza procesiones con imágenes.</p>
+
+    <h3>Anglicanismo</h3>
+    <p>Posición internamente diversa: los Treinta y Nueve Artículos (XXII, 1571) rechazan la doctrina romana de imágenes como "vanamente inventada"; el anglocatolicismo (desde el Movimiento de Oxford, s. XIX) reintroduce procesiones plenas con incienso e imágenes.</p>
+
+    <h3>Evangelicalismo y pentecostalismo</h3>
+    <p>Comparten generalmente el rechazo reformado, más por cultura eclesial que por articulación teológica técnica. Notablemente, movimientos como <em>March for Jesus</em> (1987) constituyen, fenomenológicamente, una forma de procesión cristiana pública sin vincularse conscientemente a la tradición católica — sugiriendo que el impulso procesional bíblico reaparece incluso donde se rechaza su teología.</p>
+
+    <h2><span class="num">6.3</span>Ortodoxia oriental: el aliado doctrinal más cercano</h2>
+    <p>La Ortodoxia acepta íntegramente Nicea II y la teología de Juan Damasceno. Las procesiones de íconos y reliquias —la <em>Anástasis</em> pascual, el <em>Epitaphios</em> de Viernes Santo— son, si acaso, más elaboradas litúrgicamente que en buena parte de la práctica católica latina contemporánea.</p>
+
+    <h2><span class="num">6.4</span>Cuadro sintético comparativo</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr><th>Tradición</th><th>¿Procesión litúrgica?</th><th>¿Imágenes en procesión?</th><th>Fundamento / objeción</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>AT / Segundo Templo</strong></td><td>Sí (Arca, peregrinaciones)</td><td>No (aniconismo de la divinidad)</td><td>Presencia de Yahvé, mandato festivo</td></tr>
+          <tr><td><strong>Iglesia primitiva-patrística</strong></td><td>Sí, desarrollo creciente</td><td>Sí, desde c. s. IV-V</td><td>Encarnación, comunión de los santos</td></tr>
+          <tr><td><strong>Catolicismo</strong></td><td>Sí, central</td><td>Sí</td><td>Nicea II, Trento, CIC 2129-2132</td></tr>
+          <tr><td><strong>Ortodoxia oriental</strong></td><td>Sí, central, a menudo más elaborada</td><td>Sí (íconos pintados, preferentemente)</td><td>Nicea II, Damasceno (fuente común)</td></tr>
+          <tr><td><strong>Luteranismo clásico</strong></td><td>Variable, conservada en parte</td><td>Tolerada como adiaphora</td><td>Principio normativo, no regulativo</td></tr>
+          <tr><td><strong>Calvinismo / Reformados</strong></td><td>Rechazada con imágenes</td><td>No</td><td>Principio regulativo, 2º mandamiento</td></tr>
+          <tr><td><strong>Anglicanismo</strong></td><td>Diverso</td><td>Diverso</td><td>Posición interna no unificada</td></tr>
+          <tr><td><strong>Evangelicalismo / Pentecostalismo</strong></td><td>Rechazada formalmente; reaparece informalmente</td><td>No</td><td>Herencia reformada + cultura eclesial</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="panel">
+      <div class="panel-title">Conclusión comparativa</div>
+      <p>El rechazo a la procesión litúrgica con imágenes no es la posición histórica "del cristianismo", sino una posición específicamente desarrollada por el ala reformada/calvinista de la Reforma del siglo XVI, que rompe en este punto con quince siglos de práctica indivisa — y que ni siquiera todo el protestantismo posterior sostiene con la misma intensidad.</p>
+    </div>
+
+    <div class="page-foot">
+      <button class="footnav-btn" data-nav="s5"><span class="dir">Anterior</span><span class="lbl">← V. Magisterio</span></button>
+      <button class="footnav-btn next" data-nav="s7"><span class="dir">Siguiente</span><span class="lbl">VII. Errores Comunes →</span></button>
+    </div>
+  </section>
+
+  <!-- ===================== VII. ERRORES ===================== -->
+  <section class="page" id="s7">
+    <div class="eyebrow">Parte Séptima</div>
+    <h1 class="page-title">Errores Comunes</h1>
+    <p class="page-sub">Lo que se cree que enseña la Iglesia, lo que enseña realmente, y los abusos históricos que ella misma ha reconocido y corregido.</p>
+
+    <h2><span class="num">7.1</span>Lo que se cree que los católicos enseñan (y no enseñan)</h2>
+    <div class="err-grid">
+      <div class="err-card">
+        <div class="err-wrong">"La imagen tiene poder mágico propio"</div>
+        <div class="err-right">Lo que se enseña realmente</div>
+        <p>El honor pasa siempre al prototipo, nunca permanece en la materia (Basilio, Damasceno, Nicea II, CIC 2132). Una imagen destruida no "pierde" ningún poder porque nunca lo tuvo en sí misma.</p>
+      </div>
+      <div class="err-card">
+        <div class="err-wrong">"Es politeísmo encubierto, con dioses menores"</div>
+        <div class="err-right">Lo que se enseña realmente</div>
+        <p>La distinción latría/dulía/hiperdulía existe precisamente para excluir esto. Ningún documento magisterial atribuye jamás a María o los santos la adoración reservada a la Trinidad.</p>
+      </div>
+      <div class="err-card">
+        <div class="err-wrong">"Se ora a la estatua, como si escuchara"</div>
+        <div class="err-right">Lo que se enseña realmente</div>
+        <p>La oración se dirige a la persona representada; la imagen es foco de atención y memoria, no interlocutor — análogo a hablar mirando la fotografía de un ser querido.</p>
+      </div>
+      <div class="err-card">
+        <div class="err-wrong">"Son ostentación de riqueza contraria al Evangelio"</div>
+        <div class="err-right">Lo que se enseña realmente</div>
+        <p>El principio teológico no exige ornamentación costosa. Las procesiones más antiguas documentadas son notablemente sobrias frente al desarrollo barroco posterior.</p>
+      </div>
+    </div>
+
+    <h2><span class="num">7.2</span>Abusos populares reales, reconocidos con honestidad</h2>
+    <p class="lede">Un manual apologético serio no finge que nunca ha habido excesos. Mejor mostrar que la propia Iglesia los identificó y corrigió.</p>
+
+    <h3>a) Superstición cuasi-mágica popular</h3>
+    <p>En contextos de escasa catequesis, deslizamiento hacia tratar la imagen como si tuviera poder cuasi-mágico. Reconocido y exigida su corrección desde Trento hasta el Directorio de 2001.</p>
+
+    <h3>b) Comercialización y lucro</h3>
+    <p>Trento mismo condena el "lucro deshonesto" en torno a fiestas de reliquias e imágenes.</p>
+
+    <h3>c) Rivalidad social y ostentación de estatus</h3>
+    <p>La participación en cofradías ha funcionado históricamente, en parte, como marcador de estatus social — fenómeno sociológico real que a veces distorsiona el contenido devocional.</p>
+
+    <h3>d) Excesos penitenciales: los flagelantes (1347-1351)</h3>
+    <p>El caso más grave: la procesión penitencial derivó en autoflagelación pública extrema y, en algunos brotes, violencia antisemita. Condenado expresamente por Clemente VI en <em>Inter sollicitudines</em> (1349).</p>
+
+    <h3>e) Sincretismo en contextos de evangelización colonial</h3>
+    <p>Particularmente relevante en el contexto latinoamericano: ciertas prácticas devocionales preexistentes se fusionaron en algunos casos con la imaginería procesional de forma doctrinalmente problemática. La Iglesia distingue la inculturación legítima (adaptar formas culturales al contenido católico) del sincretismo problemático (sustituir el contenido por otro bajo apariencia cristiana) — requiere discernimiento caso por caso, no condena general.</p>
+
+    <h2><span class="num">7.3</span>Lo que NO forma parte de la doctrina católica</h2>
+    <div class="seal-panel panel">
+      <div class="panel-title">Para cerrar con total claridad</div>
+      <ul class="plain" style="margin-bottom:0;">
+        <li>Que la imagen tenga vida, conciencia o poder propio independiente de la fe de quien la venera.</li>
+        <li>Que el éxito de una petición dependa mecánicamente de la pompa o el costo de la procesión.</li>
+        <li>Que sea pecaminoso no participar en una procesión específica — no hay obligación de precepto.</li>
+        <li>Que los santos sean "intermediarios necesarios" sin los cuales Dios no escucha.</li>
+        <li>Que cualquier elemento folclórico o comercial adherido históricamente tenga estatus doctrinal.</li>
+      </ul>
+    </div>
+
+    <div class="page-foot">
+      <button class="footnav-btn" data-nav="s6"><span class="dir">Anterior</span><span class="lbl">← VI. Análisis Comparativo</span></button>
+      <button class="footnav-btn next" data-nav="cover"><span class="dir">Volver</span><span class="lbl">↺ Portada</span></button>
+    </div>
+  </section>
+
+</div><!-- /.shell -->
+
+<script>
+  (function(){
+    const pages = document.querySelectorAll('section.page');
+    const navButtons = document.querySelectorAll('[data-nav]');
+
+    function go(id){
+      pages.forEach(p => p.classList.toggle('active', p.id === id));
+      document.querySelectorAll('#navlist button').forEach(b=>{
+        b.classList.toggle('active', b.dataset.nav === id);
+      });
+      window.scrollTo({top:0, behavior:'instant' in window ? 'instant':'auto'});
+      try{ history.replaceState(null,'', '#'+id); }catch(e){}
+    }
+
+    navButtons.forEach(btn=>{
+      btn.addEventListener('click', (e)=>{
+        e.preventDefault();
+        go(btn.dataset.nav);
+      });
+    });
+
+    const initial = (location.hash || '').replace('#','');
+    if(initial && document.getElementById(initial)){
+      go(initial);
+    } else {
+      go('cover');
+    }
+  })();
+</script>
+
+</body>
+</html>

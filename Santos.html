@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Los Santos — Tratado Bíblico, Histórico y Teológico</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,500;1,600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;1,8..60,400&family=Cinzel:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1c1714;
+    --ink-soft:#2c2420;
+    --parchment:#f0e6d2;
+    --parchment-dim:#e3d6b8;
+    --parchment-faint:#cfc09b;
+    --seal:#9c2b1f;
+    --seal-bright:#c23b2c;
+    --bronze:#8a7340;
+    --bronze-light:#b89e63;
+    --vesper:#3d4a3a;
+    --vesper-light:#5a6b54;
+    --gold:#c9a449;
+    --display:'Cinzel', serif;
+    --script:'Cormorant Garamond', serif;
+    --body:'Source Serif 4', serif;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+
+  body{
+    margin:0;
+    background:var(--ink);
+    color:var(--parchment);
+    font-family:var(--body);
+    font-size:17px;
+    line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  body::before{
+    content:"";
+    position:fixed; inset:0; pointer-events:none; z-index:1; opacity:.05;
+    background-image:repeating-linear-gradient(0deg, transparent, transparent 2px, #000 2px, #000 3px);
+    mix-blend-mode:overlay;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important; scroll-behavior:auto !important;}
+  }
+
+  a{color:inherit;}
+  ::selection{background:var(--seal); color:var(--parchment);}
+  a:focus-visible, button:focus-visible{ outline:2px solid var(--gold); outline-offset:3px; }
+
+  /* ===================== NAV ===================== */
+  .railnav{
+    position:fixed; top:0; left:0; right:0; z-index:60;
+    background:linear-gradient(180deg, rgba(28,23,20,.97), rgba(28,23,20,.9));
+    border-bottom:1px solid rgba(184,158,99,.25);
+    backdrop-filter:blur(6px);
+  }
+  .railnav-inner{ max-width:1280px; margin:0 auto; display:flex; align-items:center; gap:18px; padding:14px 28px; }
+  .railnav-mark{
+    font-family:var(--display); font-size:14px; letter-spacing:.14em; color:var(--gold);
+    white-space:nowrap; text-decoration:none; display:flex; align-items:center; gap:8px;
+  }
+  .railnav-mark .glyph{font-size:18px; color:var(--seal-bright);}
+  .railnav-scroll{ flex:1; overflow-x:auto; overflow-y:hidden; scrollbar-width:thin; scrollbar-color:var(--bronze) transparent; }
+  .railnav-list{ display:flex; gap:4px; list-style:none; margin:0; padding:0; white-space:nowrap; }
+  .railnav-list button{
+    font-family:var(--body); font-size:13px; letter-spacing:.03em; background:transparent;
+    border:1px solid transparent; color:var(--parchment-faint); padding:7px 13px; border-radius:3px;
+    cursor:pointer; transition:color .25s ease, border-color .25s ease, background .25s ease;
+  }
+  .railnav-list button:hover{ color:var(--parchment); border-color:rgba(184,158,99,.3);}
+  .railnav-list button.active{ color:var(--ink); background:var(--gold); border-color:var(--gold); font-weight:600; }
+
+  /* ===================== SHELL ===================== */
+  .shell{ max-width:880px; margin:0 auto; padding:0 28px; position:relative; z-index:2; }
+
+  section.page{ min-height:100vh; padding-top:128px; padding-bottom:90px; display:none; }
+  section.page.active{ display:block; animation:fadein .5s ease; }
+  @keyframes fadein{ from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:translateY(0);} }
+
+  .eyebrow{
+    font-family:var(--body); font-size:12.5px; letter-spacing:.22em; text-transform:uppercase;
+    color:var(--gold); display:flex; align-items:center; gap:12px; margin-bottom:18px;
+  }
+  .eyebrow::before{ content:""; width:34px; height:1px; background:var(--bronze); }
+
+  h1.page-title{
+    font-family:var(--display); font-weight:600; font-size:clamp(2.1rem, 5vw, 3.4rem);
+    line-height:1.15; margin:0 0 .5rem 0; color:var(--parchment);
+    text-shadow:0 2px 24px rgba(156,43,31,.25);
+  }
+  .page-sub{
+    font-family:var(--script); font-style:italic; font-size:1.35rem; color:var(--parchment-faint);
+    margin:0 0 2.4rem 0; max-width:62ch; border-left:2px solid var(--seal); padding-left:18px;
+  }
+
+  /* ---------- verse banner (decorative) ---------- */
+  .verse{
+    margin:2.6rem 0; padding:2rem 2.2rem; text-align:center; position:relative;
+    background:linear-gradient(160deg, rgba(201,164,73,.08), rgba(156,43,31,.05));
+    border-top:1px solid rgba(201,164,73,.35);
+    border-bottom:1px solid rgba(201,164,73,.35);
+  }
+  .verse::before, .verse::after{
+    content:"✦"; color:var(--gold); font-size:.9rem; display:block; margin-bottom:.8rem; opacity:.8;
+  }
+  .verse::after{ content:""; margin:0; }
+  .verse-text{
+    font-family:var(--script); font-style:italic; font-size:1.5rem; line-height:1.5;
+    color:var(--parchment); max-width:46ch; margin:0 auto;
+  }
+  .verse-ref{
+    display:block; margin-top:1rem; font-family:var(--body); font-size:.78rem; letter-spacing:.15em;
+    text-transform:uppercase; color:var(--gold);
+  }
+
+  h2{
+    font-family:var(--display); font-weight:600; font-size:1.5rem; letter-spacing:.01em;
+    color:var(--gold); margin:3.2rem 0 1.1rem 0; padding-bottom:.6rem;
+    border-bottom:1px solid rgba(184,158,99,.28);
+  }
+  h2:first-of-type{margin-top:0;}
+  h2 .num{ color:var(--seal-bright); font-size:1.05rem; margin-right:10px; font-family:var(--body); font-weight:600; }
+
+  h3{
+    font-family:var(--script); font-weight:700; font-style:italic; font-size:1.32rem;
+    color:var(--parchment); margin:2rem 0 .7rem 0;
+  }
+
+  p{ margin:0 0 1.1rem 0; color:#e7dcc4; }
+  strong{ color:var(--parchment); font-weight:600; }
+  em{ color:var(--gold); font-style:italic; }
+
+  .lede{ font-family:var(--script); font-size:1.28rem; line-height:1.55; color:var(--parchment); margin-bottom:1.6rem; }
+
+  ul, ol{ padding-left:1.4rem; margin:0 0 1.2rem 0; color:#e7dcc4;}
+  li{ margin-bottom:.5rem; }
+  ul.plain{list-style:none; padding-left:0;}
+  ul.plain li{ padding-left:1.4rem; position:relative; }
+  ul.plain li::before{ content:"✦"; position:absolute; left:0; top:1px; color:var(--seal); font-size:.8em; }
+
+  blockquote{
+    margin:1.6rem 0; padding:1.3rem 1.6rem 1.3rem 1.8rem;
+    background:rgba(184,158,99,.06); border-left:3px solid var(--seal); border-radius:0 4px 4px 0;
+    font-family:var(--script); font-size:1.15rem; font-style:italic; color:var(--parchment); position:relative;
+  }
+  blockquote .cite-source{
+    display:block; margin-top:.7rem; font-family:var(--body); font-style:normal; font-size:.82rem;
+    letter-spacing:.05em; text-transform:uppercase; color:var(--gold);
+  }
+
+  .panel{
+    background:linear-gradient(160deg, rgba(61,74,58,.18), rgba(61,74,58,.05));
+    border:1px solid rgba(90,107,84,.4); border-radius:6px; padding:1.5rem 1.7rem; margin:1.8rem 0;
+  }
+  .panel-title{
+    font-family:var(--display); font-size:.85rem; letter-spacing:.12em; text-transform:uppercase;
+    color:var(--vesper-light); margin-bottom:.7rem; display:flex; align-items:center; gap:8px;
+  }
+  .panel-title::before{ content:"❧"; color:var(--vesper-light); font-size:1.1em;}
+  .panel p:last-child{margin-bottom:0;}
+
+  .seal-panel{ background:linear-gradient(160deg, rgba(156,43,31,.14), rgba(156,43,31,.04)); border:1px solid rgba(156,43,31,.4); }
+  .seal-panel .panel-title{ color:var(--seal-bright); }
+  .seal-panel .panel-title::before{ content:"†"; color:var(--seal-bright);}
+
+  .gold-panel{ background:linear-gradient(160deg, rgba(201,164,73,.13), rgba(201,164,73,.03)); border:1px solid rgba(201,164,73,.4); }
+  .gold-panel .panel-title{ color:var(--gold); }
+  .gold-panel .panel-title::before{ content:"✦"; color:var(--gold);}
+
+  /* ---------- objection cards ---------- */
+  .objection{
+    border:1px solid rgba(184,158,99,.25); border-radius:8px; margin:2rem 0; overflow:hidden;
+    background:rgba(240,230,210,.02);
+  }
+  .objection-head{ background:rgba(156,43,31,.16); padding:1rem 1.5rem; border-bottom:1px solid rgba(184,158,99,.2); }
+  .objection-head .tag{
+    font-family:var(--body); font-size:.75rem; letter-spacing:.12em; text-transform:uppercase;
+    color:var(--seal-bright); display:block; margin-bottom:.3rem;
+  }
+  .objection-head .claim{ font-family:var(--script); font-style:italic; font-size:1.25rem; color:var(--parchment); }
+  .objection-body{ padding:1.3rem 1.5rem 1.6rem 1.5rem; }
+  .resp-label{
+    font-family:var(--body); font-weight:600; font-size:.78rem; letter-spacing:.1em; text-transform:uppercase;
+    color:var(--gold); margin:1.1rem 0 .4rem 0;
+  }
+  .resp-label.exeg::before{content:"⌖ "; color:var(--vesper-light);}
+  .resp-label.hist::before{content:"⌛ "; color:var(--gold);}
+  .resp-label.theo::before{content:"✚ "; color:var(--seal-bright);}
+
+  /* ---------- timeline ---------- */
+  .tl{ position:relative; margin:2rem 0; padding-left:2.4rem; }
+  .tl::before{
+    content:""; position:absolute; left:.5rem; top:.4rem; bottom:.4rem; width:1px;
+    background:linear-gradient(180deg, var(--seal), var(--gold) 50%, transparent);
+  }
+  .tl-item{ position:relative; margin-bottom:1.7rem; }
+  .tl-item::before{
+    content:""; position:absolute; left:-2.4rem; top:.35rem; width:9px; height:9px; border-radius:50%;
+    background:var(--parchment); border:2px solid var(--seal);
+  }
+  .tl-date{ font-family:var(--display); font-size:.95rem; color:var(--seal-bright); letter-spacing:.04em; margin-bottom:.2rem; }
+  .tl-title{ font-weight:600; color:var(--parchment); margin-bottom:.25rem;}
+  .tl-item p{margin-bottom:0; font-size:.96rem;}
+
+  /* ---------- table ---------- */
+  .tbl-wrap{ overflow-x:auto; margin:1.8rem 0; border:1px solid rgba(184,158,99,.3); border-radius:6px;}
+  table{ width:100%; border-collapse:collapse; font-size:.9rem; min-width:680px;}
+  thead th{
+    background:rgba(156,43,31,.2); font-family:var(--display); font-size:.74rem; letter-spacing:.05em;
+    text-transform:uppercase; color:var(--parchment); text-align:left; padding:.85rem .9rem; border-bottom:1px solid var(--bronze);
+  }
+  tbody td{ padding:.75rem .9rem; border-bottom:1px solid rgba(184,158,99,.15); color:#e7dcc4; vertical-align:top; }
+  tbody tr:last-child td{border-bottom:none;}
+  tbody tr:hover{background:rgba(184,158,99,.05);}
+  td strong{display:block; margin-bottom:.2rem;}
+
+  /* ---------- term cards (latria/dulia/hiperdulia) ---------- */
+  .term-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(220px,1fr)); gap:1rem; margin:1.8rem 0; }
+  .term-card{
+    border:1px solid rgba(201,164,73,.3); border-radius:8px; padding:1.4rem 1.3rem;
+    background:rgba(201,164,73,.04); text-align:center;
+  }
+  .term-card .term-word{ font-family:var(--display); font-size:1.15rem; color:var(--gold); margin-bottom:.4rem; letter-spacing:.02em;}
+  .term-card .term-greek{ font-family:var(--script); font-style:italic; color:var(--parchment-faint); font-size:1.05rem; margin-bottom:.7rem;}
+  .term-card p{ font-size:.88rem; margin-bottom:0; text-align:left;}
+
+  /* ---------- error cards ---------- */
+  .err-grid{ display:grid; gap:1.1rem; margin:1.6rem 0;}
+  .err-card{ border:1px solid rgba(184,158,99,.22); border-radius:6px; padding:1.2rem 1.4rem; background:rgba(240,230,210,.015); }
+  .err-card .err-wrong{ font-family:var(--script); font-style:italic; color:#d99488; font-size:1.08rem; margin-bottom:.5rem; }
+  .err-card .err-wrong::before{ content:"✗ "; }
+  .err-card .err-right{
+    color:var(--vesper-light); font-size:.85rem; letter-spacing:.04em; text-transform:uppercase;
+    font-weight:600; margin-bottom:.3rem;
+  }
+  .err-card .err-right::before{ content:"✓ "; }
+  .err-card p:last-child{margin-bottom:0;}
+
+  /* ---------- footer nav ---------- */
+  .page-foot{ display:flex; justify-content:space-between; gap:1rem; margin-top:4.5rem; padding-top:2rem; border-top:1px solid rgba(184,158,99,.25); }
+  .footnav-btn{
+    flex:1; max-width:48%; background:rgba(184,158,99,.06); border:1px solid rgba(184,158,99,.3);
+    border-radius:6px; padding:1rem 1.2rem; cursor:pointer; text-align:left; color:var(--parchment);
+    font-family:var(--body); transition:border-color .25s ease, background .25s ease, transform .2s ease;
+  }
+  .footnav-btn:hover{ border-color:var(--gold); background:rgba(184,158,99,.12); transform:translateY(-2px);}
+  .footnav-btn.next{ text-align:right; margin-left:auto;}
+  .footnav-btn .dir{ display:block; font-size:.72rem; letter-spacing:.12em; text-transform:uppercase; color:var(--gold); margin-bottom:.3rem; }
+  .footnav-btn .lbl{ font-family:var(--display); font-size:1rem; }
+
+  /* ===================== COVER ===================== */
+  .cover{
+    min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center; padding:140px 24px 80px; position:relative; overflow:hidden;
+  }
+  .cover::before{
+    content:""; position:absolute; inset:0;
+    background:
+      radial-gradient(ellipse 70% 50% at 50% 0%, rgba(201,164,73,.18), transparent 60%),
+      radial-gradient(ellipse 60% 40% at 80% 100%, rgba(156,43,31,.18), transparent 60%);
+    pointer-events:none;
+  }
+  .cover-crest{ font-size:2.6rem; color:var(--gold); margin-bottom:1.6rem; opacity:.9; letter-spacing:.3em; }
+  .cover-eyebrow{ font-family:var(--body); letter-spacing:.32em; text-transform:uppercase; font-size:.78rem; color:var(--gold); margin-bottom:1.6rem; }
+  .cover h1{
+    font-family:var(--display); font-weight:700; font-size:clamp(2.6rem, 8vw, 5.2rem); line-height:1.05;
+    margin:0 auto 1.4rem auto; color:var(--parchment); text-shadow:0 4px 50px rgba(201,164,73,.3); max-width:16ch;
+    text-align:center;
+  }
+  .cover-sub{
+    font-family:var(--script); font-style:italic; font-size:clamp(1.2rem, 2.4vw, 1.6rem);
+    color:var(--parchment-faint); max-width:54ch; margin:0 auto 2.4rem auto; line-height:1.5;
+    text-align:center;
+  }
+  .cover-verse{
+    font-family:var(--script); font-style:italic; font-size:1.2rem; color:var(--gold);
+    max-width:42ch; margin:0 auto 3rem auto; line-height:1.5; text-align:center;
+  }
+  .cover-verse span{ display:block; font-family:var(--body); font-style:normal; font-size:.72rem; letter-spacing:.15em; text-transform:uppercase; color:var(--parchment-faint); margin-top:.6rem;}
+  .cover-divider{ width:120px; height:1px; background:linear-gradient(90deg, transparent, var(--gold), transparent); margin-bottom:3rem; }
+  .cover-cta{ display:flex; gap:14px; flex-wrap:wrap; justify-content:center; margin-bottom:4rem; }
+  .btn{
+    font-family:var(--body); font-size:.92rem; letter-spacing:.04em; padding:.9rem 1.8rem; border-radius:3px;
+    cursor:pointer; border:1px solid var(--gold); background:transparent; color:var(--parchment); transition:all .25s ease;
+  }
+  .btn:hover{ background:var(--gold); color:var(--ink); }
+  .btn.primary{ background:var(--seal); border-color:var(--seal); color:var(--parchment);}
+  .btn.primary:hover{ background:var(--seal-bright); border-color:var(--seal-bright); }
+
+  .cover-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(220px,1fr)); gap:14px; max-width:880px; width:100%; }
+  .toc-card{
+    border:1px solid rgba(184,158,99,.28); border-radius:8px; padding:1.5rem 1.4rem; text-align:left;
+    background:rgba(240,230,210,.02); cursor:pointer; transition:border-color .25s ease, transform .2s ease, background .25s ease;
+  }
+  .toc-card:hover{ border-color:var(--gold); transform:translateY(-3px); background:rgba(201,164,73,.07); }
+  .toc-card .toc-num{ font-family:var(--display); font-size:.78rem; color:var(--seal-bright); letter-spacing:.1em; margin-bottom:.6rem; }
+  .toc-card .toc-title{ font-family:var(--display); font-size:1.05rem; color:var(--parchment); margin-bottom:.5rem; line-height:1.3; }
+  .toc-card .toc-desc{ font-size:.85rem; color:var(--parchment-faint); line-height:1.5; }
+
+  .cover-footer{ margin-top:5rem; font-size:.78rem; letter-spacing:.08em; color:var(--parchment-faint); text-transform:uppercase; }
+
+  @media (max-width:640px){
+    .shell{padding:0 18px;}
+    section.page{padding-top:118px;}
+    .railnav-inner{padding:12px 16px;}
+    .objection-head, .objection-body{padding-left:1.1rem; padding-right:1.1rem;}
+    .page-foot{flex-direction:column;}
+    .footnav-btn{max-width:100%;}
+    .verse{padding:1.6rem 1.3rem;}
+    .verse-text{font-size:1.25rem;}
+  }
+</style>
+<style>
+  .tl-portal-fab{
+    position:fixed; left:18px; bottom:18px; z-index:99999;
+    display:inline-flex; align-items:center; gap:9px;
+    padding:10px 16px 10px 12px;
+    border-radius:999px;
+    background:rgba(20,15,10,0.82);
+    border:1px solid rgba(201,164,73,0.55);
+    box-shadow:0 8px 22px rgba(0,0,0,0.35), inset 0 0 0 1px rgba(255,255,255,0.04);
+    backdrop-filter:blur(6px);
+    -webkit-backdrop-filter:blur(6px);
+    text-decoration:none;
+    font-family:'Cormorant SC','Georgia',serif;
+    font-size:14.5px;
+    letter-spacing:0.06em;
+    color:#F1DFA9 !important;
+    transition:transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+  }
+  .tl-portal-fab:hover{
+    transform:translateY(-3px);
+    background:rgba(30,22,14,0.92);
+    box-shadow:0 14px 28px rgba(0,0,0,0.45), inset 0 0 0 1px rgba(255,255,255,0.06);
+  }
+  .tl-portal-fab svg{flex:none; width:17px; height:17px;}
+  .tl-portal-fab span{white-space:nowrap;}
+  @media (max-width:560px){
+    .tl-portal-fab{left:12px; bottom:12px; padding:9px 13px 9px 10px; font-size:13.5px;}
+    .tl-portal-fab svg{width:15px; height:15px;}
+  }
+</style>
+
+</head>
+<body>
+<a href="index.html" class="tl-portal-fab" title="Volver a la Biblioteca de Teología">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v18M6 8h12"/></svg>
+  <span>Biblioteca</span>
+</a>
+
+
+<nav class="railnav">
+  <div class="railnav-inner">
+    <a href="#" class="railnav-mark" data-nav="cover"><span class="glyph">✦</span> SANCTI</a>
+    <div class="railnav-scroll">
+      <ul class="railnav-list" id="navlist">
+        <li><button data-nav="cover">Portada</button></li>
+        <li><button data-nav="s1">I. Escritura</button></li>
+        <li><button data-nav="s2">II. Objeciones</button></li>
+        <li><button data-nav="s3">III. Padres</button></li>
+        <li><button data-nav="s4">IV. Historia</button></li>
+        <li><button data-nav="s5">V. Magisterio</button></li>
+        <li><button data-nav="s6">VI. Comparativa</button></li>
+        <li><button data-nav="s7">VII. Errores</button></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="shell">
+
+  <!-- ===================== COVER ===================== -->
+  <section class="page active cover" id="cover">
+    <div class="cover-crest">✦ ☩ ✦</div>
+    <div class="cover-eyebrow">Estudio apologético · Biblia, Padres y Magisterio</div>
+    <h1>Los Santos</h1>
+    <p class="cover-sub">La comunión entre la Iglesia peregrina y la Iglesia glorificada: fundamento bíblico, testimonio patrístico, desarrollo histórico y doctrina vigente.</p>
+    <p class="cover-verse">"Teniendo en derredor nuestro tan grande nube de testigos..."<span>Hebreos 12:1</span></p>
+    <div class="cover-divider"></div>
+    <div class="cover-cta">
+      <button class="btn primary" data-nav="s1">Comenzar la lectura →</button>
+    </div>
+
+    <div class="cover-grid">
+      <div class="toc-card" data-nav="s1">
+        <div class="toc-num">I</div>
+        <div class="toc-title">Fundamento Bíblico</div>
+        <div class="toc-desc">Qué significa "santo" en la Escritura, la comunión de los santos y el fundamento de su intercesión.</div>
+      </div>
+      <div class="toc-card" data-nav="s2">
+        <div class="toc-num">II</div>
+        <div class="toc-title">Objeciones Protestantes</div>
+        <div class="toc-desc">Siete objeciones mayores, con sus textos, su exégesis y la respuesta histórica y teológica a cada una.</div>
+      </div>
+      <div class="toc-card" data-nav="s3">
+        <div class="toc-num">III</div>
+        <div class="toc-title">Padres de la Iglesia</div>
+        <div class="toc-desc">De Clemente de Roma a Juan Damasceno: testigos ininterrumpidos de los primeros ocho siglos.</div>
+      </div>
+      <div class="toc-card" data-nav="s4">
+        <div class="toc-num">IV</div>
+        <div class="toc-title">Desarrollo Histórico</div>
+        <div class="toc-desc">Del culto martirial espontáneo a la canonización papal centralizada: una cronología verificable.</div>
+      </div>
+      <div class="toc-card" data-nav="s5">
+        <div class="toc-num">V</div>
+        <div class="toc-title">Magisterio</div>
+        <div class="toc-desc">Catecismo, Trento, Vaticano II y la terminología técnica de latría, dulía e hiperdulía.</div>
+      </div>
+      <div class="toc-card" data-nav="s6">
+        <div class="toc-num">VI</div>
+        <div class="toc-title">Análisis Comparativo</div>
+        <div class="toc-desc">Segundo Templo, protestantismo en su diversidad interna, y ortodoxia oriental, lado a lado.</div>
+      </div>
+      <div class="toc-card" data-nav="s7">
+        <div class="toc-num">VII</div>
+        <div class="toc-title">Errores Comunes</div>
+        <div class="toc-desc">Lo que se cree que enseña la Iglesia, lo que enseña realmente, y los abusos históricos reconocidos.</div>
+      </div>
+    </div>
+
+    <div class="cover-footer">Manual apologético · Tres tratados sobre los santos, los patronos y las procesiones</div>
+  </section>
+
+  <!-- ===================== I. ESCRITURA ===================== -->
+  <section class="page" id="s1">
+    <div class="eyebrow">Parte Primera</div>
+    <h1 class="page-title">Fundamento Bíblico</h1>
+    <p class="page-sub">Dos sentidos concéntricos de "santo", la comunión que la muerte no rompe, y la intercesión como extensión natural de un principio ya bíblico.</p>
+
+    <h2><span class="num">1.1</span>¿Qué significa "santo" en la Biblia?</h2>
+    <p class="lede">Hay dos usos distintos pero relacionados, y buena parte de la confusión del debate consiste en colapsar ambos en uno solo.</p>
+
+    <h3>Uso 1 — Santo como estatus de consagración</h3>
+    <p>El hebreo <strong>qadosh</strong> (קָדוֹשׁ) y el griego <strong>hagios</strong> (ἅγιος) significan "separado", "apartado para Dios" — no primariamente "moralmente perfecto". Pablo llama "santos" a comunidades enteras con defectos evidentes: a los corintios, la comunidad más problemática del Nuevo Testamento (1 Cor 1:2), a los colosenses (Col 1:2), en la fórmula epistolar estándar de Romanos 1:7 y Efesios 1:1.</p>
+
+    <h3>Uso 2 — Santo como virtud heroica reconocida</h3>
+    <p>El mismo Nuevo Testamento distingue a personas de cercanía a Dios especialmente reconocida: los profetas como "sus santos profetas" (Lc 1:70), Esteban muriendo en circunstancias presentadas como excepcionales (Hch 7:55-60), Hebreos 11 como lista cerrada de modelos paradigmáticos de fe.</p>
+
+    <div class="panel">
+      <div class="panel-title">La clave hermenéutica</div>
+      <p>Estos dos usos son concéntricos, no contradictorios. Todo cristiano es santo en el sentido 1. Dentro de ese círculo, la Escritura misma reconoce que en algunos esa santidad se manifiesta de forma heroica y ejemplar. El "santo canonizado" posterior no es categoría ajena a la Biblia: es el reconocimiento eclesial formal de algo que el uso 2 ya hace de forma informal en el propio texto.</p>
+    </div>
+
+    <h2><span class="num">1.2</span>La comunión de los santos: fundamento bíblico</h2>
+
+    <h3>a) El Cuerpo de Cristo más allá de la muerte física</h3>
+    <p><strong>1 Corintios 12:12-27</strong>: la Iglesia es un solo Cuerpo donde "si un miembro recibe honra, todos los miembros se gozan con él" (v. 26). <strong>Romanos 8:38-39</strong>: ni la muerte "nos podrá separar del amor de Dios que es en Cristo Jesús". Si la muerte no separa al cristiano del amor de Cristo, tampoco lo separa del Cuerpo místico al que pertenece — cambia el modo de su pertenencia, no la pertenencia misma.</p>
+
+    <h3>b) "Dios no es Dios de muertos, sino de vivos"</h3>
+    <p>Mateo 22:23-32, Marcos 12:18-27, Lucas 20:27-38: Jesús responde a los saduceos citando Éxodo 3:6, y extrae la conclusión de que Abraham, Isaac y Jacob, físicamente muertos hace siglos cuando Dios habla a Moisés, "están vivos" ante Él en tiempo presente.</p>
+
+    <div class="verse">
+      <p class="verse-text">"Yo soy el Dios de Abraham, el Dios de Isaac y el Dios de Jacob... Dios no es Dios de muertos, sino de vivos, porque para él todos viven."</p>
+      <span class="verse-ref">Lucas 20:37 38</span>
+    </div>
+
+    <div class="seal-panel panel">
+      <div class="panel-title">Por qué es decisivo</div>
+      <p>No es especulación piadosa: es la exégesis que el propio Jesús hace de un texto del Pentateuco. Es el fundamento bíblico más directo de que "los santos están vivos".</p>
+    </div>
+
+    <h3>c) Hebreos 12:1 y la nube de testigos</h3>
+    <p>El capítulo 11 enumera a los héroes de la fe del Antiguo Testamento, ya fallecidos, y el capítulo 12 los presenta como una "nube" (<em>nephos martyrōn</em>) que rodea activamente a los cristianos vivos en su carrera de fe.</p>
+
+    <h3>d) Hebreos 12:22 24: la asamblea litúrgica que une cielo y tierra</h3>
+    <p>"Os habéis acercado... a los espíritus de los justos hechos perfectos" — situando a los santos glorificados como parte de la misma asamblea litúrgica a la que el cristiano vivo se une cada vez que adora.</p>
+
+    <h3>e) Apocalipsis 5:8 y 8:3 4</h3>
+    <p>Los veinticuatro ancianos, postrados ante el Cordero, tienen "copas de oro llenas de incienso, que son las oraciones de los santos". Un ángel añade incienso "a las oraciones de todos los santos" sobre el altar. El patrón estructural es inequívoco: hay mediación celestial que porta las oraciones humanas ante el trono de Dios.</p>
+
+    <h2><span class="num">1.3</span>¿Pueden interceder los santos?</h2>
+    <p>El principio más amplio: Santiago 5:16 ("la oración eficaz del justo puede mucho") cita a Elías, ya fallecido para los lectores, como modelo activo. Pablo pide oraciones a comunidades enteras (Rom 15:30; Ef 6:18 19; Col 4:3; 1 Tes 5:25), y en 1 Timoteo 2:1 4 manda interceder por todos, en el mismo capítulo donde afirma "un solo mediador" (v. 5), sin percibir contradicción.</p>
+    <p>Si la oración intercesora de un cristiano vivo "puede mucho", y los santos fallecidos están más vivos que nunca ante Dios, no hay razón bíblica para sostener que la muerte física disminuye esa capacidad — y buena razón, con Apocalipsis 5:8, para sostener que la intensifica.</p>
+
+    <h2><span class="num">1.4</span>¿Oyen los santos nuestras oraciones?</h2>
+    <p>Lucas 15:7 y 15:10 presuponen que seres celestiales conocen, en tiempo real, acontecimientos terrenos ("hay gozo delante de los ángeles... por un pecador que se arrepiente"), sin explicar el mecanismo. La teología católica no afirma que los santos conozcan por capacidad natural propia, sino "en Dios" — de modos que la Escritura insinúa sin sistematizar.</p>
+
+    <div class="page-foot">
+      <div></div>
+      <button class="footnav-btn next" data-nav="s2"><span class="dir">Siguiente</span><span class="lbl">II. Objeciones Protestantes →</span></button>
+    </div>
+  </section>
+
+  <!-- ===================== II. OBJECIONES ===================== -->
+  <section class="page" id="s2">
+    <div class="eyebrow">Parte Segunda</div>
+    <h1 class="page-title">Objeciones Protestantes</h1>
+    <p class="page-sub">Siete objeciones mayores, presentadas con honestidad, junto a la respuesta exegética, histórica y teológica a cada una.</p>
+
+    <div class="objection">
+      <div class="objection-head"><span class="tag">Objeción 1</span><span class="claim">"Solo Cristo es mediador — 1 Timoteo 2:5 lo excluye todo"</span></div>
+      <div class="objection-body">
+        <p>"Un solo mediador entre Dios y los hombres, Jesucristo hombre" (1 Tim 2:5). El numeral "uno" sugeriría exclusividad absoluta, no solo preeminencia.</p>
+        <div class="resp-label exeg">Respuesta exegética</div>
+        <p>El mismo capítulo, dos versículos antes, manda exactamente el tipo de mediación que supuestamente prohibiría: "que se hagan rogativas... por todos los hombres" (1 Tim 2:1). Pablo distingue dos mediaciones: la <strong>redentora</strong> de Cristo (v. 6, "se dio a sí mismo en rescate"), absolutamente única; y la <strong>de súplica</strong> que él mismo manda practicar, subordinada y derivada.</p>
+        <div class="resp-label theo">Respuesta teológica</div>
+        <p>Cristo es mediador en sentido propio y único; los santos son intercesores, palabra deliberadamente distinta para una participación subordinada, como reflejos que participan de una sola fuente de luz sin disminuirla.</p>
+      </div>
+    </div>
+
+    <div class="objection">
+      <div class="objection-head"><span class="tag">Objeción 2</span><span class="claim">"Los muertos no saben nada — Eclesiastés 9:5 lo dice explícitamente"</span></div>
+      <div class="objection-body">
+        <p>"Los muertos nada saben... su memoria es puesta en olvido" (Ecl 9:5).</p>
+        <div class="resp-label exeg">Respuesta exegética</div>
+        <p>Eclesiastés es literatura sapiencial de "discurso del límite": describe la experiencia <em>bajo el sol</em> (frase clave, 29 veces en el libro), desde observación empírica sin revelación sobre el más allá. El libro mismo culmina en 12:13 14 con una conclusión que trasciende esa perspectiva limitada.</p>
+        <div class="resp-label theo">Respuesta teológica</div>
+        <p>Tomado como definitivo, entraría en conflicto con Mateo 22:32, con Moisés y Elías conversando lúcidamente en la Transfiguración (Mt 17:1 3), y con las almas de los mártires clamando conscientemente en Apocalipsis 6:9 10.</p>
+      </div>
+    </div>
+
+    <div class="objection">
+      <div class="objection-head"><span class="tag">Objeción 3</span><span class="claim">"Eso es necromancia — la nigromante de Endor lo prueba"</span></div>
+      <div class="objection-body">
+        <p>Deuteronomio 18:10 11 prohíbe consultar a los muertos; 1 Samuel 28 muestra que el contacto es posible pero condenado.</p>
+        <div class="resp-label exeg">Respuesta exegética</div>
+        <p>Deuteronomio 18 prohíbe técnicamente la manipulación ritual forzada de un espíritu para obtener conocimiento oculto, normalmente vía médium. La intercesión católica no comparte ninguno de estos elementos: no hay médium ritual, no se busca conocer el futuro, no hay convocación forzada de un espíritu reacio — de hecho el propio Samuel aparece "molesto" por ser perturbado (1 Sam 28:15), confirmando que se trata de invocación forzada, no de súplica voluntaria de intercesión.</p>
+      </div>
+    </div>
+
+    <div class="objection">
+      <div class="objection-head"><span class="tag">Objeción 4</span><span class="claim">"Eso es idolatría — das a una criatura el honor debido solo a Dios"</span></div>
+      <div class="objection-body">
+        <p>Apocalipsis 19:10 y 22:8 9: un ángel rechaza la postración de Juan diciendo "adora a Dios". Si un ángel rechaza ese honor, ¿no se aplicaría con más razón a un santo humano?</p>
+        <div class="resp-label exeg">Respuesta exegética</div>
+        <p>El ángel rechaza ser tratado <em>como Dios mismo</em>, es decir, rechaza la latría, no cualquier honor. La <em>proskynesis</em> como gesto de respeto se rinde rutinariamente a humanos sin condena: Abraham ante los hititas (Gn 23:7), Jacob ante Esaú (Gn 33:3), los hijos de Jacob ante José (Gn 42:6), Abigail ante David (1 Sam 25:23) — nunca condenado como idolatría.</p>
+        <div class="resp-label theo">Respuesta teológica</div>
+        <p>La distinción latría/dulía no inventa una categoría: la encuentra ya operando en el texto bíblico y la nombra con precisión técnica.</p>
+      </div>
+    </div>
+
+    <div class="objection">
+      <div class="objection-head"><span class="tag">Objeción 5</span><span class="claim">"Romanos 14:12 — cada uno dará cuenta de sí directamente, sin intermediarios"</span></div>
+      <div class="objection-body">
+        <p>"Cada uno de nosotros dará a Dios cuenta de sí" (Rom 14:12).</p>
+        <div class="resp-label exeg">Respuesta exegética</div>
+        <p>El contexto es un problema disciplinar concreto: que los cristianos no se juzguen mutuamente sobre días y dietas, porque cada uno responde a Dios por su propia conciencia. El tema es la responsabilidad moral individual, no si se puede pedir intercesión a otros. Aplicarlo aquí es extrapolación fuera de contexto.</p>
+      </div>
+    </div>
+
+    <div class="objection">
+      <div class="objection-head"><span class="tag">Objeción 6</span><span class="claim">"No hay mandamiento explícito de invocar santos — es tradición humana"</span></div>
+      <div class="objection-body">
+        <p>A diferencia de la oración al Padre o la intercesión entre vivos (Stgo 5:16), no hay ejemplo neotestamentario inequívoco de invocación directa a un santo fallecido.</p>
+        <div class="resp-label exeg">Respuesta honesta</div>
+        <p>Es cierto, y conviene reconocerlo sin maquillaje. La respuesta católica construye el argumento por <strong>inferencia teológica legítima</strong> a partir de premisas ya establecidas: los santos están vivos y conscientes (Mt 22:32), presentan oraciones ante Dios (Ap 5:8), y la intercesión mutua es norma central (Stgo 5:16). De estas tres premisas se sigue, coherentemente, la cuarta.</p>
+        <div class="resp-label hist">Respuesta histórica</div>
+        <p>Esta inferencia no esperó siglos: está documentada como práctica viva en inscripciones funerarias del siglo II III, generaciones antes de cualquier desarrollo doctrinal sistemático.</p>
+      </div>
+    </div>
+
+    <div class="objection">
+      <div class="objection-head"><span class="tag">Objeción 7</span><span class="claim">"Las reliquias son supersticiones medievales"</span></div>
+      <div class="objection-body">
+        <p>El culto a reliquias parecería invención tardía sin precedente bíblico.</p>
+        <div class="resp-label exeg">Respuesta exegética</div>
+        <p><strong>2 Reyes 13:20 21</strong>: el contacto con los huesos de Eliseo resucita a un muerto. Es texto del Antiguo Testamento, no de tradición posterior — precedente bíblico directo, anterior en siglos a cualquier desarrollo "medieval".</p>
+      </div>
+    </div>
+
+    <div class="page-foot">
+      <button class="footnav-btn" data-nav="s1"><span class="dir">Anterior</span><span class="lbl">← I. Fundamento Bíblico</span></button>
+      <button class="footnav-btn next" data-nav="s3"><span class="dir">Siguiente</span><span class="lbl">III. Padres de la Iglesia →</span></button>
+    </div>
+  </section>
+
+  <!-- ===================== III. PADRES ===================== -->
+  <section class="page" id="s3">
+    <div class="eyebrow">Parte Tercera</div>
+    <h1 class="page-title">Padres de la Iglesia</h1>
+    <p class="page-sub">De Clemente de Roma a Juan Damasceno: testimonio ininterrumpido de los primeros ocho siglos del cristianismo.</p>
+
+    <h2><span class="num">3.1</span>Período preniceno (siglos I III)</h2>
+
+    <h3>Clemente de Roma (m. c. 99)</h3>
+    <p>En su <em>Carta a los Corintios</em> (c. 96), presenta a Pedro, Pablo y "una gran multitud de elegidos" mártires bajo Nerón como ejemplos vivos en la memoria activa de la comunidad apenas treinta años después.</p>
+
+    <h3>Inscripciones funerarias de las catacumbas romanas</h3>
+    <p>Testimonio epigráfico del siglo III en San Calixto, Priscila y Domitila: fórmulas de petición de intercesión a mártires, del tipo "Pedro y Pablo, rogad por Victor". Piedad popular espontánea, grabada en piedra, generaciones antes de cualquier desarrollo doctrinal sistemático.</p>
+
+    <h3>Martirio de Policarpo (c. 156)</h3>
+    <p>Ante la acusación de que los cristianos iban a "adorar" a Policarpo, el texto responde explícitamente: a Cristo lo adoran "como Hijo de Dios"; a los mártires los aman "como discípulos e imitadores del Señor". Posiblemente el testimonio patrístico más temprano de la distinción <em>latría</em>/honor, formulada espontáneamente apenas un siglo después de los apóstoles.</p>
+
+    <h3>Orígenes de Alejandría (c. 184 253)</h3>
+    <p>En <em>De Oratione</em> distingue los términos griegos para los tipos de oración, sosteniendo que la <em>proseuchē</em> en sentido pleno se debe solo al Padre — más restrictivo que la práctica posterior. En <em>Contra Celso</em> VIII,64 defiende el poder de intercesión real de los mártires junto a Cristo.
+
+    <h2><span class="num">3.2</span>Siglo IV: la explosión documental</h2>
+
+    <h3>San Basilio Magno (330 379)</h3>
+    <p>En su <em>Homilía sobre los cuarenta mártires de Sebaste</em>, pide explícitamente que intercedan por la ciudad y los fieles presentes — invocación litúrgica formal y pública.</p>
+
+    <h3>San Gregorio Nacianceno (329 390)</h3>
+    <p>En su <em>Oración 24</em>, se dirige directamente a Cipriano de Cartago, fallecido más de un siglo antes, pidiendo su intercesión.</p>
+
+    <h3>San Gregorio de Nisa (c. 335 395)</h3>
+    <p>Describe a los fieles acudiendo a la tumba de San Teodoro "como si estuviera vivo", pidiéndole salud y protección "como a quien está presente".</p>
+
+    <h3>San Jerónimo (c. 347 420)</h3>
+    <p>Contra Vigilancio, formula el argumento <em>a fortiori</em>: si los apóstoles podían orar por otros en la tierra, ¿por qué perderían esa capacidad después de la corona, más cerca de Cristo que en vida?</p>
+
+    <h3>San Agustín de Hipona (354 430)</h3>
+    <p>En <em>La Ciudad de Dios</em> niega enfáticamente que se "diviniquen" los mártires: "no erigimos templos, ni sacerdocios, ni ritos, ni sacrificios a nuestros mártires". En sus <em>Confesiones</em> (IX,11) pide oración por su madre Mónica en el altar; en sus <em>Sermones</em> defiende pedir la oración de los mártires sin adorarlos — el Padre que articula la distinción con mayor precisión sistemática del período.</p>
+
+    <h3>San Cirilo de Jerusalén (c. 313 386)</h3>
+    <p>Su <em>Catequesis Mistagógica V</em> describe la Liturgia de Jerusalén (c. 350): dentro del Canon eucarístico mismo se conmemora a patriarcas, profetas, apóstoles y mártires, "para que Dios, por sus oraciones e intercesiones, reciba nuestra súplica" — integrado en el corazón de la Misa ya a mediados del siglo IV.</p>
+
+    <h2><span class="num">3.3</span>Siglos VII VIII</h2>
+    <h3>San Juan Damasceno (c. 675 749)</h3>
+    <p>En su <em>Exposición exacta de la fe ortodoxa</em> (IV,15), sistematiza: los santos son "amigos de Dios... templos vivos de Dios", y su intercesión es eficaz por su unión íntima con Cristo, no por mérito propio independiente.</p>
+
+    <div class="verse">
+      <p class="verse-text">"No erigimos templos, ni sacerdocios, ni ritos, ni sacrificios a nuestros mártires, porque no son ellos sino su Dios el nuestro Dios."</p>
+      <span class="verse-ref">San Agustín · La Ciudad de Dios, VIII, 27</span>
+    </div>
+
+    <h2><span class="num">3.4</span>Síntesis del consenso y sus matices</h2>
+    <p>Testimonio ininterrumpido y geográficamente disperso (Roma, Capadocia, Antioquía, Alejandría, Jerusalén, Hipona, Milán, Damasco) desde el siglo III hasta el VIII. Ningún Padre mayor enseña adoración de santos en sentido de <em>latría</em>; todos sienten necesidad de aclarar la distinción.</p>
+    <div class="err-grid">
+      <div class="err-card">
+        <div class="err-right">Orígenes</div>
+        <p>Notablemente más restrictivo sobre qué oración puede dirigirse a quién — la terminología estaba aún en desarrollo en el siglo III.</p>
+      </div>
+      <div class="err-card">
+        <div class="err-right">Crecimiento retórico real</div>
+        <p>La intensidad de la invocación crece del siglo III (sobria, epigráfica) al IV V (homilías extensas, invocación directa formal) — desarrollo genuino, no repetición idéntica.</p>
+      </div>
+      <div class="err-card">
+        <div class="err-right">Vigilancio (m. c. 406)</div>
+        <p>Única voz disidente interna documentada con detalle, derrotada por el consenso patrístico contemporáneo.</p>
+      </div>
+    </div>
+
+    <div class="page-foot">
+      <button class="footnav-btn" data-nav="s2"><span class="dir">Anterior</span><span class="lbl">← II. Objeciones Protestantes</span></button>
+      <button class="footnav-btn next" data-nav="s4"><span class="dir">Siguiente</span><span class="lbl">IV. Desarrollo Histórico →</span></button>
+    </div>
+  </section>
+
+  <!-- ===================== IV. HISTORIA ===================== -->
+  <section class="page" id="s4">
+    <div class="eyebrow">Parte Cuarta</div>
+    <h1 class="page-title">Desarrollo Histórico</h1>
+    <p class="page-sub">Del reconocimiento espontáneo y local de los mártires a la canonización papal centralizada: una cronología verificable.</p>
+
+    <h2><span class="num">4.1</span>Línea cronológica</h2>
+    <div class="tl">
+      <div class="tl-item">
+        <div class="tl-date">Siglo I</div>
+        <div class="tl-title">Comunión de los santos en el texto bíblico</div>
+        <p>1 Corintios 12 y Hebreos 12 ya formulados por escrito antes del año 100, sin testimonio extrabíblico detallado aún de invocación formal.</p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">c. 96</div>
+        <div class="tl-title">Clemente de Roma</div>
+        <p>Honor a los mártires apostólicos como modelo activo de fe.</p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">Siglo III</div>
+        <div class="tl-title">Catacumbas romanas</div>
+        <p>Primera invocación documentada en piedad popular epigráfica, en pleno período de persecución.</p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">c. 156</div>
+        <div class="tl-title">Martirio de Policarpo</div>
+        <p>Distinción explícita entre adoración a Cristo y amor a los mártires.</p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">c. 230 250</div>
+        <div class="tl-title">Orígenes</div>
+        <p>Primera sistematización teológica parcial de los tipos de oración.</p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">c. 350</div>
+        <div class="tl-title">Catequesis de Cirilo de Jerusalén</div>
+        <p>Invocación de santos integrada en el Canon de la Misa: de la piedad popular a la liturgia oficial en menos de un siglo.</p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2ª mitad s. IV</div>
+        <div class="tl-title">Basilio, los Gregorios, Crisóstomo, Ambrosio</div>
+        <p>Gran producción homilética sobre la intercesión de los mártires.</p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">406</div>
+        <div class="tl-title">Jerónimo contra Vigilancio</div>
+        <p>Argumento a fortiori plenamente formulado.</p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">413 426</div>
+        <div class="tl-title">Agustín, La Ciudad de Dios</div>
+        <p>Distinción latría/honor más precisa del período patrístico.</p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">431</div>
+        <div class="tl-title">Concilio de Éfeso</div>
+        <p><em>Theotokos</em>: base de la futura hiperdulía mariana.</p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">Siglos IV VI</div>
+        <div class="tl-title">Culto a confesores</div>
+        <p>San Martín de Tours y otros: ampliación de la categoría de santidad más allá del martirio cruento.</p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">749</div>
+        <div class="tl-title">Muerte de Juan Damasceno</div>
+        <p>Sistematización doctrinal patrística madura.</p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">993</div>
+        <div class="tl-title">Canonización de San Ulrico</div>
+        <p>Primera canonización papal formal documentada, bajo Juan XV.</p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">1234</div>
+        <div class="tl-title">Decretales de Gregorio IX</div>
+        <p>Reserva papal exclusiva de la canonización.</p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">1588</div>
+        <div class="tl-title">Sixto V, Congregación de Ritos</div>
+        <p>Proceso jurídico riguroso permanente, con el "promotor de la fe".</p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">1964</div>
+        <div class="tl-title">Lumen Gentium, cap. VII</div>
+        <p>Síntesis dogmática moderna sobre la comunión de los tres estados de la Iglesia.</p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">1983</div>
+        <div class="tl-title">Divinus Perfectionis Magister</div>
+        <p>Reforma procedimental de Juan Pablo II: simplificación jurídica del proceso.</p>
+      </div>
+    </div>
+
+    <h2><span class="num">4.2</span>De lo espontáneo a lo centralizado</h2>
+    <p>En los siglos IV V no existía aún proceso formal de canonización: el reconocimiento era espontáneo y local, verificado por el obispo, inscrito en el calendario litúrgico de esa iglesia particular. Este sistema descentralizado es el germen jurídico litúrgico directo del proceso papal centralizado posterior — no hay ruptura doctrinal, solo centralización procedimental progresiva.</p>
+
+    <h2><span class="num">4.3</span>1983: por qué tantas canonizaciones bajo Juan Pablo II</h2>
+    <p>La reforma de 1983 redujo el número de milagros requeridos y dio mayor peso a comisiones diocesanas previas. Esto explica, históricamente, el notable aumento de canonizaciones en ese pontificado — más de 480, más que todos los predecesores de los cuatro siglos anteriores combinados — por reforma procedimental deliberada, no por relajación doctrinal.</p>
+
+    <div class="page-foot">
+      <button class="footnav-btn" data-nav="s3"><span class="dir">Anterior</span><span class="lbl">← III. Padres de la Iglesia</span></button>
+      <button class="footnav-btn next" data-nav="s5"><span class="dir">Siguiente</span><span class="lbl">V. Magisterio →</span></button>
+    </div>
+  </section>
+
+  <!-- ===================== V. MAGISTERIO ===================== -->
+  <section class="page" id="s5">
+    <div class="eyebrow">Parte Quinta</div>
+    <h1 class="page-title">Magisterio</h1>
+    <p class="page-sub">Catecismo, Trento, Vaticano II y la terminología técnica que distingue la adoración debida a Dios del honor debido a sus santos.</p>
+
+    <h2><span class="num">5.1</span>El Catecismo: la comunión de los santos como artículo del Credo</h2>
+    <p>A diferencia de las procesiones, la comunión de los santos es ella misma artículo del Credo (CIC 946 962) — estatus de mayor centralidad doctrinal.</p>
+
+    <h3>CIC 946 948 — Dos sentidos inseparables</h3>
+    <p>"Comunión en las cosas santas" (<em>sancta</em>: fe, sacramentos, Eucaristía) y "comunión entre las personas santas" (<em>sancti</em>) — uniendo los dos usos bíblicos vistos en 1.1.</p>
+
+    <h3>CIC 954 959 — Los tres estados de la Iglesia</h3>
+    <p>Peregrinos en la tierra, difuntos en purificación, bienaventurados en gloria: "todos, en diversos grados, estamos unidos en la misma caridad" (954, citando <em>Lumen Gentium</em> 49). La unión "no se rompe en absoluto" por la muerte; "se refuerza con la comunicación de los bienes espirituales" (955). El CIC 956 cita explícitamente Apocalipsis 5:8 como fundamento bíblico directo.</p>
+
+    <h3>CIC 957 — Intercesores y modelos</h3>
+    <p>El culto a los santos no es solo petición de ayuda, sino memoria e imitación de "una vida santa" — respuesta por adelantado a la caricatura de un uso meramente instrumental.</p>
+
+    <h2><span class="num">5.2</span>Latría, dulía e hiperdulía</h2>
+    <p>Vocabulario de origen patrístico, sistematizado escolásticamente por <strong>santo Tomás de Aquino</strong> (<em>Summa Theologiae</em> II II, q. 103 105).</p>
+
+    <div class="term-grid">
+      <div class="term-card">
+        <div class="term-word">LATRÍA</div>
+        <div class="term-greek">λατρεία</div>
+        <p>Adoración debida exclusivamente a Dios: Padre, Hijo y Espíritu Santo. Ofrecerla a cualquier criatura, por gloriosa que sea, es idolatría sin excepción.</p>
+      </div>
+      <div class="term-card">
+        <div class="term-word">DULÍA</div>
+        <div class="term-greek">δουλεία</div>
+        <p>Honor debido a los santos como criaturas glorificadas, amigas de Dios. Categoría distinta a la latría, no un grado menor de la misma cosa.</p>
+      </div>
+      <div class="term-card">
+        <div class="term-word">HIPERDULÍA</div>
+        <div class="term-greek">ὑπερδουλεία</div>
+        <p>Honor especial debido a María por su dignidad única de Madre de Dios; superior en grado a la dulía, pero infinitamente inferior a la latría.</p>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-title">El fundamento racional según santo Tomás</div>
+      <p>El honor es debido en proporción a la excelencia de quien lo recibe. Como la excelencia de Dios es infinita y de naturaleza distinta a la de cualquier criatura, el honor debido a Dios debe ser también de naturaleza distinta, no solo de mayor grado, al debido a las criaturas — argumento de proporción metafísica, no convención piadosa.</p>
+    </div>
+
+    <h2><span class="num">5.3</span>Concilio de Trento, Sesión XXV (1563)</h2>
+    <p>Documento conciliar más directamente dedicado al tema, en respuesta a la Reforma:</p>
+    <ol>
+      <li><strong>Lo que se cree:</strong> es bueno invocar a los santos y recurrir a sus oraciones para obtener beneficios de Dios "por su Hijo Jesucristo, nuestro Señor, que es el único Redentor y Salvador" — preservando explícitamente la mediación única de Cristo en la misma frase.</li>
+      <li><strong>Lo que se condena:</strong> negar que se deba invocar a los santos, llamarlo idolatría o "inventado por hombres ociosos" — respondiendo casi punto por punto a las objeciones de la Sección 2.</li>
+      <li><strong>Reliquias:</strong> deben ser veneradas, condenando a la vez "toda superstición" y "todo lucro vergonzoso".</li>
+    </ol>
+
+    <h2><span class="num">5.4</span>Vaticano II — Lumen Gentium, capítulo VII (1964)</h2>
+    <p>Insiste en que el culto a los santos "no disminuye sino que enriquece" el culto de latría a Dios (LG 51) — honrar a un santo glorificado por Cristo es, en sí mismo, glorificar a Cristo. Exhorta a evitar dos extremos: "todo falso exceso" y "la estrechez de mente" (LG 50).</p>
+
+    <div class="gold-panel panel">
+      <div class="panel-title">El razonamiento sintetizado</div>
+      <p>La comunión de los santos es artículo del Credo, no devoción periférica. La muerte no rompe la unión, la intensifica. El honor se distingue de la adoración por naturaleza, no por grado. La invocación de santos no compite con la mediación de Cristo: Trento lo afirma en el mismo decreto que la defiende. El culto a los santos glorifica a Cristo, porque su santidad es obra de Cristo en ellos.</p>
+    </div>
+
+    <div class="page-foot">
+      <button class="footnav-btn" data-nav="s4"><span class="dir">Anterior</span><span class="lbl">← IV. Desarrollo Histórico</span></button>
+      <button class="footnav-btn next" data-nav="s6"><span class="dir">Siguiente</span><span class="lbl">VI. Análisis Comparativo →</span></button>
+    </div>
+  </section>
+
+  <!-- ===================== VI. COMPARATIVA ===================== -->
+  <section class="page" id="s6">
+    <div class="eyebrow">Parte Sexta</div>
+    <h1 class="page-title">Análisis Comparativo</h1>
+    <p class="page-sub">Segundo Templo, protestantismo en su diversidad interna real, y ortodoxia oriental como aliado doctrinal pleno.</p>
+
+    <h2><span class="num">6.1</span>Judaísmo del Segundo Templo</h2>
+    <p><strong>2 Macabeos 15:11 16</strong>: Judas Macabeo ve a Onías, sumo sacerdote fallecido, "orando con las manos extendidas por toda la comunidad", y al profeta Jeremías, muerto siglos antes, descrito como quien "ora mucho por el pueblo".</p>
+    <div class="panel">
+      <div class="panel-title">Por qué importa incluso sin aceptar su canonicidad</div>
+      <p>El protestantismo excluye los deuterocanónicos de su canon — diferencia real que hay que reconocer. Pero, independientemente del estatus canónico, el texto es dato histórico religioso válido: ya antes de Cristo existía en el judaísmo la creencia de que los justos fallecidos continúan intercediendo. Sitúa el desarrollo cristiano en una trayectoria preexistente, no como desviación injertada.</p>
+    </div>
+
+    <h2><span class="num">6.2</span>Protestantismo: diversidad interna real</h2>
+
+    <h3>Luteranismo clásico</h3>
+    <p>La <strong>Confesión de Augsburgo</strong> (1530), Art. XXI, concede que "los santos oran por la Iglesia en cosas generales"; lo que rechaza es la <em>invocación directa</em> como práctica devocional, por falta de mandato bíblico claro — posición más matizada de lo que suele presentarse.</p>
+
+    <h3>Calvinismo / Reformados</h3>
+    <p>Posición más restrictiva: Calvino (<em>Institución</em> III,20) cuestiona incluso si los santos tienen conocimiento de los asuntos terrenos, apoyándose en Isaías 63:16 ("Abraham nos ignora").</p>
+
+    <h3>Anglicanismo</h3>
+    <p>El Artículo XXII rechaza "la invocación de los Santos" como "cosa fútilmente inventada"; el anglocatolicismo posterior la recupera parcialmente.</p>
+
+    <h3>Evangelicalismo y pentecostalismo</h3>
+    <p>Sigue la línea reformada, con mayor énfasis pastoral en la relación personal directa con Jesús que en articulación teológica técnica.</p>
+
+    <h2><span class="num">6.3</span>Ortodoxia oriental: aliado doctrinal pleno</h2>
+    <p>Comparte íntegramente la doctrina, con intensidad devocional diaria comparable o mayor: cada día del calendario litúrgico bizantino conmemora santos específicos con himnografía propia (los <em>Menaion</em>). Énfasis distinto: la <em>theosis</em> (divinización por gracia, 2 Pe 1:4) como marco, frente al marco jurídico meritorio más desarrollado en la escolástica latina — diferencia de acento, no de sustancia doctrinal.</p>
+
+    <h2><span class="num">6.4</span>Cuadro sintético comparativo</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr><th>Tradición</th><th>¿Conscientes/vivos?</th><th>¿Pueden interceder?</th><th>¿Lícito invocarlos?</th><th>Fundamento/objeción</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>AT canónico</strong></td><td>Sí (Mt 22:32)</td><td>Implícito (2 Re 13:20 21)</td><td>No desarrollado</td><td>Principios presentes, práctica no atestiguada</td></tr>
+          <tr><td><strong>Judaísmo 2º Templo</strong></td><td>Sí, explícito</td><td>Sí (2 Mac 15)</td><td>Implícito, no normativo</td><td>Precedente extracanónico relevante</td></tr>
+          <tr><td><strong>Iglesia patrística</strong></td><td>Sí</td><td>Sí</td><td>Sí, desde s. II III</td><td>Comunión de los santos, Ap 5:8</td></tr>
+          <tr><td><strong>Catolicismo</strong></td><td>Sí</td><td>Sí</td><td>Sí</td><td>CIC 946 962, Trento XXV, LG 49 51</td></tr>
+          <tr><td><strong>Ortodoxia oriental</strong></td><td>Sí</td><td>Sí</td><td>Sí, central en piedad diaria</td><td>Misma fuente patrística común</td></tr>
+          <tr><td><strong>Luteranismo clásico</strong></td><td>Sí (no lo niega)</td><td>Posiblemente, en general</td><td>No (sin mandato bíblico claro)</td><td>Confesión de Augsburgo XXI</td></tr>
+          <tr><td><strong>Calvinismo/Reformados</strong></td><td>Cuestionado (Is 63:16)</td><td>Negado o dudado</td><td>No</td><td>Institución III,20; sola mediación de Cristo</td></tr>
+          <tr><td><strong>Anglicanismo</strong></td><td>Diverso</td><td>Diverso</td><td>Rechazado en XXXIX Art.; recuperado en anglocatolicismo</td><td>Posición interna no unificada</td></tr>
+          <tr><td><strong>Evangelicalismo/Pentecostalismo</strong></td><td>Generalmente sí</td><td>Generalmente no enfatizado</td><td>No</td><td>Énfasis en relación personal directa</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="seal-panel panel">
+      <div class="panel-title">Conclusión comparativa</div>
+      <p>A diferencia de las imágenes (rechazo específicamente calvinista reformado), en la invocación de santos hay un espectro protestante más amplio de rechazo, incluso en el luteranismo, más moderado en otros puntos. Este es el punto donde el argumento histórico tiene que hacer el trabajo más pesado frente al argumento exegético directo de 1 Tim 2:5, que sigue siendo el núcleo real del desacuerdo.</p>
+    </div>
+
+    <div class="page-foot">
+      <button class="footnav-btn" data-nav="s5"><span class="dir">Anterior</span><span class="lbl">← V. Magisterio</span></button>
+      <button class="footnav-btn next" data-nav="s7"><span class="dir">Siguiente</span><span class="lbl">VII. Errores Comunes →</span></button>
+    </div>
+  </section>
+
+  <!-- ===================== VII. ERRORES ===================== -->
+  <section class="page" id="s7">
+    <div class="eyebrow">Parte Séptima</div>
+    <h1 class="page-title">Errores Comunes</h1>
+    <p class="page-sub">Lo que se cree que enseña la Iglesia, lo que enseña realmente, y los fenómenos históricos que ella misma ha reconocido y corregido.</p>
+
+    <h2><span class="num">7.1</span>Lo que se cree que los católicos enseñan (y no enseñan)</h2>
+    <div class="err-grid">
+      <div class="err-card">
+        <div class="err-wrong">"Se reza A los santos como si tuvieran poder propio"</div>
+        <div class="err-right">Lo que se enseña realmente</div>
+        <p>Toda capacidad de ayudar deriva de la unión del santo con Cristo. A Dios se le pide directamente; al santo se le pide que interceda — "ruega por mí", no "concédeme". El uso coloquial abrevia la fórmula sin que la doctrina formal colapse esa distinción.</p>
+      </div>
+      <div class="err-card">
+        <div class="err-wrong">"Hay un santo especialista para cada necesidad, como un panteón"</div>
+        <div class="err-right">Lo que se enseña realmente</div>
+        <p>La especialización es costumbre piadosa popular, basada normalmente en conexión biográfica real (San Cristóbal y los viajeros, Santa Rita y las causas imposibles), no jurisdicción exclusiva de tipo politeísta.</p>
+      </div>
+      <div class="err-card">
+        <div class="err-wrong">"Canonizar es 'crear' un santo"</div>
+        <div class="err-right">Lo que se enseña realmente</div>
+        <p>La canonización declara, no produce, la santidad: verifica evidencia de virtud heroica y milagros como confirmación divina, mecanismo de declaración pública, no de invención.</p>
+      </div>
+    </div>
+
+    <h2><span class="num">7.2</span>Fenómenos históricos reales, reconocidos con honestidad</h2>
+
+    <h3>a) Sincretismo histórico documentado</h3>
+    <p>Casos bien documentados, tanto en la cristianización de la Europa altomedieval como en la evangelización colonial de América, África y Asia, donde la veneración de un santo se superpuso a un culto preexistente con función simbólica similar. El propio <strong>Gregorio Magno</strong>, en su carta a Mellito (c. 601), recomendó deliberadamente no destruir los templos paganos britanos sino reconsagrarlos, y transformar fiestas paganas en fiestas de mártires.</p>
+
+    <div class="panel">
+      <div class="panel-title">Dos fenómenos que se parecen pero son distintos</div>
+      <p><strong>Inculturación legítima:</strong> adaptar formas culturales preexistentes como vehículo para contenido católico genuino, sustituyendo realmente el contenido (cf. Pablo en el Areópago, Hch 17:22 31).<br><strong>Sincretismo problemático:</strong> cuando la sustitución no se completa y la población conserva, bajo apariencia cristiana, la función religiosa original.</p>
+    </div>
+
+    <h3>b) Devociones de autenticidad histórica dudosa</h3>
+    <p>El caso de <strong>Santa Filomena</strong>, culto promovido extensamente en el siglo XIX tras un hallazgo arqueológico mal interpretado, removido del calendario litúrgico universal en 1961 tras revisión histórico crítica — ejemplo de autocorrección magisterial real.</p>
+
+    <h3>c) Comercialización de reliquias falsas</h3>
+    <p>Documentada extensamente en la Edad Media (citada incluso por Erasmo): cráneos múltiples atribuidos a un mismo santo en distintos santuarios. La Iglesia, desde Trento, exigió autenticación episcopal obligatoria.</p>
+
+    <h2><span class="num">7.3</span>Lo que NO forma parte de la doctrina católica</h2>
+    <div class="seal-panel panel">
+      <div class="panel-title">Para cerrar con total claridad</div>
+      <ul class="plain" style="margin-bottom:0;">
+        <li>Que los santos tengan poder sobrenatural propio, independiente de Dios, como semidioses.</li>
+        <li>Que cada santo tenga jurisdicción exclusiva sobre un área de la realidad.</li>
+        <li>Que la canonización "cree" la santidad en lugar de declararla verificada.</li>
+        <li>Que sea obligatorio, bajo pena de pecado, tener devoción a algún santo en particular.</li>
+        <li>Que toda práctica con raíz preexistente sea, por ese solo hecho, ilegítima — ni tampoco automáticamente aceptable: cada caso requiere discernimiento concreto.</li>
+      </ul>
+    </div>
+
+    <div class="verse">
+      <p class="verse-text">"Por tanto, nosotros también, teniendo en derredor nuestro tan grande nube de testigos, despojémonos de todo peso... y corramos con paciencia la carrera que tenemos por delante."</p>
+      <span class="verse-ref">Hebreos 12:1</span>
+    </div>
+
+    <div class="page-foot">
+      <button class="footnav-btn" data-nav="s6"><span class="dir">Anterior</span><span class="lbl">← VI. Análisis Comparativo</span></button>
+      <button class="footnav-btn next" data-nav="cover"><span class="dir">Volver</span><span class="lbl">↺ Portada</span></button>
+    </div>
+  </section>
+
+</div><!-- /.shell -->
+
+<script>
+  (function(){
+    const pages = document.querySelectorAll('section.page');
+    const navButtons = document.querySelectorAll('[data-nav]');
+
+    function go(id){
+      pages.forEach(p => p.classList.toggle('active', p.id === id));
+      document.querySelectorAll('#navlist button').forEach(b=>{
+        b.classList.toggle('active', b.dataset.nav === id);
+      });
+      window.scrollTo({top:0, behavior:'instant' in window ? 'instant':'auto'});
+      try{ history.replaceState(null,'', '#'+id); }catch(e){}
+    }
+
+    navButtons.forEach(btn=>{
+      btn.addEventListener('click', (e)=>{
+        e.preventDefault();
+        go(btn.dataset.nav);
+      });
+    });
+
+    const initial = (location.hash || '').replace('#','');
+    if(initial && document.getElementById(initial)){
+      go(initial);
+    } else {
+      go('cover');
+    }
+  })();
+</script>
+
+</body>
+</html>

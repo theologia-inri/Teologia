@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Doctrina de la Salvación — Análisis Teológico Comparado</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --parchment:#f5f0e8;--ink:#1a1408;--gold:#b8860b;--gold-light:#d4a017;
+  --rust:#8b3a1a;--teal-dark:#1a4a4a;--teal:#2a6b6b;--cream:#faf7f0;
+  --border:#c8b89a;--muted:#6b5c42;
+  --serif:'Playfair Display',Georgia,serif;
+  --body:'EB Garamond',Georgia,serif;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--parchment);color:var(--ink);font-family:var(--body);font-size:18px;line-height:1.8;}
+
+/* NAV */
+nav{background:var(--ink);padding:.8rem 2rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;border-bottom:2px solid var(--gold);flex-wrap:wrap;gap:.5rem;}
+.logo{font-family:var(--serif);color:var(--gold);font-size:1rem;cursor:pointer;background:none;border:none;font-size:1rem;}
+.logo:hover{color:var(--gold-light);}
+nav ul{list-style:none;display:flex;gap:1rem;flex-wrap:wrap;}
+nav ul li a{color:var(--parchment);text-decoration:none;font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;opacity:.7;transition:opacity .2s,color .2s;cursor:pointer;}
+nav ul li a:hover,nav ul li a.active{opacity:1;color:var(--gold-light);}
+
+/* PÁGINAS */
+.page{display:none;}
+.page.active{display:block;}
+
+/* HERO */
+.hero{background:var(--ink);color:var(--parchment);padding:6rem 2rem 5rem;text-align:center;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent,transparent 40px,rgba(184,134,11,.04) 40px,rgba(184,134,11,.04) 41px);}
+.hero-label{font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:1.5rem;position:relative;}
+.hero h1{font-family:var(--serif);font-size:clamp(2.2rem,5vw,4rem);font-weight:400;line-height:1.2;margin-bottom:1.5rem;position:relative;}
+.hero h1 em{font-style:italic;color:var(--gold-light);}
+.hero p{max-width:640px;margin:0 auto 2.5rem;font-size:1.1rem;opacity:.85;line-height:1.7;position:relative;}
+.hero-cta{display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;position:relative;}
+.btn{display:inline-block;padding:.7rem 1.8rem;border:1px solid var(--gold);color:var(--gold);text-decoration:none;font-size:.85rem;letter-spacing:.1em;text-transform:uppercase;transition:background .2s,color .2s;font-family:var(--body);cursor:pointer;background:none;}
+.btn:hover{background:var(--gold);color:var(--ink);}
+.btn-fill{background:var(--gold);color:var(--ink);}
+.btn-fill:hover{background:var(--gold-light);}
+
+/* HERO DOCTRINA */
+.hero-doc{color:var(--parchment);padding:5rem 2rem 4rem;text-align:center;position:relative;overflow:hidden;}
+.hero-doc::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent,transparent 40px,rgba(255,255,255,.03) 40px,rgba(255,255,255,.03) 41px);}
+.hero-tomas{background:var(--teal-dark);}
+.hero-agustin{background:var(--rust);}
+.hero-lutero{background:#2a3d1a;}
+.hero-calvino{background:#1a2d3d;}
+.hero-otras{background:#2d1a3d;}
+.breadcrumb{font-size:.8rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(245,240,232,.6);margin-bottom:1rem;position:relative;}
+.breadcrumb span{color:var(--gold-light);cursor:pointer;}
+.breadcrumb span:hover{text-decoration:underline;}
+.hero-doc h1{font-family:var(--serif);font-size:clamp(2rem,4vw,3.5rem);font-weight:400;line-height:1.2;margin-bottom:.8rem;position:relative;}
+.hero-doc .dates{font-style:italic;opacity:.7;margin-bottom:1rem;position:relative;}
+.hero-doc .tagline{max-width:620px;margin:0 auto;opacity:.85;font-size:1.05rem;position:relative;}
+
+/* INTRO SECTION */
+.intro{max-width:800px;margin:5rem auto;padding:0 2rem;}
+.intro h2{font-family:var(--serif);font-size:1.8rem;font-weight:400;margin-bottom:1.2rem;color:var(--teal-dark);}
+.intro p{margin-bottom:1.2rem;}
+.divider{border:none;border-top:1px solid var(--border);margin:3rem 0;}
+
+/* GRID */
+.section{padding:5rem 2rem;}
+.section-inner{max-width:900px;margin:0 auto;}
+.section-title{font-family:var(--serif);font-size:2rem;font-weight:400;margin-bottom:2rem;padding-bottom:1rem;border-bottom:1px solid var(--border);color:var(--teal-dark);}
+.doctrinas-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:0;border-top:1px solid var(--border);border-left:1px solid var(--border);}
+.doctrina-card{border-right:1px solid var(--border);border-bottom:1px solid var(--border);padding:2rem;text-decoration:none;color:var(--ink);display:block;transition:background .2s;position:relative;cursor:pointer;background:none;text-align:left;font-family:var(--body);font-size:1rem;width:100%;}
+.doctrina-card:hover{background:var(--cream);}
+.doctrina-card .era{font-size:.75rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:.5rem;}
+.doctrina-card h3{font-family:var(--serif);font-size:1.4rem;font-weight:400;margin-bottom:.5rem;}
+.doctrina-card .autor{font-style:italic;color:var(--muted);font-size:.9rem;margin-bottom:1rem;}
+.doctrina-card p{font-size:.95rem;line-height:1.6;}
+.doctrina-card .tag{position:absolute;top:1rem;right:1rem;font-size:.7rem;padding:.25rem .6rem;border:1px solid;letter-spacing:.08em;text-transform:uppercase;}
+.tag-principal{border-color:var(--gold);color:var(--gold);}
+.tag-otras{border-color:var(--muted);color:var(--muted);}
+.card-arrow{display:inline-block;margin-top:1.2rem;font-size:.85rem;color:var(--gold);}
+
+/* TABLA */
+.section-alt{background:var(--cream);}
+.tabla-wrap{overflow-x:auto;margin:2rem 0;}
+table{width:100%;border-collapse:collapse;font-size:.95rem;}
+th{background:var(--ink);color:var(--parchment);padding:.8rem 1rem;text-align:left;font-family:var(--serif);font-weight:400;font-size:1rem;}
+td{padding:.8rem 1rem;border-bottom:1px solid var(--border);vertical-align:top;line-height:1.5;}
+tr:nth-child(even) td{background:var(--parchment);}
+.eje{font-weight:500;color:var(--teal-dark);}
+
+/* CONTENIDO DOCTRINAS */
+.content{max-width:800px;margin:0 auto;padding:4rem 2rem;}
+h2{font-family:var(--serif);font-size:1.9rem;font-weight:400;color:var(--teal-dark);margin:3rem 0 1.2rem;padding-bottom:.8rem;border-bottom:1px solid var(--border);}
+h3{font-family:var(--serif);font-size:1.3rem;font-weight:400;color:var(--rust);margin:2rem 0 .8rem;}
+p{margin-bottom:1.2rem;}
+.verse-box{border-left:3px solid var(--gold);padding:1rem 1.5rem;background:var(--cream);margin:1.5rem 0;font-style:italic;}
+.verse-box .ref{font-style:normal;font-size:.85rem;color:var(--muted);margin-top:.4rem;}
+.key-box{border:1px solid var(--border);padding:1.5rem 2rem;background:var(--cream);margin:2rem 0;}
+.key-box h4{font-family:var(--serif);font-size:1.1rem;color:var(--teal-dark);margin-bottom:.8rem;}
+.key-box ul{padding-left:1.2rem;}
+.key-box li{margin-bottom:.5rem;font-size:.95rem;}
+.error-box{border-left:3px solid var(--rust);padding:1rem 1.5rem;background:#fdf5f2;margin:1.5rem 0;}
+.error-box h4{color:var(--rust);font-family:var(--serif);font-size:1rem;margin-bottom:.5rem;}
+.strength-box{border-left:3px solid var(--teal);padding:1rem 1.5rem;background:#f0f7f7;margin:1.5rem 0;}
+.strength-box h4{color:var(--teal-dark);font-family:var(--serif);font-size:1rem;margin-bottom:.5rem;}
+.quote-large{font-family:var(--serif);font-size:1.3rem;font-style:italic;color:var(--teal-dark);text-align:center;padding:2rem;border-top:1px solid var(--border);border-bottom:1px solid var(--border);margin:2.5rem 0;line-height:1.5;}
+.quote-large cite{display:block;font-size:.85rem;font-style:normal;color:var(--muted);margin-top:.8rem;}
+.nav-docs{display:flex;justify-content:space-between;gap:1rem;margin-top:4rem;padding-top:2rem;border-top:1px solid var(--border);flex-wrap:wrap;}
+.nav-docs button{color:var(--teal-dark);text-decoration:none;font-size:.95rem;cursor:pointer;background:none;border:none;font-family:var(--body);}
+.nav-docs button:hover{color:var(--gold);}
+
+/* OTRAS CORRIENTES */
+.toc{background:var(--cream);border:1px solid var(--border);padding:1.5rem 2rem;margin:2rem auto;max-width:800px;}
+.toc h3{font-family:var(--serif);font-size:1.1rem;color:var(--teal-dark);margin-bottom:.8rem;}
+.toc ol{padding-left:1.2rem;display:grid;grid-template-columns:1fr 1fr;gap:.3rem .8rem;}
+.toc a{color:var(--teal-dark);font-size:.95rem;text-decoration:none;}
+.toc a:hover{color:var(--gold);}
+.corriente{margin-bottom:5rem;padding-top:1rem;}
+.corriente-header{display:flex;align-items:flex-start;gap:1rem;margin-bottom:.5rem;flex-wrap:wrap;}
+.corriente h2{border:none;padding:0;margin:0;}
+.tag-corriente{font-size:.75rem;font-weight:500;padding:.25rem .7rem;border-radius:20px;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap;margin-top:.4rem;}
+.tag-protestante{background:#e1f5ee;color:#085041;}
+.tag-catolico{background:#eeedfe;color:#3c3489;}
+.tag-condenado{background:#faece7;color:#712b13;}
+.tag-heterodoxo{background:#faeeda;color:#633806;}
+.tag-oriental{background:#e6f1fb;color:#0c447c;}
+.tag-radical{background:#f1efe8;color:#444441;}
+.tag-contemporaneo{background:#eaf3de;color:#27500a;}
+.separador{border:none;border-top:2px solid var(--border);margin:4rem 0;}
+
+/* FOOTER */
+footer{background:var(--ink);color:var(--parchment);text-align:center;padding:3rem 2rem;font-size:.9rem;border-top:2px solid var(--gold);}
+footer .footer-logo{font-family:var(--serif);font-size:1.2rem;color:var(--gold);margin-bottom:.5rem;}
+footer p{opacity:.5;margin-top:.4rem;font-size:.8rem;}
+
+@media(max-width:600px){
+  nav{padding:.8rem 1rem;}
+  nav ul{gap:.5rem;}
+  .hero{padding:4rem 1.5rem 3rem;}
+  .content{padding:2.5rem 1.2rem;}
+  .toc ol{grid-template-columns:1fr;}
+  .intro{padding:0 1.2rem;}
+}
+</style>
+<style>
+  .tl-portal-fab{
+    position:fixed; left:18px; bottom:18px; z-index:99999;
+    display:inline-flex; align-items:center; gap:9px;
+    padding:10px 16px 10px 12px;
+    border-radius:999px;
+    background:rgba(20,15,10,0.82);
+    border:1px solid rgba(201,164,73,0.55);
+    box-shadow:0 8px 22px rgba(0,0,0,0.35), inset 0 0 0 1px rgba(255,255,255,0.04);
+    backdrop-filter:blur(6px);
+    -webkit-backdrop-filter:blur(6px);
+    text-decoration:none;
+    font-family:'Cormorant SC','Georgia',serif;
+    font-size:14.5px;
+    letter-spacing:0.06em;
+    color:#F1DFA9 !important;
+    transition:transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+  }
+  .tl-portal-fab:hover{
+    transform:translateY(-3px);
+    background:rgba(30,22,14,0.92);
+    box-shadow:0 14px 28px rgba(0,0,0,0.45), inset 0 0 0 1px rgba(255,255,255,0.06);
+  }
+  .tl-portal-fab svg{flex:none; width:17px; height:17px;}
+  .tl-portal-fab span{white-space:nowrap;}
+  @media (max-width:560px){
+    .tl-portal-fab{left:12px; bottom:12px; padding:9px 13px 9px 10px; font-size:13.5px;}
+    .tl-portal-fab svg{width:15px; height:15px;}
+  }
+</style>
+
+</head>
+<body>
+<a href="index.html" class="tl-portal-fab" title="Volver a la Biblioteca de Teología">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v18M6 8h12"/></svg>
+  <span>Biblioteca</span>
+</a>
+
+
+<nav>
+  <button class="logo" onclick="showPage('inicio')">Soteriología Comparada</button>
+  <ul>
+    <li><a onclick="showPage('inicio')" id="nav-inicio" class="active">Inicio</a></li>
+    <li><a onclick="showPage('tomas')" id="nav-tomas">Tomás de Aquino</a></li>
+    <li><a onclick="showPage('agustin')" id="nav-agustin">Agustín</a></li>
+    <li><a onclick="showPage('lutero')" id="nav-lutero">Lutero</a></li>
+    <li><a onclick="showPage('calvino')" id="nav-calvino">Calvino</a></li>
+    <li><a onclick="showPage('otras')" id="nav-otras">Otras corrientes</a></li>
+  </ul>
+</nav>
+
+<!-- ==================== INICIO ==================== -->
+<div id="page-inicio" class="page active">
+
+  <section class="hero">
+    <div class="hero-label">Análisis Teológico Comparado</div>
+    <h1>La Doctrina de la <em>Salvación</em><br>a través de la Historia</h1>
+    <p>Un estudio riguroso de las grandes posturas soteriológicas del cristianismo: sus fundamentos bíblicos, sus fortalezas, sus tensiones y su evaluación bajo el escrutinio de las Sagradas Escrituras.</p>
+    <div class="hero-cta">
+      <button class="btn btn-fill" onclick="document.getElementById('doctrinas-section').scrollIntoView({behavior:'smooth'})">Explorar doctrinas</button>
+      <button class="btn" onclick="document.getElementById('comparativa-section').scrollIntoView({behavior:'smooth'})">Ver comparativa</button>
+    </div>
+  </section>
+
+  <section class="intro">
+    <h2>¿Qué es la soteriología?</h2>
+    <p>La soteriología es la rama de la teología que estudia la doctrina de la salvación. Su nombre proviene del griego <em>sōtēria</em> (σωτηρία), que significa salvación o liberación. La pregunta central que busca responder es quizás la más importante de la fe cristiana: ¿cómo es salvo el ser humano?</p>
+    <p>A lo largo de veinte siglos de historia cristiana, esta pregunta ha generado algunas de las controversias teológicas más profundas y los sistemas doctrinales más elaborados. Desde los debates entre Agustín y Pelagio en el siglo V, pasando por la Reforma protestante del siglo XVI, hasta las discusiones contemporáneas entre tomistas y molinistas, la soteriología ha sido el campo donde se juegan las preguntas fundamentales sobre la naturaleza de Dios, la libertad humana y la gracia.</p>
+    <p>Esta plataforma ofrece un análisis honesto y riguroso de las principales posturas, confrontándolas con el texto bíblico y evaluando sus fortalezas y debilidades con criterios metodológicos claros.</p>
+    <hr class="divider">
+  </section>
+
+  <section class="section" id="doctrinas-section">
+    <div class="section-inner">
+      <h2 class="section-title">Las grandes posturas soteriológicas</h2>
+      <div class="doctrinas-grid">
+        <button class="doctrina-card" onclick="showPage('tomas')">
+          <span class="tag tag-principal">Principal</span>
+          <div class="era">Siglo XIII · Escolástica</div>
+          <h3>Santo Tomás de Aquino</h3>
+          <div class="autor">1225 – 1274</div>
+          <p>La síntesis más equilibrada: gracia y libertad cooperan sin anularse. Dios quiere salvar a todos mediante Cristo; la gracia transforma sin destruir la naturaleza.</p>
+          <span class="card-arrow">Leer análisis completo →</span>
+        </button>
+        <button class="doctrina-card" onclick="showPage('agustin')">
+          <span class="tag tag-principal">Principal</span>
+          <div class="era">Siglo V · Patrística</div>
+          <h3>San Agustín de Hipona</h3>
+          <div class="autor">354 – 430</div>
+          <p>La raíz de todo el debate occidental. La gracia soberana actúa sobre una voluntad herida por el pecado original. Piedra fundacional de toda la teología posterior.</p>
+          <span class="card-arrow">Leer análisis completo →</span>
+        </button>
+        <button class="doctrina-card" onclick="showPage('lutero')">
+          <span class="tag tag-principal">Principal</span>
+          <div class="era">Siglo XVI · Reforma</div>
+          <h3>Martín Lutero</h3>
+          <div class="autor">1483 – 1546</div>
+          <p>Sola fide, sola gratia. La justificación es forense: Dios declara justo al pecador por los méritos de Cristo imputados mediante la fe, sin obras de la ley.</p>
+          <span class="card-arrow">Leer análisis completo →</span>
+        </button>
+        <button class="doctrina-card" onclick="showPage('calvino')">
+          <span class="tag tag-principal">Principal</span>
+          <div class="era">Siglo XVI · Reforma Reformada</div>
+          <h3>Juan Calvino</h3>
+          <div class="autor">1509 – 1564</div>
+          <p>La soberanía absoluta de Dios llevada a sus últimas consecuencias: elección incondicional, gracia irresistible y doble predestinación explícita.</p>
+          <span class="card-arrow">Leer análisis completo →</span>
+        </button>
+        <button class="doctrina-card" onclick="showPage('otras');setTimeout(()=>document.getElementById('sec-arminianismo').scrollIntoView({behavior:'smooth'}),100)">
+          <span class="tag tag-otras">Otras</span>
+          <div class="era">Siglo XVII · Reforma holandesa</div>
+          <h3>Arminianismo</h3>
+          <div class="autor">Jacobus Arminius · 1560–1609</div>
+          <p>Elección condicional, gracia resistible, expiación universal. La respuesta humana importa genuinamente en la ecuación de la salvación.</p>
+          <span class="card-arrow">Leer análisis →</span>
+        </button>
+        <button class="doctrina-card" onclick="showPage('otras');setTimeout(()=>document.getElementById('sec-molinismo').scrollIntoView({behavior:'smooth'}),100)">
+          <span class="tag tag-otras">Otras</span>
+          <div class="era">Siglo XVI · Jesuitas</div>
+          <h3>Molinismo</h3>
+          <div class="autor">Luis de Molina · 1535–1600</div>
+          <p>La ciencia media: Dios conoce lo que cada persona haría en cualquier circunstancia posible, y elige el mundo donde los elegidos libremente responden.</p>
+          <span class="card-arrow">Leer análisis →</span>
+        </button>
+        <button class="doctrina-card" onclick="showPage('otras');setTimeout(()=>document.getElementById('sec-ortodoxia').scrollIntoView({behavior:'smooth'}),100)">
+          <span class="tag tag-otras">Otras</span>
+          <div class="era">Siglo IV · Tradición griega</div>
+          <h3>Ortodoxia Oriental</h3>
+          <div class="autor">Atanasio, Capadocios</div>
+          <p>Theosis: la salvación no como absolución jurídica sino como participación real en la naturaleza divina. Un marco completamente distinto al occidental.</p>
+          <span class="card-arrow">Leer análisis →</span>
+        </button>
+        <button class="doctrina-card" onclick="showPage('otras');setTimeout(()=>document.getElementById('sec-universalismo').scrollIntoView({behavior:'smooth'}),100)">
+          <span class="tag tag-otras">Otras</span>
+          <div class="era">Siglo III / XX · Heterodoxo</div>
+          <h3>Universalismo cristiano</h3>
+          <div class="autor">Orígenes · Barth · Von Balthasar</div>
+          <p>La apokatastasis: la esperanza o afirmación de que todas las criaturas serán finalmente restauradas a Dios.</p>
+          <span class="card-arrow">Leer análisis →</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt" id="comparativa-section">
+    <div class="section-inner">
+      <h2 class="section-title">Tabla comparativa — Las cuatro posturas principales</h2>
+      <div class="tabla-wrap">
+        <table>
+          <thead>
+            <tr><th>Eje doctrinal</th><th>Sto. Tomás</th><th>San Agustín</th><th>Lutero</th><th>Calvino</th></tr>
+          </thead>
+          <tbody>
+            <tr><td class="eje">Voluntad divina</td><td>Dios quiere salvar a todos genuinamente</td><td>Dios quiere salvar a los elegidos; "todos" = toda clase</td><td>Dios quiere salvar a los elegidos</td><td>Doble decreto: salvación y condenación</td></tr>
+            <tr><td class="eje">Naturaleza de la gracia</td><td>Suficiente (universal) y eficaz (especial). Transforma sin destruir</td><td>Irresistible. Transforma el deseo desde adentro</td><td>Don gratuito que produce la fe. Sola gratia</td><td>Irresistible e incondicional. Solo para los elegidos</td></tr>
+            <tr><td class="eje">Libre albedrío</td><td>Real y coopera con la gracia. Herido pero no destruido</td><td>Esclavizado por el pecado. Solo libre para el mal sin gracia</td><td>Esclavo (De servo arbitrio). No puede elegir el bien</td><td>Totalmente corrupto. Sin capacidad alguna</td></tr>
+            <tr><td class="eje">Justificación</td><td>Transformativa: Dios hace al hombre justo internamente</td><td>Transformativa + don de perseverancia</td><td>Forense: Dios declara justo al pecador. Imputación</td><td>Forense + unión con Cristo por el Espíritu</td></tr>
+            <tr><td class="eje">Fe y obras</td><td>Fe formada por caridad. Obras cooperan con la gracia</td><td>Las obras son fruto y don de la gracia divina</td><td>Sola fide. Obras son fruto espontáneo, no condición</td><td>Fe es don divino. Obras evidencian la elección</td></tr>
+            <tr><td class="eje">Predestinación</td><td>Plan providencial que incluye los medios (fe, gracia, obras)</td><td>Absoluta de los elegidos. Reprobación pasiva</td><td>Soberanía divina sin doble predestinación formal</td><td>Doble predestinación explícita y activa</td></tr>
+            <tr><td class="eje">Sacramentos</td><td>Medios de gracia necesarios. Parte del conjunto salvífico</td><td>Medios de gracia. El bautismo lava el pecado original</td><td>Bautismo y Cena del Señor como medios reales de gracia</td><td>Signos y sellos de la gracia. Conmemoratorios</td></tr>
+            <tr><td class="eje">Seguridad de salvación</td><td>Certeza moral, no absoluta. Perseverancia posible con gracia</td><td>Solo los elegidos perseveran. Certeza solo en retrospectiva</td><td>Certeza por la Palabra y los sacramentos</td><td>Perseverancia garantizada de los elegidos</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-logo">Soteriología Comparada</div>
+    Análisis teológico comparado de las doctrinas de la salvación cristiana
+    <p>Elaborado con base en las fuentes primarias: Summa Theologiae, Confesiones, De servo arbitrio, Institutio Christianae Religionis y las Sagradas Escrituras.</p>
+  </footer>
+</div>
+
+<!-- ==================== TOMÁS ==================== -->
+<div id="page-tomas" class="page">
+  <div class="hero-doc hero-tomas">
+    <div class="breadcrumb"><span onclick="showPage('inicio')">Inicio</span> › Cuatro posturas principales</div>
+    <h1>Santo Tomás de Aquino</h1>
+    <div class="dates">1225 – 1274 · Doctor Angélico · Orden de Predicadores</div>
+    <p class="tagline">La síntesis más equilibrada de la soteriología cristiana: gracia que perfecciona, libertad que coopera, salvación que incluye a todos en Cristo.</p>
+  </div>
+  <div class="content">
+
+    <h2>Contexto histórico e intelectual</h2>
+    <p>Tomás de Aquino escribe en el siglo XIII, en plena efervescencia de la universidad medieval. A diferencia de Agustín, que escribe en medio de controversias pastorales urgentes, Tomás tiene el lujo del distanciamiento intelectual. Su obra monumental, la <em>Summa Theologiae</em>, es un intento de síntesis total: razón y fe, naturaleza y gracia, libertad y soberanía divina.</p>
+    <p>Su soteriología se encuentra principalmente en la Prima Secundae (cuestiones 109–114, <em>De gratia</em>) y en la Prima Pars (cuestión 23, <em>De praedestinatione</em>). Es la postura que la Iglesia Católica ha adoptado como referencia doctrinal primaria desde el Concilio de Trento (1545–1563).</p>
+
+    <h2>Fundamento central: Dios quiere salvar a todos</h2>
+    <p>El punto de partida del tomismo es radicalmente distinto al calvinismo: <strong>Dios quiere genuinamente la salvación de todos los seres humanos.</strong> Este deseo universal se expresa concretamente en Cristo, medio universal de salvación dispuesto para toda la humanidad sin excepción.</p>
+    <div class="verse-box">"Dios quiere que todos los hombres sean salvos y vengan al conocimiento de la verdad."<div class="ref">1 Timoteo 2:4</div></div>
+    <div class="verse-box">"Porque de tal manera amó Dios al mundo, que ha dado a su Hijo unigénito, para que todo aquel que en él cree no se pierda, mas tenga vida eterna."<div class="ref">Juan 3:16</div></div>
+
+    <h2>La gracia suficiente y la gracia eficaz</h2>
+    <h3>La gracia suficiente</h3>
+    <p>La gracia suficiente es aquella que Dios ofrece a todos los seres humanos mediante Cristo. Es universal, disponible y genuinamente orientada a la salvación. Contiene todo lo necesario para que una persona pueda responder a Dios. Sin embargo, puede ser rechazada por la voluntad humana. Incluye la predicación del evangelio, los movimientos interiores del Espíritu Santo, el testimonio de la conciencia y la belleza de la creación.</p>
+
+    <h3>La gracia eficaz</h3>
+    <p>La gracia eficaz es aquella que, según la sabiduría y soberanía de Dios, obra de manera infaliblemente efectiva en determinadas personas. No obra de manera mecánica ni suprimiendo la libertad, sino transformando el deseo mismo desde adentro. El ejemplo más claro es Pablo en el camino a Damasco: su voluntad fue reorientada, no forzada.</p>
+    <div class="quote-large">"La gracia no destruye la naturaleza, sino que la perfecciona."<cite>Summa Theologiae I, q.1, a.8</cite></div>
+    <div class="verse-box">"Porque Dios es el que en vosotros produce así el querer como el hacer, por su buena voluntad."<div class="ref">Filipenses 2:13</div></div>
+    <p>Los mártires de todos los siglos son ejemplo de la gracia eficaz en su dimensión de perseverancia: personas que enfrentaron la muerte con una paz sobrenatural que no puede explicarse como solo esfuerzo humano.</p>
+
+    <h3>¿Por qué no todos reciben la gracia eficaz?</h3>
+    <p>Esta es la pregunta más difícil del tomismo, y Tomás tiene la honestidad de reconocer que es un misterio que supera la razón. Lo que sí afirma es que la ausencia de gracia eficaz no es injusticia de Dios: nadie merece la gracia. Que Dios no la extienda a todos no es crueldad sino misterio soberano. Lo que Tomás no acepta —separándose de Calvino— es que Dios haya decretado activamente la condenación de nadie.</p>
+
+    <h2>La predestinación según Tomás</h2>
+    <p>La predestinación tomista es la más malentendida de su sistema. La clave está en que <strong>el decreto de Dios incluye los medios junto con el fin</strong>. Tomás no dice que Dios decrete salvar a Pedro y luego disponga los medios como mecanismo secundario. Dice que el decreto eterno abarca todo el proceso como unidad.</p>
+    <div class="key-box">
+      <h4>El orden de la predestinación tomista</h4>
+      <p>1. Dios quiere la salvación de todos en Cristo (voluntad universal).<br>
+      2. Cristo es el medio dispuesto para toda la humanidad.<br>
+      3. La gracia suficiente alcanza a todos mediante Cristo.<br>
+      4. Algunos responden libremente a esa gracia.<br>
+      5. A quienes responden, Dios les dispone la gracia eficaz, la fe, las obras y los sacramentos como conjunto.<br>
+      6. Este conjunto completo —incluyendo la libre respuesta de Pedro— es lo que Dios predestina desde la eternidad.<br>
+      7. Todo es obra de Dios, para que nadie se gloríe.</p>
+    </div>
+
+    <h2>Justificación transformativa</h2>
+    <p>Para Tomás, la justificación no es solo una declaración externa (como en Lutero) sino un evento real de transformación interior. Dios le infunde la gracia santificante, que es participación real en la vida divina. La persona no es solo <em>tratada</em> como justa: se hace verdaderamente más justa.</p>
+    <div class="verse-box">"Os daré un corazón nuevo y pondré dentro de vosotros un espíritu nuevo."<div class="ref">Ezequiel 36:26</div></div>
+    <div class="verse-box">"De modo que si alguno está en Cristo, nueva criatura es; las cosas viejas pasaron; he aquí todas son hechas nuevas."<div class="ref">2 Corintios 5:17</div></div>
+
+    <h2>Fe, obras y sacramentos: un conjunto inseparable</h2>
+    <p>La salvación en Tomás no depende de un elemento aislado sino de un conjunto orgánico: la fe <em>formada por la caridad</em> (fe viva que inevitablemente produce amor y obras), las obras que cooperan con la gracia, y los sacramentos como medios privilegiados de comunicación de la gracia.</p>
+    <div class="verse-box">"Porque en Cristo Jesús ni la circuncisión vale algo, ni la incircuncisión, sino la fe que obra por el amor."<div class="ref">Gálatas 5:6</div></div>
+
+    <h2>Fortalezas bíblicas</h2>
+    <div class="strength-box"><h4>Preserva la voluntad salvífica universal de Dios</h4><p>Es el único de los cuatro sistemas principales que toma en serio, sin reinterpretación forzada, textos como 1 Timoteo 2:4, Juan 3:16, Ezequiel 18:23 y 2 Pedro 3:9.</p></div>
+    <div class="strength-box"><h4>Coherencia entre soberanía divina y libertad humana</h4><p>Ningún otro sistema logra mantener ambos polos con tanta consistencia. La distinción entre causa primera (Dios) y causa segunda (libertad humana) permite que ambas sean reales sin que una anule a la otra.</p></div>
+    <div class="strength-box"><h4>Justificación transformativa respaldada por la Escritura</h4><p>Ezequiel 36:26, 2 Corintios 5:17 y Tito 3:5 describen la salvación como transformación interior real, no solo declaración externa.</p></div>
+    <div class="strength-box"><h4>Integración de Santiago y Pablo</h4><p>A diferencia de Lutero, que llamó a Santiago "epístola de paja", el tomismo integra orgánicamente ambos apóstoles: Pablo enfatiza la fe como fundamento, Santiago que la fe viva produce obras. Ambos se complementan.</p></div>
+
+    <h2>Tensiones bíblicas</h2>
+    <div class="error-box"><h4>El mérito condigno y Lucas 17:10</h4><p>Tomás enseña que las obras en gracia pueden tener valor meritorio. Pero Jesús en Lucas 17:10 dice: "Siervos inútiles somos, pues lo que debíamos hacer, hicimos." Pablo en Romanos 11:6 afirma que gracia y mérito son mutuamente excluyentes. Este es el punto donde la crítica protestante tiene mayor solidez.</p></div>
+    <div class="error-box"><h4>El marco aristotélico como herramienta hermenéutica</h4><p>Las categorías de acto/potencia y causa primera/segunda son aristotélicas, ajenas al pensamiento hebreo de los autores bíblicos. Produce coherencia filosófica pero puede alejarse de la intención original del texto.</p></div>
+    <div class="error-box"><h4>La distinción fe formada/informe no está en el texto</h4><p>La distinción entre fe "informe" (sin caridad) y fe "formada" es una solución filosófica importada, no derivada del texto bíblico mismo. Ni Pablo ni Santiago hacen esa distinción.</p></div>
+
+    <div class="nav-docs">
+      <button onclick="showPage('inicio')">← Volver al inicio</button>
+      <button onclick="showPage('agustin')">San Agustín →</button>
+    </div>
+  </div>
+  <footer><div class="footer-logo">Soteriología Comparada</div>Santo Tomás de Aquino · Summa Theologiae I, q.23 / IaIIae, qq.109–114<p>Para uso académico y formación teológica.</p></footer>
+</div>
+
+<!-- ==================== AGUSTÍN ==================== -->
+<div id="page-agustin" class="page">
+  <div class="hero-doc hero-agustin">
+    <div class="breadcrumb"><span onclick="showPage('inicio')">Inicio</span> › Cuatro posturas principales</div>
+    <h1>San Agustín de Hipona</h1>
+    <div class="dates">354 – 430 · Doctor de la Gracia · Obispo de Hipona</div>
+    <p class="tagline">La raíz de todo el debate occidental sobre la gracia: una voluntad herida que solo puede ser sanada por una gracia soberana e irresistible.</p>
+  </div>
+  <div class="content">
+
+    <h2>El hombre que cambió la teología occidental</h2>
+    <p>No existe figura más influyente en la historia de la soteriología occidental que Agustín. Tanto el catolicismo como el protestantismo reclaman su herencia. Su soteriología no nació en un escritorio: nació de su experiencia personal de conversión, narrada en las <em>Confesiones</em>, y se radicalizó en la controversia con Pelagio, el monje que afirmaba que el ser humano puede salvarse por su propia voluntad.</p>
+    <div class="quote-large">"Nuestro corazón está inquieto hasta que descanse en Ti."<cite>Confesiones I, 1</cite></div>
+
+    <h2>El pecado original y la voluntad herida</h2>
+    <p>El pecado de Adán fue una catástrofe que corrompió la naturaleza humana en su raíz. Antes de la caída, Adán tenía el <em>posse non peccare</em>: la capacidad de no pecar. Después, la humanidad heredó el <em>non posse non peccare</em>: la incapacidad de no pecar. El libre albedrío no desaparece, pero queda esclavizado al amor propio y alejado del amor de Dios.</p>
+    <div class="verse-box">"No depende del que quiere, ni del que corre, sino de Dios que tiene misericordia."<div class="ref">Romanos 9:16</div></div>
+
+    <h2>La gracia irresistible</h2>
+    <p>Si la voluntad humana está esclavizada al pecado, solo puede ser salvada mediante una gracia soberana que no depende de la respuesta del ser humano. Esta gracia no es una propuesta externa que se acepta o rechaza: es una operación interior que produce en la persona el deseo mismo de Dios. Agustín la llama gracia que "deleita": transforma la voluntad desde adentro de tal manera que la persona <em>quiere</em> a Dios.</p>
+    <div class="verse-box">"Nadie puede venir a mí si el Padre que me envió no le trajere."<div class="ref">Juan 6:44</div></div>
+
+    <h2>La predestinación agustiniana</h2>
+    <p>Si la gracia es soberana, la lógica lleva a la predestinación: Dios, desde antes de la creación, eligió a quienes va a salvar. Esta elección no se basa en méritos previstos ni en fe futura, sino únicamente en la misericordia soberana de Dios. La reprobación es pasiva: Dios simplemente no extiende la gracia eficaz a algunos, dejándoles en el estado de pecado que ellos mismos han elegido.</p>
+    <div class="verse-box">"Nos escogió en él antes de la fundación del mundo, para que fuésemos santos y sin mancha delante de él, en amor habiéndonos predestinado para ser adoptados hijos suyos."<div class="ref">Efesios 1:4-5</div></div>
+
+    <h2>La evolución doctrinal de Agustín</h2>
+    <p>Un dato metodológico crucial: Agustín no siempre enseñó lo mismo. En sus escritos tempranos (<em>De libero arbitrio</em>, 388) afirmaba que Dios elige a quienes prevé que creerán libremente. Su postura más dura emergió durante la controversia pelagiana (396–430). Esto plantea la pregunta honesta: ¿cuánto de su postura final es revelación bíblica y cuánto es respuesta polémica?</p>
+
+    <h2>Fortalezas bíblicas</h2>
+    <div class="strength-box"><h4>La necesidad de la gracia preveniente está en la Escritura</h4><p>Juan 6:44, Romanos 9:16, 1 Corintios 4:7. La intuición central de Agustín es sólida: sin gracia, el ser humano no se acerca a Dios.</p></div>
+    <div class="strength-box"><h4>Las obras son don de Dios, no mérito propio</h4><p>"Cuando Dios corona tus méritos, corona sus propios dones." Concuerda con Filipenses 2:13 y Efesios 2:10.</p></div>
+
+    <h2>Tensiones bíblicas</h2>
+    <div class="error-box"><h4>Los textos de alcance universal son difíciles de reinterpretar</h4><p>1 Timoteo 2:4, Juan 3:16, 2 Pedro 3:9, 1 Juan 2:2. Agustín reinterpreta "todos" como "todos los elegidos", pero esa reinterpretación no está en el texto.</p></div>
+    <div class="error-box"><h4>La reprobación pasiva sigue siendo problemática</h4><p>Si Dios no extiende la gracia eficaz a ciertas personas, y sin ella es imposible salvarse, entonces esas personas no tienen posibilidad real de salvación. Ezequiel 18:23 y Lamentaciones 3:33 sugieren un deseo divino genuino que el sistema agustiniano hace difícil de sostener.</p></div>
+
+    <div class="nav-docs">
+      <button onclick="showPage('tomas')">← Santo Tomás</button>
+      <button onclick="showPage('lutero')">Martín Lutero →</button>
+    </div>
+  </div>
+  <footer><div class="footer-logo">Soteriología Comparada</div>San Agustín · Confesiones · De gratia et libero arbitrio · De praedestinatione sanctorum<p>Para uso académico y formación teológica.</p></footer>
+</div>
+
+<!-- ==================== LUTERO ==================== -->
+<div id="page-lutero" class="page">
+  <div class="hero-doc hero-lutero">
+    <div class="breadcrumb"><span onclick="showPage('inicio')">Inicio</span> › Cuatro posturas principales</div>
+    <h1>Martín Lutero</h1>
+    <div class="dates">1483 – 1546 · Reforma protestante · Saxonia</div>
+    <p class="tagline">Sola fide, sola gratia: la justificación por la sola fe es el artículo por el cual la Iglesia se mantiene o cae.</p>
+  </div>
+  <div class="content">
+
+    <h2>El monje que sacudió la cristiandad</h2>
+    <p>Lutero era un monje agustiniano atormentado por la pregunta de su salvación, que encontró en Romanos 1:17 la respuesta que lo liberó: la justicia de Dios no es lo que nos condena sino lo que nos salva gratuitamente. Ese descubrimiento personal es el núcleo experiencial de toda su teología.</p>
+    <div class="quote-large">"El artículo de la justificación por la fe es el amo y príncipe, señor, rector y juez de todos los tipos de doctrina."<cite>Martín Lutero, Comentario a Gálatas</cite></div>
+
+    <h2>Sola fide: solo la fe justifica</h2>
+    <p>El ser humano no es salvado por sus obras, méritos, sacramentos o cooperación con la gracia. Es salvado únicamente por la fe en Cristo, que recibe la justicia de Dios como don gratuito. Lutero tradujo Romanos 3:28 añadiendo "solo" (en alemán: <em>allein</em>) que no está en el griego original, arguyendo que era necesario para la fluidez del idioma.</p>
+    <div class="verse-box">"Porque por gracia sois salvos por medio de la fe; y esto no de vosotros, pues es don de Dios. No por obras, para que nadie se gloríe."<div class="ref">Efesios 2:8-9</div></div>
+
+    <h2>Justificación forense: declaración, no transformación</h2>
+    <p>Aquí está la diferencia más importante con Tomás. Para Lutero, Dios justifica <em>declarando</em> justo al pecador, que sigue siendo pecador en sí mismo. Esta es la doctrina del <em>simul iustus et peccator</em>: simultáneamente justo y pecador. Justo ante Dios por los méritos de Cristo imputados. Pecador en su realidad interior.</p>
+    <div class="verse-box">"Al que no conoció pecado, por nosotros lo hizo pecado, para que nosotros fuésemos hechos justicia de Dios en él."<div class="ref">2 Corintios 5:21</div></div>
+
+    <h2>Las obras: fruto, no condición</h2>
+    <p>Lutero no enseñó que las obras no importan. Enseñó que no <em>salvan</em>. Son el fruto espontáneo e inevitable de la fe genuina. Un árbol bueno produce frutos buenos, pero no es bueno <em>porque</em> produce frutos; produce frutos <em>porque</em> es bueno. El problema práctico —que el propio Lutero reconoció— es que esta doctrina puede producir pasividad moral cuando se malentiende.</p>
+
+    <h2>Fortalezas bíblicas</h2>
+    <div class="strength-box"><h4>La lectura de Pablo es exegéticamente aguda</h4><p>Lutero captó algo real: Pablo en Romanos y Gálatas combate la idea de que el cumplimiento religioso establece una deuda que Dios debe pagar. En ese diagnóstico específico, Lutero tiene razón.</p></div>
+    <div class="strength-box"><h4>La gratuidad de la salvación está en la Escritura</h4><p>Efesios 2:8-9, Romanos 4:5, Romanos 11:6. La salvación no puede depender de obras porque entonces ya no sería gracia sino salario.</p></div>
+
+    <h2>Tensiones bíblicas</h2>
+    <div class="error-box"><h4>Santiago 2: el texto que Lutero no pudo resolver</h4><p>Lutero llamó a Santiago "epístola de paja" porque contradice frontalmente su doctrina: "el hombre es justificado por las obras y no solamente por la fe" (Santiago 2:24). La solución de Lutero —que Santiago habla de justificación ante los hombres, Pablo ante Dios— no está en el texto de Santiago.</p></div>
+    <div class="error-box"><h4>La justificación forense vs. la transformación interior bíblica</h4><p>Ezequiel 36:26-27, Jeremías 31:33 y 2 Corintios 5:17 describen la salvación como transformación interior real, no solo declaración externa. "Nueva criatura" no suena a declaración jurídica sino a cambio ontológico.</p></div>
+    <div class="error-box"><h4>La adición de "solo" en Romanos 3:28</h4><p>Añadir una palabra al texto bíblico para sostener una doctrina es metodológicamente cuestionable. El texto griego dice πίστει (fe), no μόνον πίστει (solo fe).</p></div>
+
+    <div class="nav-docs">
+      <button onclick="showPage('agustin')">← San Agustín</button>
+      <button onclick="showPage('calvino')">Juan Calvino →</button>
+    </div>
+  </div>
+  <footer><div class="footer-logo">Soteriología Comparada</div>Martín Lutero · Comentario a Gálatas · De servo arbitrio · Artículos de Esmalcalda<p>Para uso académico y formación teológica.</p></footer>
+</div>
+
+<!-- ==================== CALVINO ==================== -->
+<div id="page-calvino" class="page">
+  <div class="hero-doc hero-calvino">
+    <div class="breadcrumb"><span onclick="showPage('inicio')">Inicio</span> › Cuatro posturas principales</div>
+    <h1>Juan Calvino</h1>
+    <div class="dates">1509 – 1564 · Reforma Reformada · Ginebra</div>
+    <p class="tagline">La soberanía absoluta de Dios llevada a sus últimas consecuencias lógicas: el sistema más coherente internamente y el que genera más tensiones con la Escritura.</p>
+  </div>
+  <div class="content">
+
+    <h2>El sistematizador de la Reforma</h2>
+    <p>Si Lutero fue el martillo que rompió el edificio medieval, Calvino fue el arquitecto que construyó uno nuevo. Jurista de formación, su <em>Institutio Christianae Religionis</em> (edición definitiva 1559) es el sistema teológico más completo y coherente de la Reforma. Su punto de partida es una premisa que considera bíblicamente irrenunciable: la soberanía absoluta de Dios. Llevada con rigor lógico hasta sus últimas consecuencias, produce el calvinismo.</p>
+    <div class="quote-large">"La predestinación es el eterno decreto de Dios por el cual ha determinado lo que quiere hacer de cada hombre. Porque no los crea a todos en igual condición, sino que ordena a unos para la vida eterna y a otros para la condenación eterna."<cite>Institución III.21.5</cite></div>
+
+    <h2>Los cinco puntos del calvinismo — TULIP</h2>
+    <div class="key-box">
+      <h4>Sistematizados en el Sínodo de Dort (1618–1619)</h4>
+      <ul>
+        <li><strong>T — Depravación total:</strong> El ser humano está totalmente corrompido. No puede hacer ningún bien espiritual ni elegir a Dios por sí mismo.</li>
+        <li><strong>U — Elección incondicional:</strong> Dios elige a los que serán salvados sin basarse en ningún mérito o fe prevista. La elección es absolutamente soberana.</li>
+        <li><strong>L — Expiación limitada:</strong> Cristo murió específicamente por los elegidos, no por toda la humanidad.</li>
+        <li><strong>I — Gracia irresistible:</strong> La gracia de Dios no puede ser rechazada por los elegidos. Inevitablemente serán salvos.</li>
+        <li><strong>P — Perseverancia de los santos:</strong> Los verdaderos elegidos jamás perderán su salvación.</li>
+      </ul>
+    </div>
+
+    <h2>Depravación total</h2>
+    <p>Para Calvino, el pecado original corrompió totalmente la naturaleza humana. El ser humano caído no tiene ninguna inclinación natural hacia Dios, ninguna capacidad de elegir el bien espiritual. Esto no significa que sea tan malo como podría ser, sino que en lo referente a la salvación está completamente muerto espiritualmente.</p>
+    <div class="verse-box">"Y él os dio vida a vosotros, cuando estabais muertos en vuestros delitos y pecados."<div class="ref">Efesios 2:1</div></div>
+
+    <h2>Elección incondicional</h2>
+    <p>Antes de la fundación del mundo, Dios eligió a ciertos individuos para la salvación, no porque previó su fe o sus méritos, sino únicamente por su voluntad soberana. El texto central de Calvino es Romanos 9, especialmente el caso de Jacob y Esaú: la elección precede a cualquier acto humano.</p>
+    <div class="verse-box">"Según nos escogió en él antes de la fundación del mundo, para que fuésemos santos y sin mancha delante de él."<div class="ref">Efesios 1:4</div></div>
+
+    <h2>Gracia irresistible y perseverancia</h2>
+    <p>La gracia que Dios extiende a los elegidos no puede ser rechazada: transforma la voluntad desde adentro de tal manera que el elegido <em>quiere</em> a Dios. Y una vez salvado, el verdadero elegido no puede perderse. La perseverancia hasta el final no es un logro humano sino una garantía divina.</p>
+    <div class="verse-box">"Y yo les doy vida eterna; y no perecerán jamás, ni nadie las arrebatará de mi mano."<div class="ref">Juan 10:28</div></div>
+
+    <h2>La doble predestinación</h2>
+    <p>Si Dios eligió activamente a unos para la salvación, también decretó la condenación de los demás —no pasivamente (como Agustín) sino activamente. Calvino reconoció la dureza de esto llamándolo <em>decretum horribile</em>: no horrible en el sentido de malvado, sino que inspira un temor reverencial ante el misterio de la soberanía divina.</p>
+    <div class="verse-box">"¿Y si Dios, queriendo mostrar su ira y hacer notorio su poder, soportó con mucha paciencia los vasos de ira preparados para destrucción?"<div class="ref">Romanos 9:22</div></div>
+
+    <h2>Fortalezas bíblicas</h2>
+    <div class="strength-box"><h4>La soberanía divina en la salvación está fundamentada</h4><p>Romanos 8:29-30, Efesios 1:4-5, Juan 6:37-39, Hechos 13:48. El énfasis de Calvino en que la salvación no depende de la decisión humana sino de Dios tiene sólido respaldo textual.</p></div>
+    <div class="strength-box"><h4>La coherencia lógica interna es impresionante</h4><p>Si se aceptan las premisas, el sistema es rigurosamente consistente. Es el sistema soteriológico más lógicamente elegante de todos los analizados.</p></div>
+
+    <h2>Tensiones bíblicas</h2>
+    <div class="error-box"><h4>La doble predestinación y la bondad de Dios</h4><p>Si Dios decretó activamente la condenación de ciertos seres humanos antes de que existieran, choca con 1 Juan 4:8 ("Dios es amor"), Ezequiel 18:23 ("¿Quiero yo la muerte del impío?") y Lamentaciones 3:33. El calvinismo logra coherencia interna a costa de tensión severa con los atributos divinos.</p></div>
+    <div class="error-box"><h4>Las invitaciones universales de Jesús se vuelven insinceras</h4><p>"Venid a mí todos" (Mateo 11:28), "el que quiera, tome del agua de vida" (Apocalipsis 22:17), "¡cuántas veces quise... pero no quisiste!" (Mateo 23:37). Si los no elegidos no pueden querer, ¿cómo puede Jesús llorar porque "no quisieron"? El "no quisiste" implica que pudieron haber querido.</p></div>
+    <div class="error-box"><h4>Romanos 9 leído fuera de su contexto</h4><p>Pablo en ese capítulo habla del papel histórico de Israel y los gentiles, no de la predestinación individual eterna. Jacob y Esaú representan naciones (Génesis 25:23). Leer Romanos 9 en contexto de los capítulos 9–11 completos cambia significativamente su interpretación.</p></div>
+    <div class="error-box"><h4>La apostasía real en Hebreos y Juan</h4><p>Hebreos 6:4-6 describe personas que "fueron iluminadas... y recayeron". Juan 15:6 habla de ramas "en Cristo" que son cortadas. Gálatas 5:4 habla de quienes "de la gracia habéis caído". El calvinismo debe reinterpretar todos estos textos como personas que "nunca fueron verdaderamente elegidas", pero esa lectura no es inmediatamente evidente.</p></div>
+
+    <div class="nav-docs">
+      <button onclick="showPage('lutero')">← Martín Lutero</button>
+      <button onclick="showPage('otras')">Otras corrientes →</button>
+    </div>
+  </div>
+  <footer><div class="footer-logo">Soteriología Comparada</div>Juan Calvino · Institutio Christianae Religionis III.21–24 · Sínodo de Dort (1618–1619)<p>Para uso académico y formación teológica.</p></footer>
+</div>
+
+<!-- ==================== OTRAS ==================== -->
+<div id="page-otras" class="page">
+  <div class="hero-doc hero-otras">
+    <div class="breadcrumb"><span onclick="showPage('inicio')">Inicio</span> › Más allá de las cuatro posturas principales</div>
+    <h1>Otras Corrientes Soteriológicas</h1>
+    <p class="tagline">Siete corrientes más completan el mapa del pensamiento cristiano sobre la salvación, desde el arminianismo hasta la teología de la liberación.</p>
+  </div>
+
+  <div class="toc">
+    <h3>Contenido</h3>
+    <ol>
+      <li><a href="#sec-arminianismo">Arminianismo</a></li>
+      <li><a href="#sec-molinismo">Molinismo</a></li>
+      <li><a href="#sec-pelagianismo">Pelagianismo</a></li>
+      <li><a href="#sec-ortodoxia">Ortodoxia Oriental</a></li>
+      <li><a href="#sec-universalismo">Universalismo</a></li>
+      <li><a href="#sec-anabaptismo">Anabaptismo</a></li>
+      <li><a href="#sec-liberacion">Teología de la liberación</a></li>
+    </ol>
+  </div>
+
+  <div class="content">
+
+    <div class="corriente" id="sec-arminianismo">
+      <div class="corriente-header">
+        <h2>Arminianismo</h2>
+        <span class="tag-corriente tag-protestante">Protestante</span>
+      </div>
+      <p style="color:var(--muted);font-style:italic;margin-bottom:1rem;">Jacobus Arminius (1560–1609) · Remonstrantes (1610)</p>
+      <p>El arminianismo nació como respuesta directa al calvinismo. Arminius llegó a la conclusión de que la doble predestinación era incompatible con la justicia y el amor de Dios revelados en la Escritura.</p>
+      <h3>Elección condicional</h3>
+      <p>Dios elige a los que serán salvados basándose en su presciencia de quiénes responderán libremente al evangelio. La elección no es arbitraria sino condicionada por la fe futura que Dios prevé en cada persona.</p>
+      <div class="verse-box">"Porque a los que antes conoció, también los predestinó para que fuesen hechos conformes a la imagen de su Hijo."<div class="ref">Romanos 8:29</div></div>
+      <h3>Gracia preveniente universal y expiación ilimitada</h3>
+      <p>Dios extiende a todos los seres humanos una gracia preveniente que restaura suficientemente el libre albedrío para responder al evangelio. Esta gracia puede ser resistida. Cristo murió por todos sin excepción.</p>
+      <div class="verse-box">"Él es la propiciación por nuestros pecados; y no solamente por los nuestros, sino también por los de todo el mundo."<div class="ref">1 Juan 2:2</div></div>
+      <div class="strength-box"><h4>Fortaleza: preserva la sinceridad de las invitaciones divinas</h4><p>Si Dios quiere genuinamente que todos sean salvos y Cristo murió por todos, las invitaciones universales de Jesús son realmente universales. Nadie ha sido excluido de antemano.</p></div>
+      <div class="error-box"><h4>Tensión: Romanos 9:16</h4><p>"No depende del que quiere ni del que corre." Si Dios elige a quienes prevé que creerán, la decisión humana de creer precede lógicamente al decreto divino, lo cual tiene dificultades con los textos que enfatizan la iniciativa soberana de Dios.</p></div>
+    </div>
+
+    <hr class="separador">
+
+    <div class="corriente" id="sec-molinismo">
+      <div class="corriente-header">
+        <h2>Molinismo</h2>
+        <span class="tag-corriente tag-catolico">Católico</span>
+      </div>
+      <p style="color:var(--muted);font-style:italic;margin-bottom:1rem;">Luis de Molina, SJ (1535–1600) · <em>Concordia</em> (1588)</p>
+      <p>El sistema soteriológico más filosóficamente sofisticado. Resuelve la tensión entre soberanía divina y libertad humana mediante la <em>scientia media</em>: Dios conoce lo que cada criatura posible haría en cualquier circunstancia posible, y elige el mundo donde los elegidos libremente responden al evangelio.</p>
+      <div class="key-box">
+        <h4>Los tres tipos de conocimiento divino</h4>
+        <p><strong>Ciencia natural:</strong> Todo lo que es posible en abstracto. No depende de ningún decreto divino.</p>
+        <p style="margin-top:.5rem;"><strong>Ciencia media:</strong> Lo que cada criatura haría libremente en cada circunstancia posible. "Si Pedro estuviera en Antioquía oyendo predicar a Pablo... ¿creería?" Dios conoce la respuesta, y es libre. Tampoco depende de decreto divino.</p>
+        <p style="margin-top:.5rem;"><strong>Ciencia libre:</strong> Lo que realmente ocurrirá, después de decidir qué mundo crear. Sí depende del decreto divino.</p>
+      </div>
+      <p>La imagen del ajedrez lo captura bien: Dios no mueve las piezas por ti, pero conoce infinitas partidas posibles y ha elegido esta posición inicial porque sabe que en ella tú llegarás libremente al resultado que Él quiere.</p>
+      <div class="verse-box">"¡Ay de ti, Corazín! ¡Ay de ti, Betsaida! Porque si en Tiro y en Sidón se hubieran hecho los milagros que han sido hechos en vosotras, tiempo ha que se hubieran arrepentido."<div class="ref">Mateo 11:21 — Condicional contrafáctico que evidencia la ciencia media</div></div>
+      <div class="strength-box"><h4>Fortaleza: libertad humana más limpia de todos los sistemas</h4><p>Nadie mueve la voluntad de Pedro desde adentro. Su decisión es completamente suya. Al mismo tiempo Dios es soberano porque eligió el mundo donde esa decisión libre ocurre.</p></div>
+      <div class="error-box"><h4>Tensión: ¿condiciona la criatura a Dios?</h4><p>Si el decreto divino sigue lógicamente a la ciencia media, las criaturas "condicionan" a Dios en cierto sentido. El Papa Clemente VIII suspendió el debate con los tomistas en 1607 sin declarar ganador. Ambas posturas son legítimas dentro del catolicismo.</p></div>
+    </div>
+
+    <hr class="separador">
+
+    <div class="corriente" id="sec-pelagianismo">
+      <div class="corriente-header">
+        <h2>Pelagianismo y semipelagianismo</h2>
+        <span class="tag-corriente tag-condenado">Condenado históricamente</span>
+      </div>
+      <p style="color:var(--muted);font-style:italic;margin-bottom:1rem;">Pelagio (c. 354–418) · Condenado en Cartago (418) y Éfeso (431)</p>
+      <p>Pelagio enseñaba que el pecado original fue el pecado personal de Adán, sin afectar la naturaleza de sus descendientes. El ser humano puede, por su propia voluntad y sin ayuda de la gracia, elegir el bien y cumplir los mandamientos. La gracia es principalmente el ejemplo de Cristo y el perdón del bautismo, no una operación interior que transforma la voluntad.</p>
+      <div class="error-box"><h4>Condena bíblica y eclesial</h4><p>Juan 6:44, Romanos 9:16, Filipenses 2:13. El pelagianismo elimina la necesidad real de la gracia y convierte la salvación en logro humano. Condenado en Cartago (418) y Éfeso (431).</p></div>
+      <p>El <strong>semipelagianismo</strong> afirma que el primer movimiento hacia Dios viene del ser humano, y luego Dios responde con gracia. Fue condenado en el Sínodo de Orange (529), porque Romanos 3:11 ("no hay quien busque a Dios") indica que incluso el primer movimiento de búsqueda requiere gracia preveniente.</p>
+    </div>
+
+    <hr class="separador">
+
+    <div class="corriente" id="sec-ortodoxia">
+      <div class="corriente-header">
+        <h2>Ortodoxia Oriental — Theosis</h2>
+        <span class="tag-corriente tag-oriental">Oriental</span>
+      </div>
+      <p style="color:var(--muted);font-style:italic;margin-bottom:1rem;">Atanasio de Alejandría, Capadocios, Máximo el Confesor · Siglos IV–VII</p>
+      <p>La soteriología ortodoxa oriental no comparte el marco jurídico que domina todo el pensamiento occidental. No habla de culpa, mérito, satisfacción ni imputación. Habla de enfermedad, sanación, muerte y vida.</p>
+      <h3>La salvación como theosis</h3>
+      <p>La meta de la salvación no es ir al cielo en vez del infierno. Es la <em>theosis</em>: participación progresiva y real en la naturaleza divina. La fórmula de Atanasio: "Dios se hizo hombre para que el hombre se haga Dios" (<em>De Incarnatione</em>, 54). La encarnación no es solo el medio del perdón: es el inicio de la transformación de la humanidad.</p>
+      <div class="verse-box">"Nos ha dado preciosas y grandísimas promesas, para que por ellas llegaseis a ser participantes de la naturaleza divina."<div class="ref">2 Pedro 1:4</div></div>
+      <h3>El pecado original: mortalidad, no culpa heredada</h3>
+      <p>Los seres humanos no heredan la culpa del pecado de Adán (esa fue personal de Adán), sino la mortalidad y corrupción que su pecado introdujo. Cristo no viene a pagar una deuda sino a asumir la naturaleza mortal para sanarla desde adentro.</p>
+      <div class="strength-box"><h4>Fortaleza: toma en serio 2 Pedro 1:4 y Juan 17</h4><p>La promesa de "participar de la naturaleza divina" y la oración de Jesús por la unidad de los creyentes con el Padre (Juan 17:21) apuntan a una relación más profunda que la de perdonado/absuelto.</p></div>
+      <div class="error-box"><h4>Tensión: el lenguaje jurídico de Pablo</h4><p>Pablo usa extensamente el lenguaje de la justificación (δικαίωσις) en Romanos y Gálatas. Una soteriología completa debe poder integrar tanto el lenguaje jurídico de Pablo como el lenguaje de participación de Juan y Pedro.</p></div>
+    </div>
+
+    <hr class="separador">
+
+    <div class="corriente" id="sec-universalismo">
+      <div class="corriente-header">
+        <h2>Universalismo cristiano</h2>
+        <span class="tag-corriente tag-heterodoxo">Heterodoxo / Debatido</span>
+      </div>
+      <p style="color:var(--muted);font-style:italic;margin-bottom:1rem;">Orígenes (c. 185–254) · Karl Barth (1886–1968) · Hans Urs von Balthasar (1905–1988)</p>
+      <p>El universalismo afirma que todas las criaturas serán finalmente restauradas a Dios. Orígenes enseñó la <em>apokatastasis</em>: el fuego eterno es purificador, no punitivo. Fue condenado en Constantinopla II (553). En el siglo XX, Von Balthasar propuso no el universalismo como certeza sino como esperanza legítima: el cristiano puede y debe esperar que todos se salven, aunque no puede afirmarlo dogmáticamente.</p>
+      <div class="verse-box">"Para que Dios sea todo en todos."<div class="ref">1 Corintios 15:28</div></div>
+      <div class="verse-box">"Y por medio de él reconciliar consigo todas las cosas, así las que están en la tierra como las que están en los cielos."<div class="ref">Colosenses 1:20</div></div>
+      <div class="error-box"><h4>Tensión bíblica severa</h4><p>Mateo 25:46 ("castigo eterno"), Marcos 9:43-48 (el infierno donde "el gusano no muere"), 2 Tesalonicenses 1:9 ("eterna perdición"), Apocalipsis 20:10 ("por los siglos de los siglos"). El término αἰώνιον (eterno) califica tanto el "castigo" como la "vida" en Mateo 25:46, lo que hace difícil interpretar uno como temporal y el otro como eterno.</p></div>
+    </div>
+
+    <hr class="separador">
+
+    <div class="corriente" id="sec-anabaptismo">
+      <div class="corriente-header">
+        <h2>Anabaptismo y Reforma Radical</h2>
+        <span class="tag-corriente tag-radical">Reforma Radical</span>
+      </div>
+      <p style="color:var(--muted);font-style:italic;margin-bottom:1rem;">Conrad Grebel, Menno Simons · Zurich, 1525</p>
+      <p>Perseguidos tanto por católicos como por protestantes, los anabaptistas representan una soteriología que rechaza la dicotomía entre fe y vida. La salvación no es un evento privado interior sino la incorporación a una comunidad visible de discípulos que siguen concretamente a Jesús: no violencia, comunidad de bienes, amor a los enemigos. El Sermón del Monte (Mateo 5–7) es normativo, no solo un ideal.</p>
+      <p>El bautismo de infantes era inválido para ellos: el bautismo presupone la fe personal. La Iglesia es una comunidad visible de creyentes comprometidos, no una institución social nominal.</p>
+      <div class="verse-box">"¿Por qué me llamáis Señor, Señor, y no hacéis lo que yo digo?"<div class="ref">Lucas 6:46</div></div>
+      <div class="strength-box"><h4>Fortaleza: integración genuina de fe y vida</h4><p>Santiago 2, Mateo 7:21-23 y Mateo 25:31-46 respaldan que la fe bíblica tiene consecuencias éticas concretas e inevitables.</p></div>
+      <div class="error-box"><h4>Tensión: riesgo de deslizarse hacia la salvación por obras</h4><p>El énfasis tan fuerte en el discipleship puede perder de vista que las obras son fruto de la gracia, no su condición. Efesios 2:8-9 sigue siendo normativo.</p></div>
+    </div>
+
+    <hr class="separador">
+
+    <div class="corriente" id="sec-liberacion">
+      <div class="corriente-header">
+        <h2>Teología de la Liberación</h2>
+        <span class="tag-corriente tag-contemporaneo">Contemporáneo</span>
+      </div>
+      <p style="color:var(--muted);font-style:italic;margin-bottom:1rem;">Gustavo Gutiérrez (1928–2024) · <em>Teología de la liberación</em> (1971)</p>
+      <p>Nacida en América Latina en el contexto del Concilio Vaticano II y las dictaduras militares, propone que la salvación bíblica incluye la liberación de estructuras históricas de pecado: pobreza, opresión, injusticia. El Éxodo no es solo tipo de la salvación espiritual: es en sí mismo salvación de Dios.</p>
+      <div class="verse-box">"El Espíritu del Señor está sobre mí, por cuanto me ha ungido para dar buenas nuevas a los pobres; me ha enviado a sanar a los quebrantados de corazón; a pregonar libertad a los cautivos."<div class="ref">Lucas 4:18</div></div>
+      <div class="verse-box">"En cuanto lo hicisteis a uno de estos mis hermanos más pequeños, a mí lo hicisteis."<div class="ref">Mateo 25:40</div></div>
+      <div class="strength-box"><h4>Fortaleza: recupera la dimensión profética de la salvación</h4><p>Amós 5:24, Isaías 58:6-7, Miqueas 6:8. Los profetas entienden que la fidelidad a Dios tiene consecuencias directas en la justicia social.</p></div>
+      <div class="error-box"><h4>Tensión: reduccionismo histórico</h4><p>En sus versiones más radicales, corre el riesgo de reducir la salvación a la liberación política, perdiendo la dimensión escatológica. Juan 3:3 y Romanos 3:23 apuntan a una necesidad de salvación que trasciende la justicia social.</p></div>
+    </div>
+
+    <div class="nav-docs">
+      <button onclick="showPage('calvino')">← Juan Calvino</button>
+      <button onclick="showPage('inicio')">Volver al inicio →</button>
+    </div>
+  </div>
+  <footer><div class="footer-logo">Soteriología Comparada</div>Otras corrientes soteriológicas del cristianismo histórico y contemporáneo<p>Para uso académico y formación teológica.</p></footer>
+</div>
+
+<script>
+function showPage(id) {
+  // Ocultar todas las páginas
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  // Mostrar la página seleccionada
+  document.getElementById('page-' + id).classList.add('active');
+  // Actualizar nav activo
+  document.querySelectorAll('nav ul li a').forEach(a => a.classList.remove('active'));
+  const navEl = document.getElementById('nav-' + id);
+  if (navEl) navEl.classList.add('active');
+  // Scroll al inicio
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Los Patronos — Tratado Bíblico, Histórico y Teológico</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,500;1,600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;1,8..60,400&family=Cinzel:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1a1220;
+    --ink-soft:#241830;
+    --parchment:#f0e6d2;
+    --parchment-dim:#e3d6b8;
+    --parchment-faint:#cfc09b;
+    --purple:#7c3fa0;
+    --purple-bright:#9b4fc8;
+    --purple-deep:#4a2060;
+    --purple-glow:#c084fc;
+    --gold:#c9a449;
+    --gold-light:#e2c97e;
+    --bronze:#8a7340;
+    --vesper:#2e4a3a;
+    --vesper-light:#4a7a5c;
+    --display:'Cinzel',serif;
+    --script:'Cormorant Garamond',serif;
+    --body:'Source Serif 4',serif;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+
+  body{
+    margin:0;
+    background:var(--ink);
+    color:var(--parchment);
+    font-family:var(--body);
+    font-size:17px;
+    line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  body::before{
+    content:"";
+    position:fixed; inset:0; pointer-events:none; z-index:1; opacity:.04;
+    background-image:repeating-linear-gradient(0deg, transparent, transparent 2px, #000 2px, #000 3px);
+    mix-blend-mode:overlay;
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    *{animation-duration:.01ms !important; transition-duration:.01ms !important;}
+  }
+
+  a{color:inherit;}
+  ::selection{background:var(--purple); color:var(--parchment);}
+  a:focus-visible, button:focus-visible{outline:2px solid var(--purple-glow); outline-offset:3px;}
+
+  /* ===================== NAV ===================== */
+  .railnav{
+    position:fixed; top:0; left:0; right:0; z-index:60;
+    background:linear-gradient(180deg, rgba(26,18,32,.97), rgba(26,18,32,.9));
+    border-bottom:1px solid rgba(192,132,252,.2);
+    backdrop-filter:blur(6px);
+  }
+  .railnav-inner{max-width:1280px; margin:0 auto; display:flex; align-items:center; gap:18px; padding:14px 28px;}
+  .railnav-mark{
+    font-family:var(--display); font-size:14px; letter-spacing:.14em; color:var(--purple-glow);
+    white-space:nowrap; text-decoration:none; display:flex; align-items:center; gap:8px;
+  }
+  .railnav-mark .glyph{font-size:18px; color:var(--purple-bright);}
+  .railnav-scroll{flex:1; overflow-x:auto; overflow-y:hidden; scrollbar-width:thin; scrollbar-color:var(--purple) transparent;}
+  .railnav-list{display:flex; gap:4px; list-style:none; margin:0; padding:0; white-space:nowrap;}
+  .railnav-list button{
+    font-family:var(--body); font-size:13px; letter-spacing:.03em; background:transparent;
+    border:1px solid transparent; color:var(--parchment-faint); padding:7px 13px; border-radius:3px;
+    cursor:pointer; transition:color .25s, border-color .25s, background .25s;
+  }
+  .railnav-list button:hover{color:var(--parchment); border-color:rgba(192,132,252,.3);}
+  .railnav-list button.active{color:var(--ink); background:var(--purple-glow); border-color:var(--purple-glow); font-weight:600;}
+
+  /* ===================== SHELL ===================== */
+  .shell{max-width:880px; margin:0 auto; padding:0 28px; position:relative; z-index:2;}
+
+  section.page{min-height:100vh; padding-top:128px; padding-bottom:90px; display:none;}
+  section.page.active{display:block; animation:fadein .5s ease;}
+  @keyframes fadein{from{opacity:0; transform:translateY(8px);}to{opacity:1; transform:translateY(0);}}
+
+  .eyebrow{
+    font-family:var(--body); font-size:12.5px; letter-spacing:.22em; text-transform:uppercase;
+    color:var(--purple-glow); display:flex; align-items:center; gap:12px; margin-bottom:18px;
+  }
+  .eyebrow::before{content:""; width:34px; height:1px; background:var(--purple);}
+
+  h1.page-title{
+    font-family:var(--display); font-weight:600; font-size:clamp(2.1rem,5vw,3.4rem);
+    line-height:1.15; margin:0 0 .5rem 0; color:var(--parchment);
+    text-shadow:0 2px 30px rgba(124,63,160,.4);
+  }
+  .page-sub{
+    font-family:var(--script); font-style:italic; font-size:1.35rem; color:var(--parchment-faint);
+    margin:0 0 2.4rem 0; max-width:62ch; border-left:2px solid var(--purple); padding-left:18px;
+  }
+
+  /* ---------- verse banner ---------- */
+  .verse{
+    margin:2.6rem 0; padding:2rem 2.2rem; text-align:center; position:relative;
+    background:linear-gradient(160deg, rgba(124,63,160,.1), rgba(74,32,96,.05));
+    border-top:1px solid rgba(192,132,252,.3);
+    border-bottom:1px solid rgba(192,132,252,.3);
+  }
+  .verse::before{
+    content:"✦"; color:var(--purple-glow); font-size:.9rem; display:block; margin-bottom:.8rem; opacity:.8;
+  }
+  .verse-text{
+    font-family:var(--script); font-style:italic; font-size:1.5rem; line-height:1.5;
+    color:var(--parchment); max-width:46ch; margin:0 auto;
+  }
+  .verse-ref{
+    display:block; margin-top:1rem; font-family:var(--body); font-size:.78rem;
+    letter-spacing:.15em; text-transform:uppercase; color:var(--purple-glow);
+  }
+
+  h2{
+    font-family:var(--display); font-weight:600; font-size:1.5rem; letter-spacing:.01em;
+    color:var(--purple-glow); margin:3.2rem 0 1.1rem 0; padding-bottom:.6rem;
+    border-bottom:1px solid rgba(192,132,252,.25);
+  }
+  h2:first-of-type{margin-top:0;}
+  h2 .num{color:var(--purple-bright); font-size:1.05rem; margin-right:10px; font-family:var(--body); font-weight:600;}
+
+  h3{
+    font-family:var(--script); font-weight:700; font-style:italic; font-size:1.32rem;
+    color:var(--parchment); margin:2rem 0 .7rem 0;
+  }
+
+  p{margin:0 0 1.1rem 0; color:#e7dcc4;}
+  strong{color:var(--parchment); font-weight:600;}
+  em{color:var(--purple-glow); font-style:italic;}
+
+  .lede{font-family:var(--script); font-size:1.28rem; line-height:1.55; color:var(--parchment); margin-bottom:1.6rem;}
+
+  ul,ol{padding-left:1.4rem; margin:0 0 1.2rem 0; color:#e7dcc4;}
+  li{margin-bottom:.5rem;}
+  ul.plain{list-style:none; padding-left:0;}
+  ul.plain li{padding-left:1.4rem; position:relative;}
+  ul.plain li::before{content:"✦"; position:absolute; left:0; top:1px; color:var(--purple); font-size:.8em;}
+
+  blockquote{
+    margin:1.6rem 0; padding:1.3rem 1.6rem 1.3rem 1.8rem;
+    background:rgba(124,63,160,.08); border-left:3px solid var(--purple); border-radius:0 4px 4px 0;
+    font-family:var(--script); font-size:1.15rem; font-style:italic; color:var(--parchment);
+  }
+  blockquote .cite-source{
+    display:block; margin-top:.7rem; font-family:var(--body); font-style:normal; font-size:.82rem;
+    letter-spacing:.05em; text-transform:uppercase; color:var(--purple-glow);
+  }
+
+  .panel{
+    background:linear-gradient(160deg, rgba(74,32,96,.25), rgba(74,32,96,.08));
+    border:1px solid rgba(124,63,160,.4); border-radius:6px; padding:1.5rem 1.7rem; margin:1.8rem 0;
+  }
+  .panel-title{
+    font-family:var(--display); font-size:.85rem; letter-spacing:.12em; text-transform:uppercase;
+    color:var(--purple-glow); margin-bottom:.7rem; display:flex; align-items:center; gap:8px;
+  }
+  .panel-title::before{content:"❧"; color:var(--purple-glow); font-size:1.1em;}
+  .panel p:last-child{margin-bottom:0;}
+
+  .gold-panel{
+    background:linear-gradient(160deg, rgba(201,164,73,.12), rgba(201,164,73,.03));
+    border:1px solid rgba(201,164,73,.4);
+  }
+  .gold-panel .panel-title{color:var(--gold);}
+  .gold-panel .panel-title::before{content:"✦"; color:var(--gold);}
+
+  .seal-panel{
+    background:linear-gradient(160deg, rgba(124,63,160,.2), rgba(74,32,96,.1));
+    border:1px solid rgba(155,79,200,.5);
+  }
+  .seal-panel .panel-title{color:var(--purple-bright);}
+  .seal-panel .panel-title::before{content:"†"; color:var(--purple-bright);}
+
+  /* ---------- objection cards ---------- */
+  .objection{border:1px solid rgba(192,132,252,.22); border-radius:8px; margin:2rem 0; overflow:hidden; background:rgba(26,18,32,.4);}
+  .objection-head{background:rgba(124,63,160,.2); padding:1rem 1.5rem; border-bottom:1px solid rgba(192,132,252,.18);}
+  .objection-head .tag{font-family:var(--body); font-size:.75rem; letter-spacing:.12em; text-transform:uppercase; color:var(--purple-glow); display:block; margin-bottom:.3rem;}
+  .objection-head .claim{font-family:var(--script); font-style:italic; font-size:1.25rem; color:var(--parchment);}
+  .objection-body{padding:1.3rem 1.5rem 1.6rem 1.5rem;}
+  .resp-label{font-family:var(--body); font-weight:600; font-size:.78rem; letter-spacing:.1em; text-transform:uppercase; color:var(--purple-glow); margin:1.1rem 0 .4rem 0;}
+  .resp-label.exeg::before{content:"⌖ "; color:var(--vesper-light);}
+  .resp-label.hist::before{content:"⌛ "; color:var(--gold);}
+  .resp-label.theo::before{content:"✚ "; color:var(--purple-bright);}
+
+  /* ---------- timeline ---------- */
+  .tl{position:relative; margin:2rem 0; padding-left:2.4rem;}
+  .tl::before{
+    content:""; position:absolute; left:.5rem; top:.4rem; bottom:.4rem; width:1px;
+    background:linear-gradient(180deg, var(--purple), var(--gold) 50%, transparent);
+  }
+  .tl-item{position:relative; margin-bottom:1.7rem;}
+  .tl-item::before{
+    content:""; position:absolute; left:-2.4rem; top:.35rem; width:9px; height:9px;
+    border-radius:50%; background:var(--parchment); border:2px solid var(--purple);
+  }
+  .tl-date{font-family:var(--display); font-size:.95rem; color:var(--purple-bright); letter-spacing:.04em; margin-bottom:.2rem;}
+  .tl-title{font-weight:600; color:var(--parchment); margin-bottom:.25rem;}
+  .tl-item p{margin-bottom:0; font-size:.96rem;}
+
+  /* ---------- table ---------- */
+  .tbl-wrap{overflow-x:auto; margin:1.8rem 0; border:1px solid rgba(192,132,252,.28); border-radius:6px;}
+  table{width:100%; border-collapse:collapse; font-size:.89rem; min-width:680px;}
+  thead th{
+    background:rgba(124,63,160,.25); font-family:var(--display); font-size:.74rem; letter-spacing:.05em;
+    text-transform:uppercase; color:var(--parchment); text-align:left; padding:.85rem .9rem;
+    border-bottom:1px solid var(--purple);
+  }
+  tbody td{padding:.75rem .9rem; border-bottom:1px solid rgba(192,132,252,.12); color:#e7dcc4; vertical-align:top;}
+  tbody tr:last-child td{border-bottom:none;}
+  tbody tr:hover{background:rgba(124,63,160,.07);}
+  td strong{display:block; margin-bottom:.2rem;}
+
+  /* ---------- error cards ---------- */
+  .err-grid{display:grid; gap:1.1rem; margin:1.6rem 0;}
+  .err-card{border:1px solid rgba(192,132,252,.2); border-radius:6px; padding:1.2rem 1.4rem; background:rgba(26,18,32,.3);}
+  .err-card .err-wrong{font-family:var(--script); font-style:italic; color:#d99488; font-size:1.08rem; margin-bottom:.5rem;}
+  .err-card .err-wrong::before{content:"✗ ";}
+  .err-card .err-right{color:var(--vesper-light); font-size:.85rem; letter-spacing:.04em; text-transform:uppercase; font-weight:600; margin-bottom:.3rem;}
+  .err-card .err-right::before{content:"✓ ";}
+  .err-card p:last-child{margin-bottom:0;}
+
+  /* ---------- footer nav ---------- */
+  .page-foot{display:flex; justify-content:space-between; gap:1rem; margin-top:4.5rem; padding-top:2rem; border-top:1px solid rgba(192,132,252,.2);}
+  .footnav-btn{
+    flex:1; max-width:48%; background:rgba(124,63,160,.08); border:1px solid rgba(192,132,252,.28);
+    border-radius:6px; padding:1rem 1.2rem; cursor:pointer; text-align:left; color:var(--parchment);
+    font-family:var(--body); transition:border-color .25s, background .25s, transform .2s;
+  }
+  .footnav-btn:hover{border-color:var(--purple-glow); background:rgba(124,63,160,.18); transform:translateY(-2px);}
+  .footnav-btn.next{text-align:right; margin-left:auto;}
+  .footnav-btn .dir{display:block; font-size:.72rem; letter-spacing:.12em; text-transform:uppercase; color:var(--purple-glow); margin-bottom:.3rem;}
+  .footnav-btn .lbl{font-family:var(--display); font-size:1rem;}
+
+  /* ===================== COVER ===================== */
+  .cover{
+    min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center; padding:140px 24px 80px; position:relative; overflow:hidden;
+  }
+  .cover::before{
+    content:""; position:absolute; inset:0;
+    background:
+      radial-gradient(ellipse 70% 55% at 50% 0%, rgba(124,63,160,.28), transparent 65%),
+      radial-gradient(ellipse 50% 40% at 20% 100%, rgba(74,32,96,.22), transparent 60%),
+      radial-gradient(ellipse 40% 30% at 80% 80%, rgba(201,164,73,.1), transparent 55%);
+    pointer-events:none;
+  }
+
+  /* ---------- CROSS SVG ---------- */
+  .cover-cross{
+    width:110px; height:130px; margin:0 auto 2rem auto; position:relative;
+    filter:drop-shadow(0 0 18px rgba(192,132,252,.5));
+    animation:pulse-cross 4s ease-in-out infinite;
+  }
+  @keyframes pulse-cross{
+    0%,100%{filter:drop-shadow(0 0 14px rgba(192,132,252,.45));}
+    50%{filter:drop-shadow(0 0 28px rgba(192,132,252,.75));}
+  }
+
+  .cover-eyebrow{font-family:var(--body); letter-spacing:.32em; text-transform:uppercase; font-size:.78rem; color:var(--purple-glow); margin-bottom:1.6rem;}
+  .cover h1{
+    font-family:var(--display); font-weight:700; font-size:clamp(2.6rem,8vw,5.2rem); line-height:1.05;
+    margin:0 auto 1.4rem auto; color:var(--parchment);
+    text-shadow:0 4px 50px rgba(124,63,160,.5); max-width:16ch; text-align:center;
+  }
+  .cover-sub{
+    font-family:var(--script); font-style:italic; font-size:clamp(1.2rem,2.4vw,1.6rem);
+    color:var(--parchment-faint); max-width:54ch; margin:0 auto 2rem auto; line-height:1.5; text-align:center;
+  }
+  .cover-verse{
+    font-family:var(--script); font-style:italic; font-size:1.22rem; color:var(--purple-glow);
+    max-width:46ch; margin:0 auto 3rem auto; line-height:1.6; text-align:center;
+  }
+  .cover-verse span{display:block; font-family:var(--body); font-style:normal; font-size:.72rem; letter-spacing:.15em; text-transform:uppercase; color:var(--parchment-faint); margin-top:.6rem;}
+  .cover-divider{width:120px; height:1px; background:linear-gradient(90deg, transparent, var(--purple-glow), transparent); margin:0 auto 3rem auto;}
+  .cover-cta{display:flex; gap:14px; flex-wrap:wrap; justify-content:center; margin-bottom:4rem;}
+  .btn{
+    font-family:var(--body); font-size:.92rem; letter-spacing:.04em; padding:.9rem 1.8rem; border-radius:3px;
+    cursor:pointer; border:1px solid var(--purple-glow); background:transparent; color:var(--parchment); transition:all .25s;
+  }
+  .btn:hover{background:var(--purple-glow); color:var(--ink);}
+  .btn.primary{background:var(--purple); border-color:var(--purple); color:var(--parchment);}
+  .btn.primary:hover{background:var(--purple-bright); border-color:var(--purple-bright);}
+
+  .cover-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(220px,1fr)); gap:14px; max-width:880px; width:100%;}
+  .toc-card{
+    border:1px solid rgba(192,132,252,.25); border-radius:8px; padding:1.5rem 1.4rem; text-align:left;
+    background:rgba(26,18,32,.4); cursor:pointer; transition:border-color .25s, transform .2s, background .25s;
+  }
+  .toc-card:hover{border-color:var(--purple-glow); transform:translateY(-3px); background:rgba(124,63,160,.12);}
+  .toc-card .toc-num{font-family:var(--display); font-size:.78rem; color:var(--purple-bright); letter-spacing:.1em; margin-bottom:.6rem;}
+  .toc-card .toc-title{font-family:var(--display); font-size:1.05rem; color:var(--parchment); margin-bottom:.5rem; line-height:1.3;}
+  .toc-card .toc-desc{font-size:.85rem; color:var(--parchment-faint); line-height:1.5;}
+
+  .cover-footer{margin-top:5rem; font-size:.78rem; letter-spacing:.08em; color:var(--parchment-faint); text-transform:uppercase;}
+
+  @media(max-width:640px){
+    .shell{padding:0 18px;}
+    section.page{padding-top:118px;}
+    .railnav-inner{padding:12px 16px;}
+    .objection-head,.objection-body{padding-left:1.1rem; padding-right:1.1rem;}
+    .page-foot{flex-direction:column;}
+    .footnav-btn{max-width:100%;}
+    .verse{padding:1.6rem 1.3rem;}
+    .verse-text{font-size:1.25rem;}
+  }
+</style>
+<style>
+  .tl-portal-fab{
+    position:fixed; left:18px; bottom:18px; z-index:99999;
+    display:inline-flex; align-items:center; gap:9px;
+    padding:10px 16px 10px 12px;
+    border-radius:999px;
+    background:rgba(20,15,10,0.82);
+    border:1px solid rgba(201,164,73,0.55);
+    box-shadow:0 8px 22px rgba(0,0,0,0.35), inset 0 0 0 1px rgba(255,255,255,0.04);
+    backdrop-filter:blur(6px);
+    -webkit-backdrop-filter:blur(6px);
+    text-decoration:none;
+    font-family:'Cormorant SC','Georgia',serif;
+    font-size:14.5px;
+    letter-spacing:0.06em;
+    color:#F1DFA9 !important;
+    transition:transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+  }
+  .tl-portal-fab:hover{
+    transform:translateY(-3px);
+    background:rgba(30,22,14,0.92);
+    box-shadow:0 14px 28px rgba(0,0,0,0.45), inset 0 0 0 1px rgba(255,255,255,0.06);
+  }
+  .tl-portal-fab svg{flex:none; width:17px; height:17px;}
+  .tl-portal-fab span{white-space:nowrap;}
+  @media (max-width:560px){
+    .tl-portal-fab{left:12px; bottom:12px; padding:9px 13px 9px 10px; font-size:13.5px;}
+    .tl-portal-fab svg{width:15px; height:15px;}
+  }
+</style>
+
+</head>
+<body>
+<a href="index.html" class="tl-portal-fab" title="Volver a la Biblioteca de Teología">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v18M6 8h12"/></svg>
+  <span>Biblioteca</span>
+</a>
+
+
+<nav class="railnav">
+  <div class="railnav-inner">
+    <a href="#" class="railnav-mark" data-nav="cover"><span class="glyph">✦</span> PATRONI</a>
+    <div class="railnav-scroll">
+      <ul class="railnav-list" id="navlist">
+        <li><button data-nav="cover">Portada</button></li>
+        <li><button data-nav="s1">I. Escritura</button></li>
+        <li><button data-nav="s2">II. Objeciones</button></li>
+        <li><button data-nav="s3">III. Padres</button></li>
+        <li><button data-nav="s4">IV. Historia</button></li>
+        <li><button data-nav="s5">V. Magisterio</button></li>
+        <li><button data-nav="s6">VI. Comparativa</button></li>
+        <li><button data-nav="s7">VII. Errores</button></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="shell">
+
+  <!-- ===================== COVER ===================== -->
+  <section class="page active cover" id="cover">
+
+    <!-- CRUZ ORNAMENTAL SVG -->
+    <div class="cover-cross">
+      <svg viewBox="0 0 110 130" xmlns="http://www.w3.org/2000/svg" width="110" height="130">
+        <defs>
+          <linearGradient id="cg1" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#e2c97e"/>
+            <stop offset="50%" stop-color="#c9a449"/>
+            <stop offset="100%" stop-color="#8a7340"/>
+          </linearGradient>
+          <linearGradient id="cg2" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#c084fc" stop-opacity="0.6"/>
+            <stop offset="100%" stop-color="#7c3fa0" stop-opacity="0"/>
+          </linearGradient>
+          <filter id="glow">
+            <feGaussianBlur stdDeviation="2.5" result="coloredBlur"/>
+            <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+          <filter id="softglow">
+            <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+            <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+        </defs>
+
+        <!-- Halo exterior -->
+        <ellipse cx="55" cy="52" rx="38" ry="38" fill="none" stroke="url(#cg2)" stroke-width="1" opacity="0.5"/>
+        <ellipse cx="55" cy="52" rx="44" ry="44" fill="none" stroke="url(#cg2)" stroke-width=".5" opacity="0.3"/>
+
+        <!-- Cuerpo principal de la cruz -->
+        <!-- Brazo vertical -->
+        <rect x="46" y="8" width="18" height="88" rx="2" fill="url(#cg1)" filter="url(#glow)"/>
+        <!-- Brazo horizontal -->
+        <rect x="12" y="36" width="86" height="18" rx="2" fill="url(#cg1)" filter="url(#glow)"/>
+
+        <!-- Reflejos de luz interior -->
+        <rect x="52" y="8" width="5" height="88" rx="1" fill="#f0e6d2" opacity="0.18"/>
+        <rect x="12" y="42" width="86" height="5" rx="1" fill="#f0e6d2" opacity="0.18"/>
+
+        <!-- Ornamento: cuatro florones en los extremos de los brazos -->
+        <!-- Extremo superior -->
+        <circle cx="55" cy="11" r="5.5" fill="url(#cg1)" filter="url(#glow)"/>
+        <circle cx="55" cy="11" r="2.5" fill="#f0e6d2" opacity="0.5"/>
+        <!-- Extremo inferior -->
+        <circle cx="55" cy="93" r="5.5" fill="url(#cg1)" filter="url(#glow)"/>
+        <circle cx="55" cy="93" r="2.5" fill="#f0e6d2" opacity="0.5"/>
+        <!-- Extremo izquierdo -->
+        <circle cx="15" cy="45" r="5.5" fill="url(#cg1)" filter="url(#glow)"/>
+        <circle cx="15" cy="45" r="2.5" fill="#f0e6d2" opacity="0.5"/>
+        <!-- Extremo derecho -->
+        <circle cx="95" cy="45" r="5.5" fill="url(#cg1)" filter="url(#glow)"/>
+        <circle cx="95" cy="45" r="2.5" fill="#f0e6d2" opacity="0.5"/>
+
+        <!-- Ornamento: cuatro puntas en los ángulos de la intersección -->
+        <polygon points="46,36 36,26 36,36" fill="url(#cg1)" opacity="0.7"/>
+        <polygon points="64,36 74,26 74,36" fill="url(#cg1)" opacity="0.7"/>
+        <polygon points="46,54 36,64 36,54" fill="url(#cg1)" opacity="0.7"/>
+        <polygon points="64,54 74,64 74,54" fill="url(#cg1)" opacity="0.7"/>
+
+        <!-- Piedra preciosa central (ónice) -->
+        <circle cx="55" cy="45" r="10" fill="#1a1220" stroke="url(#cg1)" stroke-width="2" filter="url(#glow)"/>
+        <circle cx="55" cy="45" r="7" fill="#2a1840" stroke="url(#cg1)" stroke-width=".5"/>
+        <circle cx="55" cy="45" r="4" fill="#7c3fa0" opacity="0.7"/>
+        <circle cx="52" cy="42" r="1.5" fill="#c084fc" opacity="0.8"/>
+
+        <!-- Titulus (INRI estilizado) -->
+        <rect x="38" y="16" width="34" height="9" rx="1.5" fill="#1a1220" stroke="url(#cg1)" stroke-width="1" opacity="0.9"/>
+        <text x="55" y="23.5" text-anchor="middle" font-family="Cinzel, serif" font-size="5.5" fill="#c9a449" letter-spacing="1.5">INRI</text>
+
+        <!-- Pie ornamental -->
+        <path d="M 43 96 Q 55 108 67 96" stroke="url(#cg1)" stroke-width="2" fill="none" opacity="0.7"/>
+        <path d="M 46 101 Q 55 116 64 101" stroke="url(#cg1)" stroke-width="1.5" fill="none" opacity="0.5"/>
+
+        <!-- Pequeñas estrellas en las esquinas superiores -->
+        <circle cx="22" cy="18" r="1.5" fill="#c9a449" opacity="0.6"/>
+        <circle cx="88" cy="18" r="1.5" fill="#c9a449" opacity="0.6"/>
+        <circle cx="15" cy="28" r="1" fill="#c084fc" opacity="0.5"/>
+        <circle cx="95" cy="28" r="1" fill="#c084fc" opacity="0.5"/>
+      </svg>
+    </div>
+
+    <div class="cover-eyebrow">Estudio apologético · Biblia, Padres y Magisterio</div>
+    <h1>Los Patronos</h1>
+    <p class="cover-sub">El fundamento bíblico, histórico y teológico de la intercesión particular de los santos sobre comunidades, naciones y oficios.</p>
+
+    <p class="cover-verse">
+      "Sus ángeles en los cielos ven siempre el rostro de mi Padre que está en los cielos."
+      <span>Mateo 18:10</span>
+    </p>
+
+    <div class="cover-divider"></div>
+    <div class="cover-cta">
+      <button class="btn primary" data-nav="s1">Comenzar la lectura →</button>
+    </div>
+
+    <div class="cover-grid">
+      <div class="toc-card" data-nav="s1">
+        <div class="toc-num">I</div>
+        <div class="toc-title">Fundamento Bíblico</div>
+        <div class="toc-desc">Ángeles de las naciones, príncipes angélicos, intercesores particulares y el modelo de patronazgo bíblico.</div>
+      </div>
+      <div class="toc-card" data-nav="s2">
+        <div class="toc-num">II</div>
+        <div class="toc-title">Objeciones Protestantes</div>
+        <div class="toc-desc">Siete objeciones mayores sobre el patronazgo, con la respuesta exegética, histórica y teológica a cada una.</div>
+      </div>
+      <div class="toc-card" data-nav="s3">
+        <div class="toc-num">III</div>
+        <div class="toc-title">Padres de la Iglesia</div>
+        <div class="toc-desc">De Ignacio de Antioquía a Juan Damasceno: el patronazgo martirial local y su vocabulario técnico.</div>
+      </div>
+      <div class="toc-card" data-nav="s4">
+        <div class="toc-num">IV</div>
+        <div class="toc-title">Desarrollo Histórico</div>
+        <div class="toc-desc">Del patronazgo espontáneo de los mártires al patronazgo nacional y gremial medieval.</div>
+      </div>
+      <div class="toc-card" data-nav="s5">
+        <div class="toc-num">V</div>
+        <div class="toc-title">Magisterio</div>
+        <div class="toc-desc">Catecismo, Derecho Canónico, Calendaria particularia y el patronazgo mariano universal.</div>
+      </div>
+      <div class="toc-card" data-nav="s6">
+        <div class="toc-num">VI</div>
+        <div class="toc-title">Análisis Comparativo</div>
+        <div class="toc-desc">Segundo Templo, zekhut avot, protestantismo interno y ortodoxia oriental, lado a lado.</div>
+      </div>
+      <div class="toc-card" data-nav="s7">
+        <div class="toc-num">VII</div>
+        <div class="toc-title">Errores Comunes</div>
+        <div class="toc-desc">Lo que se cree que enseña la Iglesia, lo que enseña realmente, y los abusos históricos reconocidos.</div>
+      </div>
+    </div>
+
+    <div class="cover-footer">Manual apologético · Tres tratados sobre los santos, los patronos y las procesiones</div>
+  </section>
+
+  <!-- ===================== I. ESCRITURA ===================== -->
+  <section class="page" id="s1">
+    <div class="eyebrow">Parte Primera</div>
+    <h1 class="page-title">Fundamento Bíblico</h1>
+    <p class="page-sub">El principio bíblico de la intercesión celestial particularizada para comunidades concretas, desde los príncipes angélicos hasta el modelo apostólico de Pablo.</p>
+
+    <h2><span class="num">1.1</span>¿Qué es un santo patrono?</h2>
+    <p class="lede">Un santo patrono es un santo canonizado a quien una comunidad reconoce como intercesor especial ante Dios, vinculado a ella por razones históricas, biográficas o devocionales, y a quien se invoca de forma preferente como abogado celestial particular.</p>
+    <div class="panel">
+      <div class="panel-title">La pregunta específica de este tratado</div>
+      <p>La intercesión de los santos en general ya fue demostrada en el Tratado I. Lo que este tratado debe establecer específicamente es la legitimidad de que un santo sea intercesor <em>particular</em> de una comunidad concreta, y no solo intercesor genérico de cualquiera que lo invoque.</p>
+    </div>
+
+    <h2><span class="num">1.2</span>El principio bíblico de la intercesión particular</h2>
+
+    <h3>a) Los ángeles custodios: paradigma de intercesión particular</h3>
+    <p><strong>Mateo 18:10</strong>: "Sus ángeles en los cielos ven siempre el rostro de mi Padre." El pronombre posesivo <em>autōn</em> ("sus ángeles") indica asignación particular: no toda criatura celestial tiene la misma relación con toda persona humana. Si Dios organiza la intercesión celestial de forma particularizada para individuos, no hay razón teológica de principio para objetar que los santos glorificados tengan vínculos de intercesión particular con comunidades concretas.</p>
+
+    <h3>b) Los ángeles de las Iglesias en el Apocalipsis</h3>
+    <p><strong>Apocalipsis 1:20 y caps. 2-3</strong>: "Al ángel de la iglesia en Éfeso escribe... al ángel de la iglesia en Esmirna escribe..." Cada una de las siete iglesias tiene su propio ángel. Sea cual sea su identificación exacta, el dato estructural es el mismo: cada comunidad eclesial tiene un intercesor o representante celestial específico que la representa ante Dios. Esta es, formalmente, la estructura del patronazgo.</p>
+
+    <h3>c) Daniel 10:13-21 y 12:1 — los príncipes angélicos de las naciones</h3>
+    <p>El ángel explica a Daniel que luchó contra "el príncipe del reino de Persia" y que vendrá "el príncipe de Grecia", mientras que <strong>"Miguel, vuestro príncipe"</strong> (v. 21) defiende a Israel. Daniel 12:1 lo confirma: "Miguel, el gran príncipe que está de parte de los hijos de tu pueblo."</p>
+    <div class="seal-panel panel">
+      <div class="panel-title">El precedente bíblico más directo del patronazgo</div>
+      <p>Este texto establece con toda claridad el patronazgo angélico nacional: cada gran nación tiene un príncipe celestial que la protege o combate, e Israel tiene específicamente a Miguel. La tradición cristiana extiende este principio a los santos glorificados, que comparten la asamblea celestial con los ángeles (Heb 12:22-23).</p>
+    </div>
+
+    <div class="verse">
+      <p class="verse-text">"Miguel, el gran príncipe que está de parte de los hijos de tu pueblo, se levantará en aquel tiempo."</p>
+      <span class="verse-ref">Daniel 12:1</span>
+    </div>
+
+    <h3>d) Intercesores particulares del Antiguo Testamento</h3>
+    <ul class="plain">
+      <li><strong>Éxodo 32:11-14</strong>: Moisés intercede por Israel tras el pecado del becerro de oro, y su intercesión es eficaz. Intercesor particular de una comunidad concreta ante Dios.</li>
+      <li><strong>Génesis 18:22-33</strong>: Abraham intercede por Sodoma de forma particular y negociada. La intercesión es personal y Dios la acepta en principio.</li>
+      <li><strong>Jeremías 15:1</strong>: Dios mismo cita a Moisés y Samuel como intercesores de eficacia especial reconocida. El texto bíblico distingue entre intercesores genéricos e intercesores de peso particular.</li>
+      <li><strong>Job 42:7-9</strong>: Dios designa a Job como intercesor particular de sus tres amigos y acepta "la oración de Job" con eficacia que la de los propios interesados no tendría en ese momento.</li>
+    </ul>
+
+    <h3>e) Pablo como intercesor particular de sus comunidades</h3>
+    <p>Pablo documenta una intercesión particular muy específica: "no ceso de dar gracias por vosotros, haciendo memoria de vosotros en mis oraciones" (Ef 1:16); "orando con gozo por todos vosotros" (Fil 1:4). Pablo no intercede genéricamente por todos los cristianos del mundo: intercede de forma particular, nominativa y afectiva por comunidades concretas con las que tiene vínculos históricos y pastorales específicos. Si su muerte no rompe su capacidad intercesora (Tratado I), Pablo glorificado puede razonablemente continuar intercediendo de forma particular por las comunidades que fundó y amó.</p>
+
+    <h3>f) Juan 17 y la intercesión particular de Cristo</h3>
+    <p>La "oración sacerdotal" de Jesús tiene estructura de particularidad progresiva: "no ruego por el mundo, sino por los que me diste" (v. 9), y dentro de ese grupo distingue aún más entre los discípulos presentes (v. 6-19) y los que creerán después (v. 20). Si el modelo de toda intercesión es el Sumo Sacerdote (Heb 7:25), y ese modelo incluye la particularidad, no es extraño que la intercesión de los santos participe del mismo rasgo.</p>
+
+    <h2><span class="num">1.3</span>Una aclaración hermenéutica honesta</h2>
+    <p>No existe en el Nuevo Testamento ningún texto que diga explícitamente "la ciudad de Antioquía tiene a Pedro como su patrono". El argumento bíblico opera mediante <strong>inferencia teológica legítima</strong> desde principios establecidos, no mediante cita directa de mandato. La diferencia respecto a la invocación general de santos es que el patronazgo añade la especificidad del vínculo, con su propio fundamento bíblico en los textos sobre intercesión angélica particularizada.</p>
+
+    <div class="page-foot">
+      <div></div>
+      <button class="footnav-btn next" data-nav="s2"><span class="dir">Siguiente</span><span class="lbl">II. Objeciones Protestantes →</span></button>
+    </div>
+  </section>
+
+  <!-- ===================== II. OBJECIONES ===================== -->
+  <section class="page" id="s2">
+    <div class="eyebrow">Parte Segunda</div>
+    <h1 class="page-title">Objeciones Protestantes</h1>
+    <p class="page-sub">Siete objeciones sobre el patronazgo, presentadas con honestidad, junto a la respuesta exegética, histórica y teológica a cada una.</p>
+
+    <div class="objection">
+      <div class="objection-head"><span class="tag">Objeción 1</span><span class="claim">"El patronazgo no tiene fundamento en el Nuevo Testamento — es invención medieval"</span></div>
+      <div class="objection-body">
+        <p>Ningún autor del Nuevo Testamento menciona ni ordena el concepto de santo patrono de una ciudad o nación. La práctica emerge claramente en la Edad Media, conectada al feudalismo.</p>
+        <div class="resp-label exeg">Respuesta exegética</div>
+        <p>El argumento histórico cultural sobre el feudalismo describe cómo la práctica se articula en ciertos períodos, pero no resuelve si el principio tiene fundamento bíblico. Ese principio (intercesión celestial particularizada para comunidades concretas) está presente en Daniel 10-12, en Apocalipsis 2-3, en Mateo 18:10 y en el modelo de intercesión particular de Pablo. El feudalismo proporcionó el vocabulario político, no el principio teológico.</p>
+        <div class="resp-label hist">Respuesta histórica</div>
+        <p>La práctica documentada comienza en el siglo III, antes de que exista feudalismo. Las comunidades cristianas de ciudades concretas veneraban a sus propios mártires locales como intercesores particulares, varios siglos antes de la Edad Media.</p>
+      </div>
+    </div>
+
+    <div class="objection">
+      <div class="objection-head"><span class="tag">Objeción 2</span><span class="claim">"Designar un patrono nacional implica politeísmo territorial"</span></div>
+      <div class="objection-body">
+        <p>El concepto reproduce la estructura del politeísmo antiguo, donde cada territorio tenía su dios tutelar (Baal de Peor, Kemós de Moab). El monoteísmo bíblico rechaza esto.</p>
+        <div class="resp-label theo">Respuesta teológica</div>
+        <p>Los dioses territoriales paganos eran fuentes autónomas de poder, operativamente independientes de Yahvé. El patrono cristiano no tiene nada de esto: no tiene poder propio, no controla el destino del territorio, es solo intercesor que lleva peticiones al único Dios. La diferencia es la misma que entre un dios local pagano y el ángel Miguel en Daniel 12 — y ese texto bíblico usa la misma estructura conceptual con contenido radicalmente distinto.</p>
+        <div class="resp-label exeg">Argumento decisivo</div>
+        <p>Si el argumento fuera concluyente, condenaría también el ángel custodio nacional de Daniel 10-12, que ningún protestante coherente consideraría politeísmo. Si es lícito que Miguel sea el "príncipe" protector de Israel (Dn 12:1), no hay diferencia de principio en que un santo glorificado que comparte la asamblea celestial con Miguel (Heb 12:22-23) sea reconocido como intercesor particular de una nación cristiana.</p>
+      </div>
+    </div>
+
+    <div class="objection">
+      <div class="objection-head"><span class="tag">Objeción 3</span><span class="claim">"El patronazgo crea una jerarquía de acceso a Dios — un 'enchufe' celestial"</span></div>
+      <div class="objection-body">
+        <p>Algunas comunidades tendrían acceso privilegiado a Dios. Esto contradice la enseñanza de que todos los creyentes tienen acceso directo al Padre (Ef 2:18; Heb 4:16; 10:19-22).</p>
+        <div class="resp-label exeg">Respuesta exegética</div>
+        <p>La dicotomía es falsa. El mismo Pablo que afirma el acceso directo (Ef 2:18) pide oraciones a sus comunidades (Rom 15:30; Ef 6:18-19). La intercesión del patrono no sustituye ni bloquea el acceso directo: añade una voz al concierto de intercesión que la Escritura presenta como normal en la vida cristiana.</p>
+        <div class="resp-label theo">Respuesta teológica</div>
+        <p>El concepto de "enchufe" presupone que Dios responde en función de conexiones, como un funcionario corrupto. La teología católica no enseña esto: Dios es soberanamente libre de responder a cualquier oración, y la intercesión del patrono no vincula ni obliga a Dios.</p>
+      </div>
+    </div>
+
+    <div class="objection">
+      <div class="objection-head"><span class="tag">Objeción 4</span><span class="claim">"Santiago 4:12 y Romanos 3:29 establecen la soberanía universal de Dios sin intermediarios territoriales"</span></div>
+      <div class="objection-body">
+        <p>"Uno solo es el dador de la ley, que puede salvar y perder" (Stgo 4:12). "¿Es Dios solamente Dios de los judíos?" (Rom 3:29).</p>
+        <div class="resp-label exeg">Respuesta exegética</div>
+        <p>Ambos textos son correctos pero irrelevantes para esta objeción. Santiago 4:12 trata sobre la murmuración y el juicio entre hermanos (contexto: v. 11). Romanos 3:29 argumenta contra la exclusividad étnica judía respecto a la salvación. Ninguno trata de si los santos pueden interceder por comunidades específicas. Aplicarlos al patronazgo es descontextualizarlos radicalmente.</p>
+      </div>
+    </div>
+
+    <div class="objection">
+      <div class="objection-head"><span class="tag">Objeción 5</span><span class="claim">"El patronazgo promueve localismo que contradice la catolicidad de la Iglesia"</span></div>
+      <div class="objection-body">
+        <p>Si cada ciudad tiene su patrono y cada gremio el suyo, el resultado es fragmentación de la devoción cristiana en particularismos que contradicen la unidad del Evangelio.</p>
+        <div class="resp-label theo">Respuesta teológica</div>
+        <p>El patronazgo opera en sentido contrario a la fragmentación: une a una comunidad concreta con la comunión universal de los santos. El patrono no es un dios local aislado: es un miembro glorificado de la única Iglesia universal que intercede por una parte particular de esa misma Iglesia. Lejos de fragmentar, vincula lo local con lo universal. El canon del Nuevo Testamento mismo incluye cartas a iglesias particulares con contenidos específicos sin que eso contradiga la universalidad del Evangelio.</p>
+      </div>
+    </div>
+
+    <div class="objection">
+      <div class="objection-head"><span class="tag">Objeción 6</span><span class="claim">"Isaías 31:1-3 condena buscar protección en seres distintos de Dios"</span></div>
+      <div class="objection-body">
+        <p>"¡Ay de los que descienden a Egipto por ayuda... que no miran al Santo de Israel!"</p>
+        <div class="resp-label exeg">Respuesta exegética</div>
+        <p>El contexto es Judá buscando una alianza militar y política con Egipto como sustituto de la confianza en Dios. Lo condenado es la confianza política en una potencia humana, no la intercesión de justos ante Dios. Un patrono cristiano no es una "potencia aliada" alternativa a Dios: es alguien que ora a Dios junto con la comunidad y por ella. Confundir alianza político-militar con intercesión de oración es colapsar dos categorías que el texto mismo no mezcla.</p>
+      </div>
+    </div>
+
+    <div class="objection">
+      <div class="objection-head"><span class="tag">Objeción 7</span><span class="claim">"El concepto de patrono viene de la cultura romana pagana, no de la revelación"</span></div>
+      <div class="objection-body">
+        <p>El <em>patronus</em> romano era el ciudadano poderoso que protegía a sus <em>clientes</em>. La Iglesia habría importado esta estructura social al ámbito celestial.</p>
+        <div class="resp-label hist">Respuesta histórica</div>
+        <p>El argumento genético ya fue refutado en el Tratado de Procesiones (Objeción 3): el origen cultural de un vocabulario no invalida la realidad que expresa. El principio de intercesión celestial particularizada tiene fundamento bíblico independiente del vocabulario romano.</p>
+        <div class="resp-label exeg">Dato adicional</div>
+        <p>El Nuevo Testamento usa el vocabulario del patronazgo romano de forma positiva sin condena: Pablo usa <em>prostatis</em> (προστάτις, "patrona/protectora") para Febe en Romanos 16:2, "ella ha sido patrona de muchos, y de mí mismo."</p>
+      </div>
+    </div>
+
+    <div class="page-foot">
+      <button class="footnav-btn" data-nav="s1"><span class="dir">Anterior</span><span class="lbl">← I. Fundamento Bíblico</span></button>
+      <button class="footnav-btn next" data-nav="s3"><span class="dir">Siguiente</span><span class="lbl">III. Padres de la Iglesia →</span></button>
+    </div>
+  </section>
+
+  <!-- ===================== III. PADRES ===================== -->
+  <section class="page" id="s3">
+    <div class="eyebrow">Parte Tercera</div>
+    <h1 class="page-title">Padres de la Iglesia</h1>
+    <p class="page-sub">De Ignacio de Antioquía a Juan Damasceno: el patronazgo martirial local emerge orgánicamente del culto a los mártires y cristaliza en vocabulario técnico para el siglo IV.</p>
+
+    <h2><span class="num">3.1</span>Período preniceno (siglos II-III)</h2>
+
+    <h3>Ignacio de Antioquía (c. 35-108)</h3>
+    <p>Sus cartas, escritas camino al martirio (c. 107-108), establecen que el mártir adquiere una posición de especial intimidad con Cristo que lo hace intercesor eficaz por su comunidad. La comunidad de Antioquía lo conservará como su mártir fundacional y, progresivamente, su intercesor particular. Germen histórico del patronazgo apostólico de las grandes sedes.</p>
+
+    <h3>Tertuliano (c. 160-220)</h3>
+    <p>En <em>Scorpiace</em> articula explícitamente que los mártires son <em>advocati</em> (abogados/defensores) que interceden por la Iglesia desde el cielo. El término latino <em>advocatus</em> es el vocabulario forense de intercesión particular que después se convierte en la teología del patronazgo.</p>
+
+    <h3>Cipriano de Cartago (c. 200-258)</h3>
+    <p>La Iglesia de Cartago tenía ya una práctica establecida de pedir la intercesión de sus propios mártires locales de forma preferente. Cipriano escribe a los mártires encarcelados pidiéndoles que intercedan por la Iglesia de Cartago específicamente. Esto no es todavía "patronazgo" con vocabulario formal, pero es funcionalmente idéntico: un santo vinculado a una comunidad concreta ejerce sobre ella una intercesión preferente reconocida litúrgicamente.</p>
+
+    <h2><span class="num">3.2</span>Siglo IV: el vocabulario técnico se fija</h2>
+
+    <h3>Eusebio de Cesarea (c. 260-340)</h3>
+    <p>La <em>Historia Eclesiástica</em> documenta sistemáticamente que cada gran iglesia tiene sus mártires fundacionales: Roma tiene a Pedro y Pablo, Antioquía a Ignacio, Alejandría a Marcos, Jerusalén a Santiago. Construye el mapa histórico sobre el que el patronazgo apostólico se desarrollará.</p>
+
+    <h3>San Basilio Magno (330-379)</h3>
+    <p>En sus homilías sobre los mártires, presenta a los mártires de Sebaste como <em>polioûchoi</em> (πολιοῦχοι): "los que custodian la ciudad." Este es el primer vocabulario técnico griego del patronazgo urbano documentado. Basilio toma conscientemente el término usado para las deidades tutelares paganas de las ciudades y lo recristifica.</p>
+
+    <h3>San Ambrosio de Milán (c. 340-397)</h3>
+    <p>En su carta a su hermana Marcelina (<em>Epístola</em> 22), describe el traslado de las reliquias de Gervasio y Protasio explicando que los coloca bajo el altar de la Basílica Ambrosiana para que sean los <em>patroni</em> de esa basílica y de Milán frente a la presión arriana. Uno de los primeros usos documentados del término latino <em>patronus</em> en su sentido técnico eclesiástico.</p>
+
+    <h3>San Juan Crisóstomo (c. 347-407)</h3>
+    <p>En su <em>Homilía sobre San Babilas</em>, presenta al obispo mártir de Antioquía como patrono y protector de esa ciudad, narrando cómo el traslado de sus reliquias derrotó simbólicamente el intento del emperador Juliano de restaurar el templo pagano de Apolo en Dafne. El patronazgo cristiano no como supervivencia del paganismo sino como su sustitución y superación.</p>
+
+    <h3>San León Magno (papa 440-461)</h3>
+    <p>En sus sermones sobre la fiesta de Pedro y Pablo, desarrolla la teología del patronazgo apostólico sobre Roma: Pedro y Pablo son los verdaderos <em>patroni</em> de Roma, superiores a Rómulo y Remo porque aquellos fundaron la ciudad con sangre fratricida mientras estos la consagraron con su martirio apostólico. Una de las declaraciones más explícitas y teológicamente desarrolladas del patronazgo en toda la literatura patrística.</p>
+
+    <blockquote>
+      "No son ellos sino su Dios el nuestro Dios... pero sí honramos a los que Dios ha glorificado, para que el honor tributado a ellos sea reconocimiento de su gloria."
+      <span class="cite-source">San Agustín · La Ciudad de Dios VIII, 27</span>
+    </blockquote>
+
+    <h2><span class="num">3.3</span>Síntesis del consenso y sus matices</h2>
+    <p>Desde Cipriano (s. III) hasta Damasceno (s. VIII), hay un desarrollo continuo y coherente: del patronazgo de facto (mártires locales venerados como intercesores particulares) al patronazgo formalizado con vocabulario técnico.</p>
+    <div class="err-grid">
+      <div class="err-card">
+        <div class="err-right">Vocabulario tardío, práctica temprana</div>
+        <p>El término <em>patronus</em> aplicado a los santos aparece claramente en Ambrosio (finales s. IV); la práctica que describe es anterior por al menos dos siglos.</p>
+      </div>
+      <div class="err-card">
+        <div class="err-right">Desarrollo genuino, no dato uniforme</div>
+        <p>El patronazgo de mártires (s. II-III), de confesores (s. IV-V) y de categorías profesionales (s. V-VI) refleja un desarrollo real en fases sucesivas.</p>
+      </div>
+      <div class="err-card">
+        <div class="err-right">Solapamiento con vocabulario pagano: reconocido y recristificado</div>
+        <p>León Magno lo usa apologéticamente como argumento de superación (Pedro y Pablo son mejores patronos que Rómulo y Remo), no de continuidad sin ruptura.</p>
+      </div>
+    </div>
+
+    <div class="page-foot">
+      <button class="footnav-btn" data-nav="s2"><span class="dir">Anterior</span><span class="lbl">← II. Objeciones Protestantes</span></button>
+      <button class="footnav-btn next" data-nav="s4"><span class="dir">Siguiente</span><span class="lbl">IV. Desarrollo Histórico →</span></button>
+    </div>
+  </section>
+
+  <!-- ===================== IV. HISTORIA ===================== -->
+  <section class="page" id="s4">
+    <div class="eyebrow">Parte Cuarta</div>
+    <h1 class="page-title">Desarrollo Histórico</h1>
+    <p class="page-sub">Del patronazgo espontáneo de los mártires locales al patronazgo nacional y gremial: una cronología verificable sin ruptura doctrinal.</p>
+
+    <h2><span class="num">4.1</span>Siglos II-III: patronazgo de facto</h2>
+    <p>Tres características definen este período primitivo:</p>
+    <ul class="plain">
+      <li><strong>Espontaneidad:</strong> ningún decreto eclesiástico designa patronos; la designación emerge orgánicamente de la devoción de la comunidad que conoció al mártir.</li>
+      <li><strong>Localidad estricta:</strong> el mártir de Esmirna es patrono de Esmirna, no de toda el Asia Menor. La concreción histórica (sufrió en ese lugar, ante esa comunidad) es la raíz del vínculo particular.</li>
+      <li><strong>Ausencia de formalización jurídica:</strong> la comunidad reconoce por consenso práctico que ese mártir es su intercesor particular.</li>
+    </ul>
+
+    <h2><span class="num">4.2</span>313-400: multiplicación de patronatos urbanos</h2>
+    <div class="tl">
+      <div class="tl-item">
+        <div class="tl-date">c. 313</div>
+        <div class="tl-title">Basílicas sobre tumbas de mártires</div>
+        <p>Cada ciudad con mártires construye su basílica martirial, centro físico del patronazgo local. La Basílica de San Pedro en Roma (iniciada c. 320) es el ejemplo más famoso.</p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">c. 386</div>
+        <div class="tl-title">Translatio de reliquias</div>
+        <p>El traslado de reliquias de su tumba original a una basílica nueva extiende el patronazgo: la basílica que recibe las reliquias queda bajo ese patrono.</p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">c. 370</div>
+        <div class="tl-title">Vocabulario técnico</div>
+        <p>Basilio: <em>polioûchos</em> (griego). Ambrosio: <em>patronus</em> (latín). El concepto queda nombrado en ambas lenguas litúrgicas del mundo cristiano.</p>
+      </div>
+    </div>
+
+    <h2><span class="num">4.3</span>Siglo V: el patronazgo nacional</h2>
+    <p><strong>San Martín de Tours</strong> (m. 397) y la Galia: el biógrafo Sulpicio Severo y después Gregorio de Tours documentan cómo la devoción a Martín se convierte en el elemento cohesionador de la identidad cristiana de la Galia entera, trascendiendo divisiones étnicas entre romanos y francos.</p>
+    <p><strong>San Patricio</strong> (c. 385-461) e Irlanda: paradigma del patronazgo misionero. Patricio no es mártir ni fundador apostólico: es obispo misionero cuya vida entera está dedicada a la evangelización de Irlanda. Su patronazgo emerge directamente del vínculo histórico y pastoral, de la misma manera que Pablo es "padre" particular de sus comunidades misioneras.</p>
+
+    <h2><span class="num">4.4</span>590-604: Gregorio Magno y la política misionera del patronazgo</h2>
+    <p>En su carta a Mellito sobre la evangelización de Britania, recomienda reconsagrar los templos paganos a mártires o reliquias de santos, y transformar fiestas paganas en fiestas patronales cristianas. La estrategia misionera del patronazgo como instrumento de inculturación consciente.</p>
+
+    <h2><span class="num">4.5</span>Edad Media: patronazgo gremial y de reinos</h2>
+    <p>Con el desarrollo del sistema gremial medieval, cada corporación adopta un santo patrono vinculado a su oficio:</p>
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr><th>Santo</th><th>Patronazgo</th><th>Fundamento del vínculo</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>San José</strong></td><td>Carpinteros</td><td>Bíblico directo: Mt 13:55</td></tr>
+          <tr><td><strong>San Pedro</strong></td><td>Pescadores</td><td>Bíblico directo: Jn 21:1-14</td></tr>
+          <tr><td><strong>San Lucas</strong></td><td>Pintores</td><td>Tradición del retrato de María (s. VI)</td></tr>
+          <tr><td><strong>San Cosme y Damián</strong></td><td>Médicos</td><td>Hagiografía: mártires médicos (s. III)</td></tr>
+          <tr><td><strong>Santa Bárbara</strong></td><td>Artilleros / Mineros</td><td>Leyenda medieval (historicidad muy dudosa)</td></tr>
+          <tr><td><strong>San Cristóbal</strong></td><td>Viajeros / Automovilistas</td><td>Leyenda medieval (eliminado del calendario universal en 1969)</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2><span class="num">4.6</span>Trento (1563) y postconcilio: corrección y racionalización</h2>
+    <p>Trento reafirma el patronazgo implícitamente al defender la invocación de santos (Sesión XXV), y ordena a los obispos regular el número y la celebración de fiestas patronales. La reforma del santoral postconciliar (1969) elimina del calendario universal patronos cuya hagiografía no resiste la verificación histórico-crítica (Santa Bárbara, San Cristóbal), sin abandonar el principio doctrinal.</p>
+
+    <div class="verse">
+      <p class="verse-text">"Los que confían en el Señor son como el monte Sión, que no se mueve, sino que permanece para siempre."</p>
+      <span class="verse-ref">Salmo 125:1</span>
+    </div>
+
+    <div class="page-foot">
+      <button class="footnav-btn" data-nav="s3"><span class="dir">Anterior</span><span class="lbl">← III. Padres de la Iglesia</span></button>
+      <button class="footnav-btn next" data-nav="s5"><span class="dir">Siguiente</span><span class="lbl">V. Magisterio →</span></button>
+    </div>
+  </section>
+
+  <!-- ===================== V. MAGISTERIO ===================== -->
+  <section class="page" id="s5">
+    <div class="eyebrow">Parte Quinta</div>
+    <h1 class="page-title">Magisterio</h1>
+    <p class="page-sub">Catecismo, Derecho Canónico, Calendaria particularia y el caso especial del patronazgo mariano universal.</p>
+
+    <h2><span class="num">5.1</span>El Catecismo: fundamento doctrinal del patronazgo</h2>
+    <p>El CIC no trata el patronazgo como tema autónomo sino como aplicación del principio general de la comunión de los santos ya establecido.</p>
+    <ul class="plain">
+      <li><strong>CIC 956:</strong> los santos "no cesan de interceder por nosotros ante el Padre... su solicitud fraterna ayuda en gran manera a nuestra debilidad." Base doctrinal directa del patronazgo.</li>
+      <li><strong>CIC 2683:</strong> "han sido constituidos guardianes" (latín: <em>custodes</em>) de este ministerio de intercesión — vocablo que resuena directamente con la función patronal.</li>
+      <li><strong>CIC 1173:</strong> la única mención explícita del término "patrono" en el cuerpo del Catecismo, confirmando que tiene estatus litúrgico reconocido.</li>
+    </ul>
+
+    <h2><span class="num">5.2</span>Código de Derecho Canónico (1983)</h2>
+    <p>Los cánones 1186-1190 tratan el patronazgo dentro del culto a los santos. El canon 1186 recomienda la veneración de los santos "cuya intercesión se los sostiene", y el canon 1190 refiere la protección de reliquias de los patronos como elemento central de la piedad litúrgica. Reconocimiento jurídico pleno dentro del ordenamiento eclesial.</p>
+
+    <h2><span class="num">5.3</span>Calendaria particularia (Congregación para el Culto Divino, 1970)</h2>
+    <p>El documento magisterial más específico sobre regulación litúrgica del patronazgo establece tres criterios:</p>
+    <ol>
+      <li><strong>Confirmación apostólica:</strong> la Santa Sede reconoce y confirma, a través de la Congregación para el Culto Divino, los patronazgos que emergen orgánicamente de la devoción histórica. No los designa unilateralmente.</li>
+      <li><strong>Rango litúrgico privilegiado:</strong> el patrono principal celebra su fiesta con rango de "Solemnidad" (el más alto del calendario), el secundario con rango de "Fiesta". El patronazgo es elemento estructural del calendario local, no devoción periférica.</li>
+      <li><strong>Criterios de designación:</strong> vínculo histórico verificable (fundación, evangelización, martirio local, asociación biográfica), devoción arraigada en la tradición histórica, no designación artificial reciente.</li>
+    </ol>
+
+    <h2><span class="num">5.4</span>El patronazgo mariano: caso especial</h2>
+    <h3>María como Patrona Universal</h3>
+    <p>María recibe un patronazgo de escala universal que trasciende el de cualquier comunidad específica: es Madre de la Iglesia universal (título proclamado por Pablo VI, 21 de noviembre de 1964). Fundamento bíblico más directo de todo el tratado: <strong>Juan 19:26-27</strong>, Jesús dice a Juan "He ahí tu madre", con interpretación eclesial de Juan como representante de todos los discípulos.</p>
+
+    <h3>Advocaciones marianas como patronazgos particulares</h3>
+    <p>Dentro del patronazgo universal de María, las advocaciones específicas expresan la forma en que ella se ha vinculado históricamente con comunidades particulares:</p>
+    <ul class="plain">
+      <li><strong>Nuestra Señora de Guadalupe:</strong> patrona de México y América Latina (reconocida por Pío X en 1910; confirmada por Juan Pablo II).</li>
+      <li><strong>Nuestra Señora de Chiquinquirá:</strong> patrona de Colombia.</li>
+      <li><strong>Nuestra Señora de Aparecida:</strong> patrona de Brasil.</li>
+    </ul>
+    <div class="panel">
+      <div class="panel-title">Aclaración teológica importante</div>
+      <p>Estas advocaciones no son "Marías distintas": es la misma María venerada bajo formas que expresan la forma específica en que se ha manifestado o vinculado históricamente con cada comunidad. Las diferencias son de expresión devocional, no de objeto de devoción.</p>
+    </div>
+
+    <h2><span class="num">5.5</span>El razonamiento magisterial sintetizado</h2>
+    <div class="seal-panel panel">
+      <div class="panel-title">Las cinco afirmaciones encadenadas del Magisterio</div>
+      <ul class="plain" style="margin-bottom:0;">
+        <li>Los santos interceden por la Iglesia (Trento XXV, CIC 956).</li>
+        <li>Esa intercesión puede ser particular: Escritura y tradición muestran intercesores con vínculos específicos con comunidades concretas.</li>
+        <li>La Iglesia tiene autoridad para reconocer y regular esos vínculos (<em>Calendaria particularia</em>, 1970).</li>
+        <li>El patronazgo tiene rango litúrgico propio y estructural en el calendario local (Solemnidad), no es devoción periférica.</li>
+        <li>El objeto final es siempre la gloria de Dios y la edificación de la comunidad en la fe, no intereses locales o nacionales meramente culturales.</li>
+      </ul>
+    </div>
+
+    <div class="page-foot">
+      <button class="footnav-btn" data-nav="s4"><span class="dir">Anterior</span><span class="lbl">← IV. Desarrollo Histórico</span></button>
+      <button class="footnav-btn next" data-nav="s6"><span class="dir">Siguiente</span><span class="lbl">VI. Análisis Comparativo →</span></button>
+    </div>
+  </section>
+
+  <!-- ===================== VI. COMPARATIVA ===================== -->
+  <section class="page" id="s6">
+    <div class="eyebrow">Parte Sexta</div>
+    <h1 class="page-title">Análisis Comparativo</h1>
+    <p class="page-sub">El patronazgo en el judaísmo del Segundo Templo, el protestantismo en su diversidad interna, y la ortodoxia oriental como aliado doctrinal pleno.</p>
+
+    <h2><span class="num">6.1</span>Judaísmo del Segundo Templo: el antecedente más directo</h2>
+
+    <h3>a) Los ángeles de las naciones como marco conceptual preexistente</h3>
+    <p>El concepto de príncipes angélicos está ampliamente desarrollado en el <strong>Libro de los Jubileos</strong> (s. II a.C., caps. 15 y 35) y en los <strong>Rollos del Mar Muerto</strong> (Regla de la Comunidad; Rollo de la Guerra): cada nación tiene su ángel tutelar asignado por Dios. Este es exactamente el suelo cultural en el que crecen los primeros cristianos, y explica por qué el concepto de patronazgo particular no genera sorpresa en las primeras generaciones.</p>
+
+    <h3>b) Los zekhut avot (méritos de los padres)</h3>
+    <p>Los Targumim desarrollan extensamente la noción de que los méritos de los patriarcas funcionan como reserva de gracia sobre la que Israel puede apoyarse. Aunque la estructura teológica difiere de la intercesión activa de los santos (es más una reserva objetiva de mérito que una oración subjetiva activa), el principio funcional es análogo: hay figuras particulares históricamente vinculadas a Israel cuya santidad tiene efecto particular sobre esa comunidad.</p>
+
+    <h2><span class="num">6.2</span>Protestantismo: diversidad interna real</h2>
+
+    <h3>Luteranismo clásico</h3>
+    <p>La Confesión de Augsburgo (1530), Art. XXI, no condena explícitamente que un santo sea intercesor particular de una comunidad; rechaza la invocación directa formal sin mandato bíblico claro. Las iglesias luteranas históricas conservaron la advocación de sus iglesias a santos específicos (Sankt Nikolai, Sankt Petri, etc.) sin afirmación doctrinal del patronazgo en sentido teológico pleno.</p>
+
+    <h3>Calvinismo / Reformados</h3>
+    <p>Rechazo más consistente, por el principio regulativo del culto y por sensibilidad especial hacia cualquier forma de particularismo religioso que oscurezca la soberanía universal de Dios.</p>
+
+    <h3>Anglicanismo</h3>
+    <p>Caso históricamente revelador: la Iglesia de Inglaterra conserva como patronos nacionales a <strong>San Jorge</strong> (Inglaterra), <strong>San Andrés</strong> (Escocia), <strong>San David</strong> (Gales) y <strong>San Patricio</strong> (Irlanda), todos celebrados litúrgicamente, incluso dentro de una tradición que rechaza formalmente la invocación de santos. El patronazgo sobrevive como identidad cultural y litúrgica incluso donde la doctrina que lo sostiene ha sido rechazada.</p>
+
+    <h3>Evangelicalismo carismático: reproducción estructural involuntaria</h3>
+    <p>Algunos movimientos de "guerra espiritual" carismática desarrollan la "teología del espíritu de la ciudad", basada precisamente en Daniel 10-12 y Apocalipsis 2-3: hay figuras celestiales particulares vinculadas a territorios concretos. Reproducen estructuralmente el principio del patronazgo (figuras celestiales con vínculos territoriales) con contenido teológico diferente (príncipes demoníacos que se combaten, no santos que se invocan). Esta coincidencia estructural es argumento indirecto en favor de la solidez bíblica del principio.</p>
+
+    <h2><span class="num">6.3</span>Cuadro sintético comparativo</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr><th>Tradición</th><th>¿Intercesión particular?</th><th>¿Patronazgo de comunidades?</th><th>Base o rechazo</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>AT canónico</strong></td><td>Sí, en ángeles y vivos (Moisés, Abraham)</td><td>Ángeles de naciones (Dn 10-12); no en santos humanos glorificados</td><td>Principio presente, aplicación a santos no desarrollada</td></tr>
+          <tr><td><strong>Judaísmo 2º Templo</strong></td><td>Sí, zekhut avot, príncipes angélicos</td><td>Sí, en el marco apocalíptico</td><td>Marco conceptual directo del patronazgo cristiano</td></tr>
+          <tr><td><strong>Iglesia patrística</strong></td><td>Sí, desde el s. II-III</td><td>Sí, patronazgo martirial local</td><td>Desarrollo orgánico continuo</td></tr>
+          <tr><td><strong>Catolicismo</strong></td><td>Sí</td><td>Sí, con rango de Solemnidad</td><td>CIC 956; Calendaria particularia 1970</td></tr>
+          <tr><td><strong>Ortodoxia oriental</strong></td><td>Sí</td><td>Sí, central en piedad litúrgica</td><td>Misma fuente patrística común</td></tr>
+          <tr><td><strong>Luteranismo clásico</strong></td><td>Posiblemente, en general</td><td>No doctrinal; conservado culturalmente</td><td>Confesión de Augsburgo XXI</td></tr>
+          <tr><td><strong>Calvinismo/Reformados</strong></td><td>Negado o muy dudado</td><td>No</td><td>Principio regulativo; soberanía universal de Dios</td></tr>
+          <tr><td><strong>Anglicanismo</strong></td><td>Diverso</td><td>Conservado culturalmente (Jorge, Andrés, David, Patricio) sin afirmación doctrinal plena</td><td>Posición interna no unificada</td></tr>
+          <tr><td><strong>Evangelicalismo carismático</strong></td><td>No (invocación)</td><td>No doctrinal; reproducción estructural en "guerra espiritual"</td><td>Rechazo devocional; aceptación implícita del principio bíblico</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="gold-panel panel">
+      <div class="panel-title">Conclusión comparativa</div>
+      <p>Incluso dentro de las tradiciones que rechazan doctrinalmente el patronazgo, la práctica cultural de identificar patronos nacionales y santos titulares de iglesias sobrevive. El caso más llamativo es la "guerra espiritual" carismática, que reconstruye casi literalmente el esquema de Daniel 10-12 sin conectarlo conscientemente con la tradición del patronazgo. El impulso hacia la particularización devocional es tan profundamente bíblico que reaparece incluso donde la doctrina que lo sostiene ha sido rechazada.</p>
+    </div>
+
+    <div class="page-foot">
+      <button class="footnav-btn" data-nav="s5"><span class="dir">Anterior</span><span class="lbl">← V. Magisterio</span></button>
+      <button class="footnav-btn next" data-nav="s7"><span class="dir">Siguiente</span><span class="lbl">VII. Errores Comunes →</span></button>
+    </div>
+  </section>
+
+  <!-- ===================== VII. ERRORES ===================== -->
+  <section class="page" id="s7">
+    <div class="eyebrow">Parte Séptima</div>
+    <h1 class="page-title">Errores Comunes</h1>
+    <p class="page-sub">Lo que se cree que enseña la Iglesia, lo que enseña realmente, y los fenómenos históricos que ella misma ha reconocido y corregido.</p>
+
+    <h2><span class="num">7.1</span>Lo que se cree que los católicos enseñan (y no enseñan)</h2>
+    <div class="err-grid">
+      <div class="err-card">
+        <div class="err-wrong">"El patrono controla o gobierna su territorio como un dios local"</div>
+        <div class="err-right">Lo que se enseña realmente</div>
+        <p>El patrono no tiene dominio, jurisdicción ni control sobre su territorio. Su única función es la intercesión: lleva las oraciones de su comunidad ante Dios como un abogado lleva la causa de su cliente ante el juez, sin ser él mismo el juez.</p>
+      </div>
+      <div class="err-card">
+        <div class="err-wrong">"Invocar al patrono en lugar de orar directamente a Dios revela fe débil"</div>
+        <div class="err-right">Lo que se enseña realmente</div>
+        <p>La intercesión del patrono nunca sustituye la oración directa del fiel. El patronazgo añade una voz al concierto de intercesión sin silenciar ninguna otra, de la misma manera que Pablo pide las oraciones de sus comunidades sin considerar eso sustituto de su propia oración al Padre.</p>
+      </div>
+      <div class="err-card">
+        <div class="err-wrong">"Los patronos de los gremios implican un departamento celestial por oficio"</div>
+        <div class="err-right">Lo que se enseña realmente</div>
+        <p>La asociación de un santo con una profesión es forma de devoción pedagógica, no jurisdicción exclusiva. San José no "administra" la carpintería universal: es modelo de trabajo honesto e intercesor cercano para quienes comparten su oficio.</p>
+      </div>
+      <div class="err-card">
+        <div class="err-wrong">"La fiesta patronal es solo folklore sin contenido religioso"</div>
+        <div class="err-right">Lo que se enseña realmente</div>
+        <p>La fiesta del patrono tiene rango de Solemnidad (el más alto del calendario) y contenido teológico preciso: celebración de la unidad de la comunidad local con uno de sus miembros glorificados en Cristo, y ocasión privilegiada para renovar la conciencia de pertenecer a la Iglesia universal.</p>
+      </div>
+    </div>
+
+    <h2><span class="num">7.2</span>Abusos históricos reales, reconocidos con honestidad</h2>
+
+    <h3>a) Instrumentalización política del patronato nacional</h3>
+    <p>El abuso históricamente más grave. La advocación de <strong>Santiago como patrono de la Reconquista</strong> generó la iconografía del "Santiago Matamoros" (a caballo, exterminando enemigos), criticada ya en el siglo XVII por Melchor Cano y objeto de revisión en el siglo XX por la propia Conferencia Episcopal Española, que promovió la imagen alternativa de "Santiago Peregrino" como modelo de fe itinerante. La figura del Matamoros responde a mitología medieval políticamente motivada más que a fe apostólica genuina.</p>
+
+    <h3>b) Hagiografía legendaria sin base verificable</h3>
+    <p><strong>Santa Bárbara</strong> (patrona de artilleros y mineros): existencia histórica prácticamente inverificable; leyenda sin sustento documental anterior al siglo VII. Eliminada del calendario universal en 1969. <strong>San Cristóbal</strong> (patrono de viajeros): existencia histórica tan oscura que también fue eliminado del calendario universal en 1969. La honestidad apologética exige distinguir entre el principio doctrinal del patronazgo (sólidamente fundado) y algunos casos históricos concretos (hagiográficamente dudosos).</p>
+
+    <h3>c) Rivalidades intercomunitarias en torno a patronos</h3>
+    <p>Uso de la identidad patronal como instrumento de rivalidad entre comunidades vecinas: competencias entre cofradías por la magnificencia de la procesión, disputas sobre qué patrono "hace más milagros", tensiones entre pueblos por el mismo patronazgo. Documentado pastoralmente en muchas diócesis latinoamericanas.</p>
+
+    <h3>d) Reducción a identidad cultural sin contenido de fe</h3>
+    <p>La Fiesta del Patrono sobrevive como evento cultural y festivo después de que el contenido de fe que la originó ha desaparecido de la conciencia de gran parte de los participantes. El patrono se convierte en elemento decorativo de la identidad local más que en intercesor real de una comunidad creyente. Riesgo abordado directamente por el Directorio sobre la Piedad Popular de 2001.</p>
+
+    <h3>e) Sincretismo en el patronazgo latinoamericano</h3>
+    <p>En algunos contextos coloniales, el patronazgo de un santo absorbió funciones rituales de la religiosidad preexistente sin que la sustitución de contenido fuera completa. La distinción entre inculturación legítima y sincretismo problemático, desarrollada en los tres tratados de este proyecto, aplica aquí con la misma fuerza.</p>
+
+    <h2><span class="num">7.3</span>Lo que NO forma parte de la doctrina católica</h2>
+    <div class="seal-panel panel">
+      <div class="panel-title">Para cerrar con total claridad</div>
+      <ul class="plain" style="margin-bottom:0;">
+        <li>Que el patrono tenga dominio, jurisdicción o control sobre su territorio.</li>
+        <li>Que la comunidad con patrono esté más protegida o que Dios atienda preferentemente sus peticiones.</li>
+        <li>Que el vínculo patronal sea automáticamente eficaz independientemente de la fe de la comunidad.</li>
+        <li>Que los patronos gremiales sean "especialistas" con competencia técnica en su área.</li>
+        <li>Que toda hagiografía medieval asociada a un patrono sea históricamente fidedigna o vinculante.</li>
+        <li>Que la celebración cultural de la fiesta patronal sea, por sí sola, suficiente expresión del vínculo patronal.</li>
+        <li>Que el patronazgo de una nación justifique sus proyectos políticos o militares bajo el nombre del patrono.</li>
+      </ul>
+    </div>
+
+    <div class="verse">
+      <p class="verse-text">"Por tanto, ya no sois extranjeros ni advenedizos, sino conciudadanos de los santos, y miembros de la familia de Dios."</p>
+      <span class="verse-ref">Efesios 2:19</span>
+    </div>
+
+    <div class="page-foot">
+      <button class="footnav-btn" data-nav="s6"><span class="dir">Anterior</span><span class="lbl">← VI. Análisis Comparativo</span></button>
+      <button class="footnav-btn next" data-nav="cover"><span class="dir">Volver</span><span class="lbl">↺ Portada</span></button>
+    </div>
+  </section>
+
+</div>
+
+<script>
+(function(){
+  const pages = document.querySelectorAll('section.page');
+  const navButtons = document.querySelectorAll('[data-nav]');
+
+  function go(id){
+    pages.forEach(p => p.classList.toggle('active', p.id === id));
+    document.querySelectorAll('#navlist button').forEach(b=>{
+      b.classList.toggle('active', b.dataset.nav === id);
+    });
+    window.scrollTo({top:0, behavior:'instant' in window ? 'instant' : 'auto'});
+    try{ history.replaceState(null,'','#'+id); }catch(e){}
+  }
+
+  navButtons.forEach(btn=>{
+    btn.addEventListener('click', e=>{
+      e.preventDefault();
+      go(btn.dataset.nav);
+    });
+  });
+
+  const initial = (location.hash||'').replace('#','');
+  if(initial && document.getElementById(initial)){
+    go(initial);
+  } else {
+    go('cover');
+  }
+})();
+</script>
+</body>
+</html>

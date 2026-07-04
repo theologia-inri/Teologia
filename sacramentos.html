@@ -1,0 +1,1003 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Los Siete Sacramentos — Tratado Doctrinal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;900&family=Cormorant+SC:wght@500;600&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=UnifrakturMaguntia&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --parchment:#F2EAD3;
+    --parchment-deep:#E7DAB6;
+    --ink:#2A2015;
+    --ink-soft:#4B3C29;
+    --ink-faint:#7A6B52;
+    --wood:#6B4226;
+    --wood-dark:#3E2413;
+    --wood-light:#8A5A34;
+    --cream-card:#FBF6E8;
+
+    --gold:#B8860B;
+    --gold-light:#D7B15C;
+    --gold-deep:#8B6A16;
+    --gold-ink:#5C4712;
+
+    --wine:#6B1F2A;
+    --wine-light:#8F3241;
+    --wine-ink:#F4E4E1;
+
+    --teal:#1F4E5F;
+    --teal-light:#33707F;
+    --teal-ink:#E3EDE9;
+
+    --shadow: 0 8px 30px rgba(42,32,21,0.18);
+    --rule: 1px solid rgba(42,32,21,0.18);
+
+    --font-display:'Cinzel', serif;
+    --font-black:'UnifrakturMaguntia', cursive;
+    --font-body:'EB Garamond', serif;
+    --font-caps:'Cormorant SC', serif;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:
+      radial-gradient(ellipse at top, rgba(184,134,11,0.06), transparent 60%),
+      var(--parchment);
+    color:var(--ink);
+    font-family:var(--font-body);
+    font-size:19px;
+    line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+  }
+  body::before{
+    content:"";
+    position:fixed; inset:0;
+    pointer-events:none;
+    z-index:1000;
+    background-image:
+      repeating-radial-gradient(circle at 20% 30%, rgba(0,0,0,0.012) 0, rgba(0,0,0,0.012) 1px, transparent 1px, transparent 3px);
+    opacity:0.5;
+  }
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important;}
+  }
+
+  h1,h2,h3,h4{font-family:var(--font-display); color:var(--ink); margin:0; letter-spacing:0.02em;}
+  a{color:inherit;}
+  p{margin:0 0 1em 0;}
+  ul,ol{margin:0 0 1em 0; padding-left:1.3em;}
+  li{margin-bottom:0.5em;}
+
+  /* ===== progress bar ===== */
+  #progress{
+    position:fixed; top:0; left:0; height:3px; width:0%;
+    background:linear-gradient(90deg, var(--wood), var(--gold), var(--wood-light));
+    z-index:2000; transition:width 0.1s linear;
+  }
+
+  /* ===== HERO ===== */
+  .hero{
+    position:relative;
+    padding:76px 24px 56px;
+    text-align:center;
+    overflow:hidden;
+    border-bottom:3px double var(--wood);
+    background:
+      linear-gradient(180deg, rgba(184,134,11,0.08), transparent 70%),
+      var(--parchment);
+  }
+  .hero::before, .hero::after{
+    content:"";
+    position:absolute; top:0; bottom:0; width:1px;
+    background:repeating-linear-gradient(180deg, transparent 0 6px, rgba(42,32,21,0.15) 6px 7px);
+  }
+  .hero::before{left:18px;} .hero::after{right:18px;}
+
+  .cross-wrap{
+    position:relative;
+    width:120px; height:150px;
+    margin:0 auto 22px;
+  }
+  .cross-glow{
+    position:absolute; inset:-40px;
+    background:radial-gradient(circle, rgba(184,134,11,0.35), transparent 65%);
+    filter:blur(6px);
+    animation:flicker 5s ease-in-out infinite;
+  }
+  @keyframes flicker{
+    0%,100%{opacity:0.55; transform:scale(1);}
+    50%{opacity:0.85; transform:scale(1.06);}
+  }
+  .cross-svg{position:relative; z-index:2; filter:drop-shadow(0 6px 10px rgba(62,36,19,0.45));}
+
+  .eyebrow{
+    font-family:var(--font-caps);
+    letter-spacing:0.32em;
+    text-transform:uppercase;
+    font-size:15px;
+    color:var(--wood-dark);
+    margin-bottom:10px;
+  }
+  .hero h1{
+    font-size:clamp(34px, 6vw, 58px);
+    font-weight:700;
+    line-height:1.15;
+    color:var(--wood-dark);
+    text-shadow:0 1px 0 rgba(255,255,255,0.3);
+  }
+  .hero .subtitle{
+    font-family:var(--font-black);
+    font-size:clamp(20px, 3vw, 30px);
+    color:var(--gold-ink);
+    margin-top:6px;
+    font-weight:400;
+  }
+  .hero .verse{
+    max-width:560px;
+    margin:30px auto 0;
+    font-style:italic;
+    color:var(--ink-soft);
+    font-size:20px;
+    position:relative;
+    padding:0 30px;
+  }
+  .hero .verse .mark{
+    font-family:var(--font-display);
+    font-size:38px;
+    color:var(--gold);
+    line-height:0;
+    position:relative;
+    top:14px;
+  }
+  .hero .verse cite{
+    display:block;
+    font-style:normal;
+    font-family:var(--font-caps);
+    letter-spacing:0.15em;
+    font-size:15px;
+    color:var(--ink-faint);
+    margin-top:10px;
+  }
+
+  /* ===== NAV ===== */
+  nav.sac-nav{
+    position:sticky; top:0; z-index:900;
+    background:rgba(242,234,211,0.94);
+    backdrop-filter:blur(6px);
+    border-bottom:var(--rule);
+  }
+  .nav-inner{
+    max-width:1200px; margin:0 auto;
+    display:flex; align-items:center; gap:4px;
+    overflow-x:auto;
+    padding:10px 16px;
+    scrollbar-width:thin;
+  }
+  .nav-inner::-webkit-scrollbar{height:5px;}
+  .nav-inner::-webkit-scrollbar-thumb{background:var(--gold-light); border-radius:4px;}
+
+  .nav-item{
+    display:flex; align-items:center; gap:8px;
+    white-space:nowrap;
+    padding:7px 14px;
+    border-radius:999px;
+    border:1px solid transparent;
+    text-decoration:none;
+    font-family:var(--font-caps);
+    font-size:15.5px;
+    letter-spacing:0.03em;
+    color:var(--ink-soft);
+    transition:all 0.25s ease;
+    cursor:pointer;
+  }
+  .nav-item .medal{
+    width:9px; height:9px; border-radius:50%;
+    flex:none;
+    box-shadow:inset 0 0 0 1px rgba(0,0,0,0.15);
+  }
+  .nav-item:hover{background:rgba(184,134,11,0.1);}
+  .nav-item.active{
+    border-color:currentColor;
+    background:rgba(184,134,11,0.14);
+    font-weight:600;
+  }
+
+  /* ===== LAYOUT ===== */
+  main{max-width:880px; margin:0 auto; padding:56px 22px 40px;}
+
+  .intro{
+    background:var(--cream-card);
+    border:var(--rule);
+    border-radius:4px;
+    padding:38px 34px;
+    box-shadow:var(--shadow);
+    margin-bottom:64px;
+    position:relative;
+  }
+  .intro::before{
+    content:"";
+    position:absolute; top:8px; left:8px; right:8px; bottom:8px;
+    border:1px solid rgba(184,134,11,0.35);
+    pointer-events:none;
+  }
+  .intro h2{font-size:28px; margin-bottom:18px; text-align:center;}
+  .dropcap::first-letter{
+    font-family:var(--font-display);
+    font-size:56px;
+    float:left;
+    line-height:0.8;
+    padding:8px 10px 0 0;
+    color:var(--wood-dark);
+    font-weight:700;
+  }
+  .latin{
+    font-style:italic;
+    color:var(--gold-ink);
+    font-family:var(--font-caps);
+    font-size:20px;
+  }
+
+  .triads{
+    display:grid; grid-template-columns:repeat(3,1fr); gap:16px;
+    margin-top:28px;
+  }
+  .triad-card{
+    border-radius:6px;
+    padding:18px 14px;
+    text-align:center;
+    border:1px solid rgba(0,0,0,0.08);
+  }
+  .triad-card h4{font-size:16px; margin-bottom:6px; font-family:var(--font-caps); letter-spacing:0.05em;}
+  .triad-card p{font-size:15px; color:var(--ink-soft); margin:0;}
+  .triad-gold{background:linear-gradient(160deg, rgba(184,134,11,0.16), rgba(184,134,11,0.04));}
+  .triad-wine{background:linear-gradient(160deg, rgba(107,31,42,0.14), rgba(107,31,42,0.03));}
+  .triad-teal{background:linear-gradient(160deg, rgba(31,78,95,0.14), rgba(31,78,95,0.03));}
+
+  /* ===== SACRAMENT SECTION ===== */
+  .sacrament{
+    scroll-margin-top:80px;
+    margin-bottom:80px;
+    padding-bottom:8px;
+  }
+  .sac-header{
+    display:flex; align-items:center; gap:20px;
+    margin-bottom:6px;
+    padding-bottom:18px;
+    border-bottom:2px solid var(--line-color, var(--gold));
+  }
+  .sac-icon{
+    flex:none;
+    width:64px; height:64px;
+    border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    background:var(--bg-color, rgba(184,134,11,0.12));
+    border:2px solid var(--line-color, var(--gold));
+    color:var(--line-color, var(--gold));
+  }
+  .sac-icon svg{width:32px; height:32px;}
+  .sac-titles .sac-group{
+    font-family:var(--font-caps);
+    letter-spacing:0.2em;
+    text-transform:uppercase;
+    font-size:13px;
+    color:var(--line-color, var(--gold-ink));
+    margin-bottom:2px;
+  }
+  .sac-titles h2{
+    font-size:clamp(26px,4vw,36px);
+    color:var(--ink);
+  }
+  .sac-titles .sac-latin{
+    font-family:var(--font-caps);
+    font-style:italic;
+    color:var(--ink-faint);
+    font-size:17px;
+  }
+
+  .sac-verse{
+    margin:22px 0 30px;
+    padding:16px 22px;
+    border-left:4px solid var(--line-color, var(--gold));
+    background:rgba(0,0,0,0.02);
+    font-style:italic;
+    color:var(--ink-soft);
+    font-size:18.5px;
+  }
+  .sac-verse cite{
+    display:block; font-style:normal; margin-top:6px;
+    font-family:var(--font-caps); letter-spacing:0.1em; font-size:14px; color:var(--ink-faint);
+  }
+
+  .sac-body h3{
+    font-size:20px;
+    margin:34px 0 12px;
+    color:var(--line-color-dark, var(--gold-ink));
+    display:flex; align-items:center; gap:10px;
+  }
+  .sac-body h3::after{
+    content:""; flex:1; height:1px;
+    background:linear-gradient(90deg, currentColor, transparent);
+    opacity:0.35;
+  }
+
+  /* definition table */
+  .deftable{
+    width:100%; border-collapse:collapse; margin:14px 0 22px;
+    font-size:17px;
+  }
+  .deftable tr{border-bottom:1px solid rgba(0,0,0,0.08);}
+  .deftable tr:last-child{border-bottom:none;}
+  .deftable th{
+    text-align:left; font-family:var(--font-caps); font-weight:600;
+    letter-spacing:0.04em; color:var(--ink-faint);
+    padding:10px 14px 10px 0; width:150px; vertical-align:top;
+    white-space:nowrap;
+  }
+  .deftable td{padding:10px 0; color:var(--ink-soft);}
+
+  /* timeline */
+  .timeline{
+    display:flex; align-items:flex-start; gap:0;
+    margin:20px 0 26px;
+    overflow-x:auto;
+    padding-bottom:6px;
+  }
+  .tl-item{
+    flex:1; min-width:110px;
+    text-align:center; position:relative;
+    padding-top:20px;
+  }
+  .tl-item::before{
+    content:""; position:absolute; top:6px; left:0; right:0;
+    height:2px; background:var(--line-color, var(--gold));
+    opacity:0.4;
+  }
+  .tl-item:first-child::before{left:50%;}
+  .tl-item:last-child::before{right:50%;}
+  .tl-dot{
+    position:absolute; top:0; left:50%; transform:translateX(-50%);
+    width:12px; height:12px; border-radius:50%;
+    background:var(--line-color, var(--gold));
+    border:2px solid var(--parchment);
+    box-shadow:0 0 0 1px var(--line-color, var(--gold));
+  }
+  .tl-year{font-family:var(--font-caps); font-weight:600; font-size:15px; color:var(--ink);}
+  .tl-label{font-size:13px; color:var(--ink-faint); line-height:1.3; padding:0 4px;}
+
+  /* objection / response */
+  .dialogue{
+    margin:26px 0;
+    border-radius:6px;
+    overflow:hidden;
+    box-shadow:0 4px 18px rgba(42,32,21,0.12);
+    border:1px solid rgba(0,0,0,0.08);
+  }
+  .dialogue .obj, .dialogue .resp{
+    padding:18px 22px;
+  }
+  .dialogue .obj{
+    background:rgba(0,0,0,0.035);
+    border-bottom:1px dashed rgba(0,0,0,0.15);
+  }
+  .dialogue .resp{background:var(--cream-card);}
+  .dialogue .tag{
+    display:inline-flex; align-items:center; gap:7px;
+    font-family:var(--font-caps); letter-spacing:0.1em; text-transform:uppercase;
+    font-size:13.5px; font-weight:600; margin-bottom:8px;
+  }
+  .dialogue .obj .tag{color:var(--ink-faint);}
+  .dialogue .resp .tag{color:var(--line-color-dark, var(--gold-ink));}
+  .dialogue p{margin:0 0 0.6em 0; font-size:17.5px;}
+  .dialogue p:last-child{margin-bottom:0;}
+
+  .effects-list{
+    list-style:none; padding:0; margin:14px 0 22px;
+    display:grid; grid-template-columns:repeat(auto-fit, minmax(220px,1fr));
+    gap:10px;
+  }
+  .effects-list li{
+    margin:0; padding:10px 14px;
+    background:rgba(0,0,0,0.025);
+    border-left:3px solid var(--line-color, var(--gold));
+    font-size:16.5px;
+  }
+
+  /* color assignments per sacrament */
+  .c-gold1{--line-color:#8B6914; --line-color-dark:#5C4712; --bg-color:rgba(139,105,20,0.12);}
+  .c-gold2{--line-color:#B8860B; --line-color-dark:#8B6a16; --bg-color:rgba(184,134,11,0.12);}
+  .c-gold3{--line-color:#D7B15C; --line-color-dark:#8B6A16; --bg-color:rgba(215,177,92,0.18);}
+  .c-wine1{--line-color:#6B1F2A; --line-color-dark:#4A151C; --bg-color:rgba(107,31,42,0.10);}
+  .c-wine2{--line-color:#8F3241; --line-color-dark:#5C2029; --bg-color:rgba(143,50,65,0.10);}
+  .c-teal1{--line-color:#1F4E5F; --line-color-dark:#153843; --bg-color:rgba(31,78,95,0.10);}
+  .c-teal2{--line-color:#33707F; --line-color-dark:#1F4E5F; --bg-color:rgba(51,112,127,0.10);}
+
+  .nav-item.c-gold1{color:#5C4712;} .nav-item.c-gold1 .medal{background:#8B6914;}
+  .nav-item.c-gold2{color:#8B6a16;} .nav-item.c-gold2 .medal{background:#B8860B;}
+  .nav-item.c-gold3{color:#8B6A16;} .nav-item.c-gold3 .medal{background:#D7B15C;}
+  .nav-item.c-wine1{color:#4A151C;} .nav-item.c-wine1 .medal{background:#6B1F2A;}
+  .nav-item.c-wine2{color:#5C2029;} .nav-item.c-wine2 .medal{background:#8F3241;}
+  .nav-item.c-teal1{color:#153843;} .nav-item.c-teal1 .medal{background:#1F4E5F;}
+  .nav-item.c-teal2{color:#1F4E5F;} .nav-item.c-teal2 .medal{background:#33707F;}
+
+  /* closing */
+  .closing{
+    background:linear-gradient(160deg, var(--wood-dark), var(--wood));
+    color:var(--parchment);
+    border-radius:6px;
+    padding:44px 36px;
+    text-align:center;
+    margin-top:20px;
+    box-shadow:var(--shadow);
+  }
+  .closing h2{color:#F2EAD3; margin-bottom:14px;}
+  .closing p{color:rgba(242,234,211,0.88); font-size:18.5px; max-width:640px; margin:0 auto 1em;}
+  .closing .latin{color:var(--gold-light);}
+
+  footer{
+    text-align:center; padding:36px 20px 60px;
+    font-family:var(--font-caps); letter-spacing:0.1em;
+    color:var(--ink-faint); font-size:15px;
+  }
+
+  /* section divider ornament */
+  .ornament{
+    text-align:center; margin:0 0 40px;
+    color:var(--gold);
+    font-size:22px;
+    letter-spacing:0.5em;
+    opacity:0.6;
+  }
+
+  @media (max-width:640px){
+    .triads{grid-template-columns:1fr;}
+    .sac-header{flex-direction:column; text-align:center;}
+    .deftable th{white-space:normal; width:120px;}
+    body{font-size:17.5px;}
+  }
+</style>
+<style>
+  .tl-portal-fab{
+    position:fixed; left:18px; bottom:18px; z-index:99999;
+    display:inline-flex; align-items:center; gap:9px;
+    padding:10px 16px 10px 12px;
+    border-radius:999px;
+    background:rgba(20,15,10,0.82);
+    border:1px solid rgba(201,164,73,0.55);
+    box-shadow:0 8px 22px rgba(0,0,0,0.35), inset 0 0 0 1px rgba(255,255,255,0.04);
+    backdrop-filter:blur(6px);
+    -webkit-backdrop-filter:blur(6px);
+    text-decoration:none;
+    font-family:'Cormorant SC','Georgia',serif;
+    font-size:14.5px;
+    letter-spacing:0.06em;
+    color:#F1DFA9 !important;
+    transition:transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+  }
+  .tl-portal-fab:hover{
+    transform:translateY(-3px);
+    background:rgba(30,22,14,0.92);
+    box-shadow:0 14px 28px rgba(0,0,0,0.45), inset 0 0 0 1px rgba(255,255,255,0.06);
+  }
+  .tl-portal-fab svg{flex:none; width:17px; height:17px;}
+  .tl-portal-fab span{white-space:nowrap;}
+  @media (max-width:560px){
+    .tl-portal-fab{left:12px; bottom:12px; padding:9px 13px 9px 10px; font-size:13.5px;}
+    .tl-portal-fab svg{width:15px; height:15px;}
+  }
+</style>
+
+</head>
+<body>
+<a href="index.html" class="tl-portal-fab" title="Volver a la Biblioteca de Teología">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v18M6 8h12"/></svg>
+  <span>Biblioteca</span>
+</a>
+
+
+<div id="progress"></div>
+
+<header class="hero">
+  <div class="eyebrow">Tratado doctrinal · Manual de apologética</div>
+  <div class="cross-wrap">
+    <div class="cross-glow"></div>
+    <svg class="cross-svg" width="120" height="150" viewBox="0 0 120 150">
+      <defs>
+        <linearGradient id="woodGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#8A5A34"/>
+          <stop offset="50%" stop-color="#6B4226"/>
+          <stop offset="100%" stop-color="#3E2413"/>
+        </linearGradient>
+        <filter id="grain">
+          <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" result="noise" seed="7"/>
+          <feColorMatrix in="noise" type="matrix" values="0 0 0 0 0.24  0 0 0 0 0.16  0 0 0 0 0.08  0 0 0 0.35 0"/>
+          <feComposite operator="in" in2="SourceGraphic"/>
+        </filter>
+      </defs>
+      <rect x="48" y="6" width="24" height="138" rx="4" fill="url(#woodGrad)"/>
+      <rect x="10" y="46" width="100" height="24" rx="4" fill="url(#woodGrad)"/>
+      <rect x="48" y="6" width="24" height="138" rx="4" filter="url(#grain)"/>
+      <rect x="10" y="46" width="100" height="24" rx="4" filter="url(#grain)"/>
+      <rect x="48" y="6" width="24" height="138" rx="4" fill="none" stroke="#2A1608" stroke-width="1.5" opacity="0.5"/>
+      <rect x="10" y="46" width="100" height="24" rx="4" fill="none" stroke="#2A1608" stroke-width="1.5" opacity="0.5"/>
+    </svg>
+  </div>
+  <h1>Los Siete Sacramentos</h1>
+  <div class="subtitle">Signa Efficacia Gratiæ</div>
+  <p class="verse">
+    <span class="mark">&ldquo;</span>Todo lo que atéis en la tierra quedará atado en el cielo, y todo lo que desatéis en la tierra quedará desatado en el cielo.<span class="mark">&rdquo;</span>
+    <cite>Mateo 18:18</cite>
+  </p>
+</header>
+
+<nav class="sac-nav">
+  <div class="nav-inner" id="navInner">
+    <a href="#fundamento" class="nav-item" data-target="fundamento"><span class="medal" style="background:var(--wood)"></span>Fundamento</a>
+    <a href="#bautismo" class="nav-item c-gold1" data-target="bautismo"><span class="medal"></span>Bautismo</a>
+    <a href="#confirmacion" class="nav-item c-gold2" data-target="confirmacion"><span class="medal"></span>Confirmación</a>
+    <a href="#eucaristia" class="nav-item c-gold3" data-target="eucaristia"><span class="medal"></span>Eucaristía</a>
+    <a href="#penitencia" class="nav-item c-wine1" data-target="penitencia"><span class="medal"></span>Penitencia</a>
+    <a href="#uncion" class="nav-item c-wine2" data-target="uncion"><span class="medal"></span>Unción</a>
+    <a href="#orden" class="nav-item c-teal1" data-target="orden"><span class="medal"></span>Orden</a>
+    <a href="#matrimonio" class="nav-item c-teal2" data-target="matrimonio"><span class="medal"></span>Matrimonio</a>
+  </div>
+</nav>
+
+<main>
+
+  <section id="fundamento" class="sacrament">
+    <div class="intro">
+      <h2>Signo eficaz, no mero símbolo</h2>
+      <p class="dropcap">Los sacramentos son <strong>signos eficaces de la gracia, instituidos por Cristo y confiados a la Iglesia</strong>, mediante los cuales se nos dispensa la vida divina (CCC 1131). La palabra decisiva es <em>eficaces</em>: no recuerdan una gracia ya recibida por la sola fe, sino que la causan realmente. Santo Tomás lo resume en una fórmula que conviene memorizar: <span class="latin">significando causant</span> — significan, y al significar, causan.</p>
+      <p>Esta lógica no es ajena a la Escritura. En el pensamiento hebreo la palabra y el gesto no son meramente representativos, sino performativos: cuando Isaac bendice a Jacob (Gn 27), la bendición produce un efecto real e irrevocable. Si el Verbo se hizo carne, la materia — agua, pan, vino, óleo — puede ser vehículo real de la gracia. Esa es la intuición que sostiene los siete signos.</p>
+
+      <div class="triads">
+        <div class="triad-card triad-gold">
+          <h4>Iniciación cristiana</h4>
+          <p>Bautismo · Confirmación · Eucaristía<br>Insertan en el Cuerpo de Cristo y lo alimentan.</p>
+        </div>
+        <div class="triad-card triad-wine">
+          <h4>Sanación</h4>
+          <p>Penitencia · Unción de los Enfermos<br>Restauran lo que el pecado y la enfermedad deterioran.</p>
+        </div>
+        <div class="triad-card triad-teal">
+          <h4>Al servicio de la comunión</h4>
+          <p>Orden · Matrimonio<br>Orientan a la persona hacia la salvación de otros.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="ornament">✦ ✦ ✦</div>
+
+  <!-- ============ BAUTISMO ============ -->
+  <section id="bautismo" class="sacrament c-gold1">
+    <div class="sac-header">
+      <div class="sac-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3c3 4.5 6 7.8 6 11.2A6 6 0 1 1 6 14.2C6 10.8 9 7.5 12 3Z"/></svg>
+      </div>
+      <div class="sac-titles">
+        <div class="sac-group">Iniciación cristiana · I de III</div>
+        <h2>Bautismo</h2>
+        <div class="sac-latin">Baptismus — la puerta</div>
+      </div>
+    </div>
+
+    <p class="sac-verse">"El que no naciere de agua y del Espíritu, no puede entrar en el reino de Dios."<cite>Juan 3:5</cite></p>
+
+    <div class="sac-body">
+      <h3>Fundamento bíblico</h3>
+      <p>Jesús mismo se somete al bautismo de Juan (Mt 3:13-17) — no por necesitar purificación, sino inaugurando el sacramento con su propio cuerpo. El mandato explícito llega en Mt 28:19: "bauticen... en el nombre del Padre, del Hijo y del Espíritu Santo", fórmula trinitaria y no un gesto simbólico. Pablo es todavía más directo: en Romanos 6:3-4 enseña que el bautismo nos sepulta con Cristo y nos hace resucitar con Él — lenguaje de participación real, no de recuerdo. Tito 3:5 habla del "lavado de la regeneración", y en Juan 3:5 la conjunción de agua y Espíritu aparece como condición para entrar en el Reino, no como metáfora piadosa.</p>
+
+      <h3>Prefiguración en el Antiguo Testamento</h3>
+      <ul>
+        <li><strong>El diluvio</strong> (Gn 6-9): 1 Pedro 3:20-21 afirma explícitamente que el agua que salvó a Noé "os salva ahora también a vosotros en forma de bautismo" — es el propio Pedro quien establece la tipología.</li>
+        <li><strong>El paso del Mar Rojo</strong> (Ex 14): Pablo, en 1 Cor 10:1-2, dice que los israelitas "todos fueron bautizados en Moisés en la nube y en el mar" — de la esclavitud a la libertad, a través del agua.</li>
+        <li><strong>La circuncisión</strong>: Colosenses 2:11-12 conecta directamente la circuncisión del octavo día con el bautismo, llamándolo "la circuncisión de Cristo" — fundamento tipológico del bautismo de infantes.</li>
+        <li><strong>Naamán en el Jordán</strong> (2 Re 5): sumergirse siete veces para ser limpiado de la lepra, figura de la purificación bautismal.</li>
+      </ul>
+
+      <h3>Materia, forma y ministro</h3>
+      <table class="deftable">
+        <tr><th>Materia</th><td>Agua natural, aplicada por infusión, inmersión o aspersión.</td></tr>
+        <tr><th>Forma</th><td>"Yo te bautizo en el nombre del Padre, y del Hijo, y del Espíritu Santo."</td></tr>
+        <tr><th>Ministro ordinario</th><td>Obispo, sacerdote o diácono.</td></tr>
+        <tr><th>Ministro extraordinario</th><td>En peligro de muerte, cualquier persona — incluso no bautizada — con intención de hacer lo que hace la Iglesia y fórmula correcta (CCC 1256). Un bautismo administrado por un pastor protestante con agua y fórmula trinitaria es válido para la Iglesia Católica.</td></tr>
+      </table>
+
+      <h3>Sujeto y requisitos</h3>
+      <p><strong>Adultos:</strong> fe y voluntad de recibirlo, precedidas de catecumenado. <strong>Infantes:</strong> se bautizan con base en la fe de los padres y de la Iglesia, análogamente a la circuncisión del octavo día. Orígenes, hacia el año 244 d.C., escribe que el bautismo de niños es "una tradición recibida de los apóstoles" — ya en el siglo III se defendía como práctica apostólica, no como innovación posterior.</p>
+
+      <h3>Efectos</h3>
+      <ul class="effects-list">
+        <li>Remisión del pecado original y de todo pecado personal.</li>
+        <li>Nuevo nacimiento como hijo adoptivo del Padre.</li>
+        <li>Incorporación al Cuerpo de Cristo, la Iglesia.</li>
+        <li>Participación del sacerdocio común de los fieles.</li>
+        <li>Carácter sacramental indeleble: por eso nunca se repite.</li>
+      </ul>
+
+      <h3>Historia: catorce siglos antes de la lectura simbolista</h3>
+      <div class="timeline">
+        <div class="tl-item"><span class="tl-dot"></span><span class="tl-year">c. 90-110</span><br><span class="tl-label">La Didaché ya da instrucciones precisas para bautizar, con fórmula trinitaria.</span></div>
+        <div class="tl-item"><span class="tl-dot"></span><span class="tl-year">c. 150</span><br><span class="tl-label">Justino Mártir describe el rito asumiendo regeneración real.</span></div>
+        <div class="tl-item"><span class="tl-dot"></span><span class="tl-year">244</span><br><span class="tl-label">Orígenes defiende el bautismo de niños como tradición apostólica.</span></div>
+        <div class="tl-item"><span class="tl-dot"></span><span class="tl-year">1520s</span><br><span class="tl-label">Los anabaptistas proponen por primera vez una lectura memorialista.</span></div>
+      </div>
+      <p>Ningún testimonio patrístico, en ningún siglo, defiende un bautismo "meramente conmemorativo" antes del siglo XVI. Si el <em>sensus fidelium</em> de la Iglesia primitiva — receptora directa de la tradición oral apostólica — entendió el bautismo como regeneración real durante quince siglos, la carga de la prueba recae sobre quien propone una lectura novedosa.</p>
+
+      <div class="dialogue">
+        <div class="obj"><span class="tag">Objeción protestante</span><p>El bautismo del Nuevo Testamento siempre sigue a la fe y al arrepentimiento (Hch 2:38; Mc 16:16). Un infante no puede creer ni arrepentirse; no es sujeto válido.</p></div>
+        <div class="resp"><span class="tag">Respuesta católica</span>
+          <p>Esos textos describen la praxis misionera normal con adultos convertidos de otra fe; no excluyen lógicamente a los hijos de creyentes.</p>
+          <p>Los "bautismos de casa completa" (Hch 16:15, 16:33; 1 Cor 1:16) usan el griego <em>oikos</em>, que en el uso judío y romano del siglo I incluía típicamente a los niños pequeños.</p>
+          <p>Si el bautismo remite el pecado (Hch 2:38) y todo ser humano nace con la mancha del pecado original (Rom 5:12), negarlo al infante es negarle el remedio ordinario que Cristo instituyó — el mismo que abrazó a los niños diciendo: "de los tales es el reino de los cielos" (Mc 10:14).</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="ornament">✦ ✦ ✦</div>
+
+  <!-- ============ CONFIRMACIÓN ============ -->
+  <section id="confirmacion" class="sacrament c-gold2">
+    <div class="sac-header">
+      <div class="sac-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2c1.2 3 3.6 4.6 3.6 8A3.6 3.6 0 0 1 12 13.6 3.6 3.6 0 0 1 8.4 10C8.4 6.6 10.8 5 12 2Z"/><path d="M12 13.6V21M7 21h10"/></svg>
+      </div>
+      <div class="sac-titles">
+        <div class="sac-group">Iniciación cristiana · II de III</div>
+        <h2>Confirmación</h2>
+        <div class="sac-latin">Confirmatio — el sello del Espíritu</div>
+      </div>
+    </div>
+
+    <p class="sac-verse">"Entonces les imponían las manos, y recibían el Espíritu Santo."<cite>Hechos 8:17</cite></p>
+
+    <div class="sac-body">
+      <h3>Fundamento bíblico</h3>
+      <p>Hechos 8:14-17 es el texto ancla: los samaritanos ya estaban bautizados, pero Pedro y Juan van específicamente a imponerles las manos para que reciban el Espíritu Santo — un acto distinto y posterior al bautismo. Hechos 19:1-6 repite el mismo patrón en un contexto completamente distinto (gentiles de Éfeso), lo cual sugiere práctica apostólica normativa y no excepción aislada. Hebreos 6:2 lista "la doctrina de bautismos y la imposición de manos" como elementos fundamentales y distintos entre sí.</p>
+
+      <h3>Prefiguración en el Antiguo Testamento</h3>
+      <p>La unción de reyes y sacerdotes con óleo (1 Sm 16:13, unción de David) prefigura la Confirmación como consagración para una misión. El derramamiento escatológico del Espíritu prometido en Joel 2:28-29 encuentra su cumplimiento en Pentecostés, que la Confirmación actualiza personalmente en cada creyente.</p>
+
+      <h3>Materia, forma y ministro</h3>
+      <table class="deftable">
+        <tr><th>Materia</th><td>Unción con el Santo Crisma en la frente, mediante imposición de manos.</td></tr>
+        <tr><th>Forma</th><td>"Recibe por esta señal el don del Espíritu Santo."</td></tr>
+        <tr><th>Ministro ordinario</th><td>El obispo, sucesor de los apóstoles, en continuidad directa con Hechos 8. En rito latino puede delegarse a un sacerdote en circunstancias específicas.</td></tr>
+      </table>
+
+      <h3>Sujeto y requisitos</h3>
+      <p>Estar bautizado, en estado de gracia, con intención de recibirlo y, cuando hay uso de razón, preparación catequética previa.</p>
+
+      <h3>Efectos</h3>
+      <ul class="effects-list">
+        <li>Aumento y arraigo de la gracia bautismal.</li>
+        <li>Unión más firme con Cristo y la Iglesia.</li>
+        <li>Fortaleza especial del Espíritu para ser testigo.</li>
+        <li>Carácter indeleble: tampoco se repite.</li>
+      </ul>
+
+      <div class="dialogue">
+        <div class="obj"><span class="tag">Objeción protestante</span><p>No existe un sacramento distinto de "segunda bendición" — Hechos 8 es un caso excepcional samaritano, no norma general.</p></div>
+        <div class="resp"><span class="tag">Respuesta católica</span><p>Hechos 19:1-6 repite exactamente el mismo patrón con los discípulos de Éfeso, en un contexto étnico y geográfico distinto, lo que apunta a una práctica apostólica establecida y no a un incidente aislado.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="ornament">✦ ✦ ✦</div>
+
+  <!-- ============ EUCARISTÍA ============ -->
+  <section id="eucaristia" class="sacrament c-gold3">
+    <div class="sac-header">
+      <div class="sac-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M7 3h10M9 3v3.5a3 3 0 0 0 6 0V3M12 6.5V16M8 21c0-2.8 1.8-5 4-5s4 2.2 4 5"/></svg>
+      </div>
+      <div class="sac-titles">
+        <div class="sac-group">Iniciación cristiana · III de III — Fuente y culmen</div>
+        <h2>Eucaristía</h2>
+        <div class="sac-latin">Eucharistia — la presencia real</div>
+      </div>
+    </div>
+
+    <p class="sac-verse">"El que come mi carne y bebe mi sangre, en mí permanece, y yo en él."<cite>Juan 6:56</cite></p>
+
+    <div class="sac-body">
+      <h3>Fundamento bíblico</h3>
+      <p>Juan 6 es el texto decisivo, y su estructura retórica es reveladora: cuando Jesús dice "mi carne es verdadera comida y mi sangre verdadera bebida" (Jn 6:55), la reacción es escándalo y abandono masivo (Jn 6:66): "esto es duro, ¿quién lo puede escuchar?". Si Jesús hablara simbólicamente, tenía la oportunidad perfecta de aclararlo, como hace con Nicodemo o con la samaritana cuando lo malinterpretan literalmente. Aquí, en cambio, refuerza el realismo: usa el verbo griego <em>trógein</em> (masticar, roer) en vez de <em>phagein</em> (comer en general).</p>
+      <p>Las palabras de la institución aparecen en los tres sinópticos y en Pablo, con notable uniformidad: "esto es mi cuerpo... esta es mi sangre" (Mt 26:26-28; Mc 14:22-24; Lc 22:19-20). Pablo, escribiendo hacia el 54-55 d.C. — el testimonio escrito más antiguo que poseemos sobre la Eucaristía, anterior a los evangelios — advierte en 1 Cor 11:27-29 que quien come y bebe indignamente "será reo del cuerpo y de la sangre del Señor" por "no discernir el cuerpo del Señor". Nadie es "reo" de un símbolo.</p>
+
+      <h3>Prefiguración en el Antiguo Testamento</h3>
+      <ul>
+        <li><strong>El maná</strong> (Ex 16): pan del cielo en el desierto. Jn 6:31-35 lo cita como figura que Cristo supera: "vuestros padres comieron el maná... y murieron; este es el pan que desciende del cielo".</li>
+        <li><strong>El cordero pascual</strong> (Ex 12): debía ser comido, no solo inmolado. Cristo, "Cordero de Dios" (Jn 1:29), se ofrece y se da a comer en una cena que es precisamente pascual.</li>
+        <li><strong>Melquisedec</strong> (Gn 14:18): ofrece pan y vino como sacerdote-rey, prefigurando el sacerdocio de Cristo "según el orden de Melquisedec" (Sal 110:4; Hb 5:6-10).</li>
+        <li><strong>El pan de la proposición</strong> (Ex 25:30): doce panes permanentemente presentes ante Dios en el Templo.</li>
+      </ul>
+
+      <h3>Materia, forma y ministro</h3>
+      <table class="deftable">
+        <tr><th>Materia</th><td>Pan de trigo (ázimo en rito latino) y vino de uva con un poco de agua.</td></tr>
+        <tr><th>Forma</th><td>Las palabras de la consagración: "esto es mi Cuerpo... esta es la copa de mi Sangre."</td></tr>
+        <tr><th>Ministro</th><td>Exclusivamente el sacerdote válidamente ordenado, actuando <em>in persona Christi</em>. Ningún laico puede consagrar.</td></tr>
+      </table>
+
+      <h3>Requisitos para recibirla</h3>
+      <p>Estado de gracia (sin pecado mortal no confesado), ayuno eucarístico de al menos una hora, y fe en la presencia real. Si hay conciencia de pecado mortal, la obligación es confesarse antes de comulgar — disciplina que refleja directamente la seriedad de 1 Cor 11:27-29.</p>
+
+      <h3>Historia: quince siglos de unanimidad</h3>
+      <div class="timeline">
+        <div class="tl-item"><span class="tl-dot"></span><span class="tl-year">c. 55</span><br><span class="tl-label">Pablo, en 1 Corintios, ya asume la presencia real como criterio de conducta.</span></div>
+        <div class="tl-item"><span class="tl-dot"></span><span class="tl-year">107</span><br><span class="tl-label">Ignacio de Antioquía, discípulo de Juan, acusa a los docetistas de negar que la Eucaristía es la carne del Salvador.</span></div>
+        <div class="tl-item"><span class="tl-dot"></span><span class="tl-year">155</span><br><span class="tl-label">Justino Mártir: no se recibe "como pan común ni bebida común".</span></div>
+        <div class="tl-item"><span class="tl-dot"></span><span class="tl-year">1520s</span><br><span class="tl-label">Zwinglio propone por primera vez una lectura puramente memorialista.</span></div>
+        <div class="tl-item"><span class="tl-dot"></span><span class="tl-year">1551</span><br><span class="tl-label">Trento formaliza filosóficamente la transubstanciación, ya articulada por Sto. Tomás en el s. XIII.</span></div>
+      </div>
+      <p>No existe un solo documento cristiano de los primeros mil quinientos años que enseñe una interpretación simbólica de la Eucaristía como doctrina de la Iglesia. La transubstanciación es la explicación filosófica posterior; la fe en la presencia real es apostólica y anterior al vocabulario técnico que la explica.</p>
+
+      <div class="dialogue">
+        <div class="obj"><span class="tag">Objeción memorialista (Zwinglio)</span><p>Cuando Jesús dice "esto es mi cuerpo" usa lenguaje figurado, igual que "yo soy la puerta" o "yo soy la vid". ¿Por qué aquí sí sería literal?</p></div>
+        <div class="resp"><span class="tag">Respuesta católica</span>
+          <p>Las metáforas de "puerta" o "vid" no generan escándalo ni deserción porque son transparentemente figurativas. Juan 6 es lo opuesto: genera escándalo explícito porque los oyentes lo entienden literalmente, y Jesús no corrige el malentendido — lo refuerza cambiando de verbo.</p>
+          <p>El testimonio patrístico (Ignacio, año 107) cierra la puerta al argumento de "interpretación tardía": la fe en la presencia real es anterior al cierre del canon del Nuevo Testamento.</p>
+        </div>
+      </div>
+
+      <div class="dialogue">
+        <div class="obj"><span class="tag">Objeción luterana (consustanciación)</span><p>Aceptamos la presencia real, pero el pan y el vino no dejan de ser pan y vino en su sustancia; Cristo está presente "en, con y bajo" los elementos.</p></div>
+        <div class="resp"><span class="tag">Respuesta católica</span><p>Si la sustancia del pan permaneciera junto a la sustancia del Cuerpo, habría dos sustancias completas ocupando el mismo espacio — lo cual viola el principio de que una sustancia define plenamente lo que una cosa es. La transubstanciación sostiene que la sustancia entera del pan se convierte en la del Cuerpo, permaneciendo solo los accidentes (apariencia, sabor, textura).</p></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="ornament">✦ ✦ ✦</div>
+
+  <!-- ============ PENITENCIA ============ -->
+  <section id="penitencia" class="sacrament c-wine1">
+    <div class="sac-header">
+      <div class="sac-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="8" cy="8" r="4"/><path d="M11 11l9 9M17 15l3-3M15 17l3 3"/></svg>
+      </div>
+      <div class="sac-titles">
+        <div class="sac-group">Sanación · I de II</div>
+        <h2>Penitencia</h2>
+        <div class="sac-latin">Pœnitentia — la segunda tabla de salvación</div>
+      </div>
+    </div>
+
+    <p class="sac-verse">"A quienes remitiereis los pecados, les son remitidos; a quienes se los retuviereis, les son retenidos."<cite>Juan 20:23</cite></p>
+
+    <div class="sac-body">
+      <h3>Fundamento bíblico</h3>
+      <p>Juan 20:22-23, la tarde de la Resurrección: Jesús sopla sobre los apóstoles y transfiere la autoridad de perdonar o retener pecados — una transferencia de potestad, no una simple recomendación de orar en privado. Esa potestad solo tiene sentido si implica escuchar: ¿cómo se retiene o perdona selectivamente sin conocer de qué se trata?</p>
+
+      <h3>Prefiguración en el Antiguo Testamento</h3>
+      <p>El Día de la Expiación, <em>Yom Kippur</em> (Lv 16), con el sumo sacerdote intercediendo ante Dios por los pecados del pueblo, y el chivo expiatorio que carga simbólicamente los pecados fuera del campamento.</p>
+
+      <h3>Materia, forma y ministro</h3>
+      <table class="deftable">
+        <tr><th>Materia remota</th><td>Los pecados del penitente.</td></tr>
+        <tr><th>Materia próxima</th><td>Los tres actos del penitente: contrición, confesión oral, satisfacción.</td></tr>
+        <tr><th>Forma</th><td>"Yo te absuelvo de tus pecados, en el nombre del Padre, del Hijo y del Espíritu Santo."</td></tr>
+        <tr><th>Ministro</th><td>Únicamente obispo o sacerdote válidamente ordenado <em>y con jurisdicción</em> otorgada por su ordinario. Sin facultades, la absolución no es válida — salvo en peligro de muerte (CIC can. 976).</td></tr>
+      </table>
+
+      <h3>¿Qué pecados se confiesan?</h3>
+      <p><strong>Pecados mortales:</strong> es obligación de precepto divino confesar todos los que se conocen tras examen diligente, con número y circunstancias que cambien su especie (integridad de la confesión). <strong>Pecados veniales:</strong> la confesión es útil y recomendada, pero no estrictamente obligatoria — pueden perdonarse por contrición, Eucaristía u obras de caridad.</p>
+      <p>Si alguien olvida genuinamente un pecado mortal pese a examinarse con diligencia, la confesión sigue siendo válida y ese pecado queda perdonado (integridad formal cumplida), con obligación de mencionarlo si vuelve a la memoria. La Iglesia no exige perfección de memoria; exige sinceridad de intención.</p>
+
+      <h3>Los tres actos del penitente</h3>
+      <table class="deftable">
+        <tr><th>Contrición</th><td>Dolor y detestación del pecado con propósito de enmienda. <em>Perfecta</em>: nace del amor a Dios y perdona incluso antes de la confesión, siempre que incluya el propósito de confesarse. <em>Imperfecta (atrición)</em>: nace del temor; basta para el sacramento.</td></tr>
+        <tr><th>Confesión</th><td>La acusación oral e íntegra ante el sacerdote.</td></tr>
+        <tr><th>Satisfacción</th><td>Reparar el daño mediante oración, limosna u obras. No "paga" el perdón — ya concedido gratuitamente — sino que sana la pena temporal que persiste tras la culpa perdonada.</td></tr>
+      </table>
+
+      <h3>Efectos</h3>
+      <ul class="effects-list">
+        <li>Reconciliación con Dios y con la Iglesia.</li>
+        <li>Remisión de la pena eterna.</li>
+        <li>Remisión, al menos parcial, de la pena temporal.</li>
+        <li>Restitución de la gracia santificante si se perdió.</li>
+        <li>Paz de conciencia y aumento de fuerza espiritual.</li>
+      </ul>
+
+      <div class="dialogue">
+        <div class="obj"><span class="tag">Objeción protestante</span><p>1 Juan 1:9 dice "si confesamos nuestros pecados, Él es fiel y justo para perdonarnos" — habla de confesar a Dios, no a un hombre. Cristo es el único mediador (1 Tim 2:5).</p></div>
+        <div class="resp"><span class="tag">Respuesta católica</span>
+          <p>Juan 20:23 transfiere específicamente la potestad de perdonar o retener a los apóstoles; es un texto que debe explicarse, no ignorarse.</p>
+          <p>Hay que distinguir la mediación única y suficiente de Cristo en la redención — nadie la niega — de la mediación ministerial e instrumental que Cristo mismo decide usar para aplicarla. Pablo se llama "colaborador de Dios" (1 Cor 3:9) y habla de un "ministerio de la reconciliación" (2 Cor 5:18): un ministerio, no una redundancia.</p>
+          <p>Santiago 5:16 manda "confesaos vuestras faltas unos a otros" como práctica normativa de la comunidad apostólica — ¿por qué desapareció tan completamente en la tradición reformada?</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="ornament">✦ ✦ ✦</div>
+
+  <!-- ============ UNCIÓN ============ -->
+  <section id="uncion" class="sacrament c-wine2">
+    <div class="sac-header">
+      <div class="sac-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2c1.6 3.4 3.4 6 3.4 9.2A3.4 3.4 0 0 1 12 14.6a3.4 3.4 0 0 1-3.4-3.4C8.6 8 10.4 5.4 12 2Z"/><path d="M9 21h6M12 14.6V21"/></svg>
+      </div>
+      <div class="sac-titles">
+        <div class="sac-group">Sanación · II de II</div>
+        <h2>Unción de los Enfermos</h2>
+        <div class="sac-latin">Unctio Infirmorum</div>
+      </div>
+    </div>
+
+    <p class="sac-verse">"¿Está enfermo alguno entre vosotros? Llame a los presbíteros de la Iglesia, y oren por él, ungiéndole con aceite en el nombre del Señor."<cite>Santiago 5:14</cite></p>
+
+    <div class="sac-body">
+      <h3>Fundamento bíblico</h3>
+      <p>Santiago 5:14-15 es un mandato litúrgico concreto y explícito, con materia (óleo), ministro (los presbíteros) y efecto declarado: "la oración de fe salvará al enfermo".</p>
+
+      <h3>Prefiguración en el Antiguo Testamento</h3>
+      <p>La unción con aceite como signo de fortaleza y consagración (Sal 23:5) y el uso terapéutico del óleo en la cultura bíblica, como en la parábola del buen samaritano (Lc 10:34).</p>
+
+      <h3>Materia, forma y ministro</h3>
+      <table class="deftable">
+        <tr><th>Materia</th><td>Óleo de los enfermos, idealmente bendecido por el obispo.</td></tr>
+        <tr><th>Forma</th><td>"Por esta santa unción, y por su bondadosa misericordia, te ayude el Señor con la gracia del Espíritu Santo."</td></tr>
+        <tr><th>Ministro</th><td>Exclusivamente el sacerdote u obispo (Santiago especifica "los presbíteros").</td></tr>
+      </table>
+
+      <h3>Sujeto</h3>
+      <p>Fieles que comienzan a estar en peligro por enfermedad grave o vejez — no exclusivamente el momento de la muerte, que corresponde propiamente al Viático. Puede repetirse si la enfermedad se agrava o sobreviene una nueva.</p>
+
+      <h3>Efectos</h3>
+      <ul class="effects-list">
+        <li>Unión con la pasión de Cristo.</li>
+        <li>Fortaleza y paz interior.</li>
+        <li>Perdón de pecados si no fue posible confesarse.</li>
+        <li>Recuperación de la salud, si conviene al bien espiritual.</li>
+      </ul>
+
+      <div class="dialogue">
+        <div class="obj"><span class="tag">Objeción protestante</span><p>Es "la extremaunción", el ritual medieval para los moribundos, sin base bíblica real.</p></div>
+        <div class="resp"><span class="tag">Respuesta católica</span><p>El nombre popular "extremaunción" surgió pastoralmente en la Edad Media, pero Santiago 5:14-15 habla de sanación y perdón, no solo de preparación para morir. El Concilio Vaticano II restauró el nombre y la práctica originales: Unción de los Enfermos, no solo de los moribundos.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="ornament">✦ ✦ ✦</div>
+
+  <!-- ============ ORDEN ============ -->
+  <section id="orden" class="sacrament c-teal1">
+    <div class="sac-header">
+      <div class="sac-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M7 21V9a5 5 0 0 1 10 0v12M4 21h16M9 13h6"/></svg>
+      </div>
+      <div class="sac-titles">
+        <div class="sac-group">Al servicio de la comunión · I de II</div>
+        <h2>Orden Sacerdotal</h2>
+        <div class="sac-latin">Ordo — configurados con Cristo Pastor</div>
+      </div>
+    </div>
+
+    <p class="sac-verse">"No dejes de ejercitar el don que hay en ti, que te fue dado... con la imposición de las manos."<cite>1 Timoteo 4:14</cite></p>
+
+    <div class="sac-body">
+      <h3>Fundamento bíblico</h3>
+      <p>La imposición de manos como transmisión de autoridad ministerial (1 Tim 4:14; 2 Tim 1:6). La institución de la Eucaristía en la Última Cena viene acompañada del mandato "haced esto en memoria mía" (Lc 22:19), dirigido específicamente a los Doce, no a la multitud presente.</p>
+
+      <h3>Prefiguración en el Antiguo Testamento</h3>
+      <p>El sacerdocio de Aarón y la tribu de Leví (Ex 28-29), consagrados específicamente para el culto, distintos del resto del pueblo. El Nuevo Testamento no abole esta distinción funcional; la transforma cristológicamente.</p>
+
+      <h3>Materia, forma y ministro</h3>
+      <table class="deftable">
+        <tr><th>Materia</th><td>La imposición de manos del obispo.</td></tr>
+        <tr><th>Forma</th><td>La oración consecratoria propia de cada grado (diácono, presbítero, obispo).</td></tr>
+        <tr><th>Ministro</th><td>Únicamente un obispo válidamente consagrado, en sucesión apostólica ininterrumpida.</td></tr>
+      </table>
+
+      <h3>Efectos</h3>
+      <ul class="effects-list">
+        <li>Configura al ordenado con Cristo Cabeza y Pastor de modo ontológico.</li>
+        <li>Carácter indeleble: no se reordena a nadie.</li>
+        <li>Capacidad de consagrar la Eucaristía y absolver pecados.</li>
+      </ul>
+
+      <div class="dialogue">
+        <div class="obj"><span class="tag">Objeción protestante</span><p>El sacerdocio de todos los creyentes (1 Pe 2:9) elimina la necesidad de un sacerdocio ministerial distinto.</p></div>
+        <div class="resp"><span class="tag">Respuesta católica</span><p>1 Pedro 2:9 habla del sacerdocio común de todos los bautizados (participación en la ofrenda espiritual de la propia vida, Rom 12:1), plenamente afirmado también por la Iglesia católica — pero no elimina el sacerdocio ministerial, cualitativamente distinto, del mismo modo que el "reino de sacerdotes" de Israel (Ex 19:6) no eliminó el sacerdocio levítico específico dentro de ese mismo pueblo.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="ornament">✦ ✦ ✦</div>
+
+  <!-- ============ MATRIMONIO ============ -->
+  <section id="matrimonio" class="sacrament c-teal2">
+    <div class="sac-header">
+      <div class="sac-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="9" cy="14" r="5"/><circle cx="15" cy="14" r="5"/></svg>
+      </div>
+      <div class="sac-titles">
+        <div class="sac-group">Al servicio de la comunión · II de II</div>
+        <h2>Matrimonio</h2>
+        <div class="sac-latin">Matrimonium — signo de la unión Cristo-Iglesia</div>
+      </div>
+    </div>
+
+    <p class="sac-verse">"Gran misterio es este; mas yo digo esto respecto de Cristo y de la Iglesia."<cite>Efesios 5:32</cite></p>
+
+    <div class="sac-body">
+      <h3>Fundamento bíblico</h3>
+      <p>Efesios 5:31-32 es la clave: Pablo cita Génesis 2:24 ("dejará el hombre a su padre y a su madre... y los dos serán una sola carne") y añade que ese <em>mysterion</em> — la palabra griega de la que deriva "sacramento" en su traducción latina — se refiere a Cristo y a la Iglesia. El matrimonio no solo se permite: se eleva a signo de esa unión.</p>
+
+      <h3>Prefiguración en el Antiguo Testamento</h3>
+      <p>El matrimonio como institución desde la creación misma (Gn 2:18-24) — el único sacramento con raíz anterior al pecado original, lo cual revela su naturaleza como bien originario, no solo remedial.</p>
+
+      <h3>Materia, forma y ministro</h3>
+      <table class="deftable">
+        <tr><th>Materia y forma</th><td>El consentimiento mutuo, libre y pleno de los esposos, expresado ante testigos.</td></tr>
+        <tr><th>Ministro</th><td>Los propios esposos — el sacerdote o diácono es testigo cualificado de la Iglesia, no quien confiere el sacramento.</td></tr>
+      </table>
+
+      <h3>Requisitos</h3>
+      <p>Libertad de estado, ausencia de impedimentos canónicos, consentimiento válido — sin coacción, error, o exclusión de un elemento esencial como la fidelidad, la indisolubilidad o la apertura a la vida — y forma canónica (ante sacerdote o diácono y testigos, salvo dispensa).</p>
+
+      <h3>Propiedades esenciales</h3>
+      <p>Unidad e indisolubilidad, fundadas directamente en Mt 19:6: "lo que Dios unió, no lo separe el hombre".</p>
+
+      <div class="dialogue">
+        <div class="obj"><span class="tag">Objeción protestante</span><p>Jesús permite el divorcio en caso de <em>porneia</em> (Mt 19:9) — la indisolubilidad católica ignora esta excepción explícita.</p></div>
+        <div class="resp"><span class="tag">Respuesta católica</span><p>La interpretación católica, siguiendo a la mayoría de exégetas patrísticos, sostiene que <em>porneia</em> se refiere aquí a uniones inválidas desde su inicio — parentescos prohibidos por la ley judía (Lv 18) o concubinato —, no a un permiso de divorcio dentro de un matrimonio válido. De ahí que la Iglesia permita la separación de cuerpos en caso de adulterio sin reconocer la disolución del vínculo. Es, honestamente, un punto de debate exegético serio incluso entre católicos y ortodoxos orientales, que sí admiten el divorcio pastoral bajo <em>oikonomía</em>.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="closing">
+    <div class="latin">Fons et Culmen — La carga de la prueba</div>
+    <h2>Un patrón que se repite siete veces</h2>
+    <p>Cada sacramento tiene un texto bíblico explícito de institución, una tipología veterotestamentaria coherente, y un testimonio patrístico temprano y unánime que precede por siglos a cualquier interpretación simbolista. La estrategia más débil es defender de entrada la filosofía escolástica; la más fuerte es mostrar la continuidad ininterrumpida entre el texto apostólico, el testimonio subapostólico inmediato y la fe de la Iglesia indivisa durante un milenio y medio.</p>
+    <p>Eso invierte la carga de la prueba: no es la Iglesia católica quien debe justificar una doctrina "añadida" — es la Reforma quien debe explicar por qué se apartó de un consenso universal de quince siglos.</p>
+  </div>
+
+</main>
+
+<footer>Manual de debate · Sacramentos de la Iglesia Católica</footer>
+
+<script>
+  // progress bar
+  const progress = document.getElementById('progress');
+  function updateProgress(){
+    const h = document.documentElement;
+    const scrolled = h.scrollTop;
+    const height = h.scrollHeight - h.clientHeight;
+    progress.style.width = height > 0 ? (scrolled/height*100) + '%' : '0%';
+  }
+  document.addEventListener('scroll', updateProgress, {passive:true});
+  updateProgress();
+
+  // active nav highlighting
+  const navItems = Array.from(document.querySelectorAll('.nav-item'));
+  const sections = navItems.map(n => document.getElementById(n.dataset.target)).filter(Boolean);
+
+  const observer = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      const id = entry.target.id;
+      const item = navItems.find(n=>n.dataset.target===id);
+      if(!item) return;
+      if(entry.isIntersecting){
+        navItems.forEach(n=>n.classList.remove('active'));
+        item.classList.add('active');
+        item.scrollIntoView({behavior:'smooth', inline:'center', block:'nearest'});
+      }
+    });
+  }, {rootMargin:'-40% 0px -55% 0px', threshold:0});
+
+  sections.forEach(s=>observer.observe(s));
+</script>
+
+</body>
+</html>

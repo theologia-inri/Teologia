@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Apologética Católica</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #c9a84c;
+    --gold-light: #e8c97a;
+    --gold-dark: #8a6a1f;
+    --deep: #1a1208;
+    --dark: #2c1f0e;
+    --mid: #4a3520;
+    --parch: #f5edd8;
+    --parch-dark: #e8d9b8;
+    --cream: #faf6ee;
+    --text: #2c1f0e;
+    --text-muted: #6b5030;
+    --red-accent: #8b1a1a;
+    --blue-accent: #1a3a6b;
+    --green-accent: #1a5c2e;
+    --radius: 6px;
+    --shadow: 0 4px 24px rgba(26,18,8,0.12);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Crimson Pro', Georgia, serif;
+    background: var(--cream);
+    color: var(--text);
+    min-height: 100vh;
+    line-height: 1.7;
+  }
+
+  /* ─── HEADER ─── */
+  header {
+    background: var(--deep);
+    padding: 0;
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 40px,
+      rgba(201,168,76,0.04) 40px,
+      rgba(201,168,76,0.04) 41px
+    );
+  }
+  .header-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 3rem 2rem 2.5rem;
+    position: relative;
+    text-align: center;
+  }
+  .header-cross {
+    font-size: 2rem;
+    color: var(--gold);
+    letter-spacing: 0.3em;
+    display: block;
+    margin-bottom: 1rem;
+    opacity: 0.8;
+  }
+  header h1 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: clamp(2.2rem, 5vw, 3.5rem);
+    font-weight: 700;
+    color: var(--gold-light);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    line-height: 1.1;
+  }
+  header h1 em {
+    font-style: italic;
+    color: var(--gold);
+    font-weight: 400;
+  }
+  .header-subtitle {
+    margin-top: 0.75rem;
+    font-size: 1.05rem;
+    color: rgba(245,237,216,0.65);
+    font-style: italic;
+    font-weight: 300;
+    letter-spacing: 0.02em;
+  }
+  .header-line {
+    width: 120px;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--gold), transparent);
+    margin: 1.5rem auto 0;
+  }
+
+  /* ─── INTRO ─── */
+  .intro {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem 2rem 0;
+  }
+  .intro-box {
+    background: var(--parch);
+    border: 1px solid rgba(201,168,76,0.35);
+    border-left: 4px solid var(--gold);
+    border-radius: var(--radius);
+    padding: 1.25rem 1.5rem;
+    font-size: 1.05rem;
+    color: var(--text-muted);
+    font-style: italic;
+  }
+
+  /* ─── MAIN ─── */
+  main {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 1.5rem 2rem 3rem;
+  }
+
+  /* ─── FILTER TABS ─── */
+  .section-title {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--deep);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .section-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, rgba(201,168,76,0.5), transparent);
+  }
+
+  .search-row {
+    display: flex;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  #search {
+    flex: 1;
+    min-width: 200px;
+    padding: 0.6rem 1rem;
+    font-family: 'Crimson Pro', serif;
+    font-size: 1rem;
+    border: 1px solid rgba(201,168,76,0.5);
+    border-radius: var(--radius);
+    background: white;
+    color: var(--text);
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  #search:focus { border-color: var(--gold); }
+
+  .filters {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.25rem;
+  }
+  .filter-btn {
+    font-family: 'Crimson Pro', serif;
+    font-size: 0.9rem;
+    padding: 0.35rem 0.9rem;
+    border-radius: 20px;
+    border: 1px solid rgba(201,168,76,0.4);
+    background: transparent;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all 0.18s;
+  }
+  .filter-btn:hover { background: var(--parch); }
+  .filter-btn.active {
+    background: var(--gold);
+    color: var(--deep);
+    border-color: var(--gold);
+    font-weight: 600;
+  }
+
+  .count-bar {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+    font-style: italic;
+  }
+
+  /* ─── CARDS ─── */
+  .card {
+    background: white;
+    border: 1px solid rgba(201,168,76,0.25);
+    border-radius: var(--radius);
+    margin-bottom: 0.65rem;
+    overflow: hidden;
+    box-shadow: 0 1px 4px rgba(26,18,8,0.06);
+    transition: box-shadow 0.2s, border-color 0.2s;
+  }
+  .card:hover { box-shadow: var(--shadow); border-color: rgba(201,168,76,0.5); }
+  .card.open { border-color: var(--gold); box-shadow: var(--shadow); }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.9rem 1.1rem;
+    cursor: pointer;
+    user-select: none;
+  }
+  .card-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--gold-dark);
+    background: rgba(201,168,76,0.12);
+    border: 1px solid rgba(201,168,76,0.3);
+    border-radius: 4px;
+    padding: 0.15rem 0.55rem;
+    white-space: nowrap;
+    min-width: 2.2rem;
+    text-align: center;
+  }
+  .card-cat {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    background: var(--parch);
+    border-radius: 4px;
+    padding: 0.15rem 0.55rem;
+    white-space: nowrap;
+  }
+  .card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--deep);
+    flex: 1;
+    line-height: 1.35;
+  }
+  .chevron {
+    font-size: 1.1rem;
+    color: var(--gold);
+    transition: transform 0.25s;
+    flex-shrink: 0;
+  }
+  .card.open .chevron { transform: rotate(180deg); }
+
+  .card-body {
+    display: none;
+    padding: 0 1.25rem 1.25rem;
+    border-top: 1px solid var(--parch-dark);
+    animation: fadeIn 0.25s ease;
+  }
+  .card.open .card-body { display: block; }
+
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: none; } }
+
+  .objection-box {
+    background: rgba(139,26,26,0.05);
+    border-left: 3px solid var(--red-accent);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    padding: 0.75rem 1rem;
+    margin: 1rem 0 1rem;
+  }
+  .obj-label {
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--red-accent);
+    margin-bottom: 0.4rem;
+  }
+  .obj-text {
+    font-size: 0.97rem;
+    color: #5a1a1a;
+    font-style: italic;
+    line-height: 1.6;
+  }
+
+  .resp-label {
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--green-accent);
+    margin-bottom: 0.6rem;
+  }
+  .resp-text {
+    font-size: 1rem;
+    color: var(--text);
+    line-height: 1.75;
+  }
+
+  .verse-box {
+    margin-top: 1rem;
+    padding: 0.75rem 1rem;
+    background: rgba(26,58,107,0.05);
+    border-left: 3px solid var(--blue-accent);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    font-style: italic;
+    font-size: 0.95rem;
+    color: var(--blue-accent);
+    line-height: 1.6;
+  }
+
+  /* ─── RESOURCES SECTION ─── */
+  .resources {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(201,168,76,0.3);
+  }
+
+  .resources-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1rem;
+    margin-top: 1.25rem;
+  }
+
+  .res-group {
+    background: white;
+    border: 1px solid rgba(201,168,76,0.25);
+    border-radius: var(--radius);
+    padding: 1rem 1.1rem;
+    box-shadow: 0 1px 4px rgba(26,18,8,0.05);
+  }
+  .res-group-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--deep);
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--parch-dark);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .res-icon {
+    font-size: 1.1rem;
+  }
+  .res-link {
+    display: block;
+    font-size: 0.93rem;
+    color: var(--blue-accent);
+    text-decoration: none;
+    padding: 0.3rem 0;
+    border-bottom: 1px dotted rgba(26,58,107,0.15);
+    transition: color 0.15s, padding-left 0.15s;
+    line-height: 1.4;
+  }
+  .res-link:last-child { border-bottom: none; }
+  .res-link:hover { color: var(--gold-dark); padding-left: 0.4rem; }
+  .res-link span {
+    display: block;
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    font-style: italic;
+  }
+
+  .general-resources {
+    margin-top: 1.25rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 0.75rem;
+  }
+  .gen-link {
+    background: var(--deep);
+    color: var(--gold-light);
+    text-decoration: none;
+    padding: 0.75rem 1rem;
+    border-radius: var(--radius);
+    font-size: 0.95rem;
+    font-family: 'Crimson Pro', serif;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: background 0.18s, transform 0.15s;
+  }
+  .gen-link:hover { background: var(--mid); transform: translateY(-1px); }
+  .gen-link-icon { font-size: 1.2rem; }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: var(--deep);
+    color: rgba(245,237,216,0.5);
+    text-align: center;
+    padding: 1.5rem;
+    font-size: 0.88rem;
+    font-style: italic;
+    letter-spacing: 0.02em;
+  }
+  footer strong { color: var(--gold); font-style: normal; }
+
+  /* ─── EMPTY ─── */
+  .empty {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: var(--text-muted);
+    font-style: italic;
+    font-size: 1.1rem;
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 600px) {
+    .header-inner { padding: 2rem 1rem 1.5rem; }
+    main, .intro { padding-left: 1rem; padding-right: 1rem; }
+    .card-header { flex-wrap: wrap; }
+    .card-cat { display: none; }
+  }
+</style>
+<style>
+  .tl-portal-fab{
+    position:fixed; left:18px; bottom:18px; z-index:99999;
+    display:inline-flex; align-items:center; gap:9px;
+    padding:10px 16px 10px 12px;
+    border-radius:999px;
+    background:rgba(20,15,10,0.82);
+    border:1px solid rgba(201,164,73,0.55);
+    box-shadow:0 8px 22px rgba(0,0,0,0.35), inset 0 0 0 1px rgba(255,255,255,0.04);
+    backdrop-filter:blur(6px);
+    -webkit-backdrop-filter:blur(6px);
+    text-decoration:none;
+    font-family:'Cormorant SC','Georgia',serif;
+    font-size:14.5px;
+    letter-spacing:0.06em;
+    color:#F1DFA9 !important;
+    transition:transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+  }
+  .tl-portal-fab:hover{
+    transform:translateY(-3px);
+    background:rgba(30,22,14,0.92);
+    box-shadow:0 14px 28px rgba(0,0,0,0.45), inset 0 0 0 1px rgba(255,255,255,0.06);
+  }
+  .tl-portal-fab svg{flex:none; width:17px; height:17px;}
+  .tl-portal-fab span{white-space:nowrap;}
+  @media (max-width:560px){
+    .tl-portal-fab{left:12px; bottom:12px; padding:9px 13px 9px 10px; font-size:13.5px;}
+    .tl-portal-fab svg{width:15px; height:15px;}
+  }
+</style>
+
+</head>
+<body>
+<a href="index.html" class="tl-portal-fab" title="Volver a la Biblioteca de Teología">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v18M6 8h12"/></svg>
+  <span>Biblioteca</span>
+</a>
+
+
+<!-- HEADER -->
+<header>
+  <div class="header-inner">
+    <span class="header-cross">✦ ✞ ✦</span>
+    <h1>Apolo<em>gética</em></h1>
+    <p class="header-subtitle">Respuesta Católica a las Objeciones Evangélicas &mdash; 25 Argumentos con fundamento bíblico y patrístico</p>
+    <div class="header-line"></div>
+  </div>
+</header>
+
+<!-- INTRO -->
+<div class="intro">
+  <div class="intro-box">
+    «Estad siempre preparados para responder a todo el que os pida razón de la esperanza que hay en vosotros.» &mdash; 1 Pedro 3:15. Esta guía recoge los argumentos más frecuentes contra la fe católica y ofrece respuestas fundamentadas en la Escritura, los Padres de la Iglesia y la razón teológica.
+  </div>
+</div>
+
+<!-- MAIN -->
+<main>
+
+  <h2 class="section-title" style="margin-top:1.5rem">Los 25 Argumentos</h2>
+
+  <div class="search-row">
+    <input type="text" id="search" placeholder="Buscar por tema, palabra clave..." oninput="renderCards()">
+  </div>
+
+  <div class="filters" id="filters">
+    <button class="filter-btn active" onclick="setFilter('todos',this)">Todos</button>
+    <button class="filter-btn" onclick="setFilter('escritura',this)">Escritura y Tradición</button>
+    <button class="filter-btn" onclick="setFilter('maria',this)">María y Santos</button>
+    <button class="filter-btn" onclick="setFilter('sacramentos',this)">Sacramentos</button>
+    <button class="filter-btn" onclick="setFilter('difuntos',this)">Difuntos y Purgatorio</button>
+    <button class="filter-btn" onclick="setFilter('otros',this)">Otros</button>
+  </div>
+
+  <div class="count-bar" id="count-bar"></div>
+  <div id="cards-container"></div>
+
+  <!-- RESOURCES -->
+  <div class="resources">
+    <h2 class="section-title">Recursos y Links de Estudio</h2>
+
+    <div class="resources-grid">
+
+      <div class="res-group">
+        <div class="res-group-title"><span class="res-icon"></span> Escritura y Tradición</div>
+        <a class="res-link" href="https://apologeticacatolica.org/canon/Le-sobran-libros-%C2%BFa-la-Biblia-Catolica/" target="_blank">
+          ¿Le sobran libros a la Biblia Católica?
+          <span>apologeticacatolica.org</span>
+        </a>
+        <a class="res-link" href="https://apologeticacatolica.org/canon/Desarrollo-del-Canon-de-las-Sagradas-Escrituras/" target="_blank">
+          Desarrollo del Canon Bíblico
+          <span>apologeticacatolica.org</span>
+        </a>
+        <a class="res-link" href="https://apologeticacatolica.org/canon/Los-Apocrifos-%C2%BFPorque-forman-parte-de-la-Biblia/" target="_blank">
+          Los "Apócrifos": ¿por qué son parte de la Biblia?
+          <span>apologeticacatolica.org</span>
+        </a>
+        <a class="res-link" href="https://apologeticacatolica.org/Tradicion/La-Tradicion-Sola-Escritura-y-la-Iglesia-primitiva/" target="_blank">
+          Tradición, Sola Scriptura e Iglesia primitiva
+          <span>apologeticacatolica.org</span>
+        </a>
+        <a class="res-link" href="https://apologeticacatolica.org/Tradicion/" target="_blank">
+          Archivo: Escritura y Tradición (todos los artículos)
+          <span>apologeticacatolica.org</span>
+        </a>
+        <a class="res-link" href="https://rincondeapologeticacatolica.wordpress.com/2018/09/25/tema-55-libros-deuterocanonicos/" target="_blank">
+          Tema 55: Libros Deuterocanónicos
+          <span>rincondeapologeticacatolica.wordpress.com</span>
+        </a>
+      </div>
+
+      <div class="res-group">
+        <div class="res-group-title"><span class="res-icon"></span> María y los Santos</div>
+        <a class="res-link" href="http://apologetica.org/sitio/index.php/la-biblia/608-jesus-unico-mediador-y-las-mediaciones-de-maria-y-los-santos" target="_blank">
+          Jesús, único mediador, y las mediaciones de María
+          <span>apologetica.org</span>
+        </a>
+        <a class="res-link" href="https://es.catholic.net/op/articulos/5417/cat/13/maria-es-intercesora-o-solo-cristo-lo-es.html" target="_blank">
+          ¿María es intercesora o solo Cristo lo es?
+          <span>catholic.net</span>
+        </a>
+        <a class="res-link" href="https://apologeticacatolica.org/santos/Intercesion-2/" target="_blank">
+          La intercesión de los Santos — fundamento bíblico
+          <span>apologeticacatolica.org</span>
+        </a>
+        <a class="res-link" href="https://es.catholic.net/op/articulos/16830/cat/12/la-intercesion-de-los-santos.html" target="_blank">
+          ¿Por qué los católicos rezamos a los Santos?
+          <span>catholic.net</span>
+        </a>
+        <a class="res-link" href="https://www.infocatolica.com/blog/coradcor.php/1304280323-un-poco-de-apologetica-sobre" target="_blank">
+          Apologética sobre la comunión de los santos
+          <span>infocatolica.com</span>
+        </a>
+        <a class="res-link" href="https://www.aciprensa.com/recurso/4410/maria-mediadora-de-todas-las-almas-del-purgatorio" target="_blank">
+          María mediadora de las almas del Purgatorio
+          <span>aciprensa.com</span>
+        </a>
+      </div>
+
+      <div class="res-group">
+        <div class="res-group-title"><span class="res-icon"></span> Sacramentos</div>
+        <a class="res-link" href="https://apologeticacatolica.org/bautismo/El-Bautismo-del-Libro-Para-Salvarte/" target="_blank">
+          El Bautismo — doctrina y práctica
+          <span>apologeticacatolica.org</span>
+        </a>
+        <a class="res-link" href="https://apologeticacatolica.org/penitencia/Sobre-la-Confesion/" target="_blank">
+          La Confesión — fundamento escriturístico
+          <span>apologeticacatolica.org</span>
+        </a>
+        <a class="res-link" href="https://apologeticacatolica.org/patristica/El-sacramento-de-la-penitencia-en-la-historia-2/" target="_blank">
+          Historia del Sacramento de la Penitencia
+          <span>apologeticacatolica.org</span>
+        </a>
+        <a class="res-link" href="https://apologeticacatolica.org/eucaristia/Eucaristia-%C2%BFpresencia-real-o-simbolica/" target="_blank">
+          Eucaristía: ¿Presencia real o simbólica?
+          <span>apologeticacatolica.org</span>
+        </a>
+        <a class="res-link" href="https://apologeticacatolica.org/eucaristia/La-Transubstanciacion-y-la-Iglesia-primitiva/" target="_blank">
+          Transubstanciación e Iglesia primitiva
+          <span>apologeticacatolica.org</span>
+        </a>
+        <a class="res-link" href="https://apologeticacatolica.org/eucaristia/La-Transustanciacion-%C2%BFMilagro-o-Fraude/" target="_blank">
+          La Transubstanciación: ¿Milagro o Fraude?
+          <span>apologeticacatolica.org</span>
+        </a>
+        <a class="res-link" href="https://apologeticacatolica.org/eucaristia/El-sacrificio-de-la-Misa-que-ensena-la-Escritura/" target="_blank">
+          El sacrificio de la Misa — qué enseña la Escritura
+          <span>apologeticacatolica.org</span>
+        </a>
+      </div>
+
+      <div class="res-group">
+        <div class="res-group-title"><span class="res-icon"></span> Difuntos y Purgatorio</div>
+        <a class="res-link" href="https://apologeticacatolica.org/masalla/Teologia-del-Purgatorio/" target="_blank">
+          Teología del Purgatorio — estudio completo
+          <span>apologeticacatolica.org</span>
+        </a>
+        <a class="res-link" href="https://apologeticacatolica.org/masalla/%C2%BFQue-son-las-indulgencias-%C2%BFCuando-se-pueden-ganar-y-como/" target="_blank">
+          ¿Qué son las indulgencias? ¿Cómo se ganan?
+          <span>apologeticacatolica.org</span>
+        </a>
+        <a class="res-link" href="https://laverdadcatolica.org/las-indulgencias/" target="_blank">
+          Las Indulgencias — explicación detallada
+          <span>laverdadcatolica.org</span>
+        </a>
+      </div>
+
+    </div>
+
+    <h3 class="section-title" style="margin-top:1.75rem;font-size:1.05rem">Portales Generales de Apologética Católica</h3>
+    <div class="general-resources">
+      <a class="gen-link" href="https://apologeticacatolica.org" target="_blank">
+        <span class="gen-link-icon"></span> apologeticacatolica.org
+      </a>
+      <a class="gen-link" href="https://es.catholic.net/op/categorias/12/apologetica.html" target="_blank">
+        <span class="gen-link-icon"></span> catholic.net — Apologética
+      </a>
+      <a class="gen-link" href="https://www.defiendetufe.com" target="_blank">
+        <span class="gen-link-icon"></span> defiendetufe.com
+      </a>
+      <a class="gen-link" href="https://www.aciprensa.com" target="_blank">
+        <span class="gen-link-icon"></span> aciprensa.com
+      </a>
+      <a class="gen-link" href="http://www.apologetica.org" target="_blank">
+        <span class="gen-link-icon"></span> apologetica.org
+      </a>
+      <a class="gen-link" href="https://laverdadcatolica.org" target="_blank">
+        <span class="gen-link-icon"></span> laverdadcatolica.org
+      </a>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <strong>Apologética Católica</strong> &mdash; «Siempre preparados para dar razón de la esperanza» &mdash; 1 Pedro 3:15
+</footer>
+
+<script>
+const DATA = [
+  {
+    id:1, cat:"escritura",
+    title:"Libros deuterocanónicos en el canon bíblico",
+    objection:"Estos libros no pertenecen al canon hebreo y se usan para sostener doctrinas como el purgatorio.",
+    response:"Los libros deuterocanónicos pertenecen a la Septuaginta, la traducción griega del Antiguo Testamento que usaban Jesús y los apóstoles. El Nuevo Testamento la cita cientos de veces. La Iglesia primitiva los reconoció como canónicos en los concilios de Hipona (393) y Cartago (397), siglos antes de que Lutero los eliminara en 1534. Fueron los reformadores quienes cambiaron el canon, no la Iglesia Católica. Hebreos 11:35 alude claramente a 2 Macabeos 7, mostrando que el autor del NT conocía y validaba ese libro.",
+    verse:"«Las mujeres recibieron a sus muertos por resurrección; otros fueron torturados, no aceptando el rescate, a fin de obtener mejor resurrección.» — Hebreos 11:35 (referencia a 2 Mac 7)"
+  },
+  {
+    id:2, cat:"escritura",
+    title:"Autoridad del Magisterio para definir doctrina",
+    objection:"La autoridad final debe ser la Palabra de Dios, no una institución religiosa.",
+    response:"La Biblia misma no cayó del cielo encuadernada ni con un índice. Fue la Iglesia, guiada por el Espíritu Santo, quien discernió qué libros eran inspirados. Sin el Magisterio, ¿quién decide que el Evangelio de Tomás no es bíblico? La Biblia afirma que la Iglesia es «columna y fundamento de la verdad» (1 Tim 3:15). El problema de la «sola Scriptura» es que produce miles de denominaciones con interpretaciones contradictorias, todas leyendo el mismo texto.",
+    verse:"«La Iglesia del Dios viviente, columna y fundamento de la verdad.» — 1 Timoteo 3:15"
+  },
+  {
+    id:3, cat:"escritura",
+    title:"La Tradición al nivel de la Escritura",
+    objection:"Toda doctrina debe ser examinada solo por la Escritura.",
+    response:"El propio San Pablo ordena guardar las tradiciones orales: «Conservad las tradiciones tal como os las entregué» (1 Cor 11:2). Juan reconoce que no todo está escrito (Jn 21:25). La Biblia nunca dice ser la única fuente de revelación. La «sola Scriptura» es ella misma una tradición no bíblica inventada en el siglo XVI. La Tradición Apostólica no contradice la Escritura, la complementa y la contextualiza correctamente.",
+    verse:"«Os alabo porque en todo os acordáis de mí y retenéis las tradiciones tal como os las entregué.» — 1 Corintios 11:2"
+  },
+  {
+    id:4, cat:"maria",
+    title:"María como mediadora e intercesora",
+    objection:"Hay un solo mediador: Jesucristo. Atribuirle funciones a María es un error.",
+    response:"Cristo es el único mediador en sentido absoluto y redentor. Pero la mediación de los creyentes entre sí no contradice eso. Cuando pedimos a alguien que ore por nosotros, usamos una mediación subordinada. María ejerce una mediación intercesora, no salvífica ni independiente, todo supeditado a Cristo. En Caná, Jesús obra el milagro a petición de su madre (Jn 2), mostrando que Dios honra su intercesión.",
+    verse:"«Su madre dijo a los sirvientes: Haced todo lo que él os diga.» — Juan 2:5"
+  },
+  {
+    id:5, cat:"maria",
+    title:"Orar a María",
+    objection:"La oración debe dirigirse solo a Dios. Orar a María es un error.",
+    response:"Hay que distinguir «orar» en el sentido de adorar (latría, solo a Dios) de «orar» como pedir o dirigirse a alguien. Pedirle a María que interceda es como pedirle a un amigo vivo que ore por uno. Los santos no están muertos para Dios: «No es Dios de muertos, sino de vivos» (Lc 20:38). María vive gloriosamente en el cielo. En Apocalipsis 5:8, los santos ofrecen ante Dios las oraciones de los fieles.",
+    verse:"«Dios no es Dios de muertos, sino de vivos, porque para él todos viven.» — Lucas 20:38"
+  },
+  {
+    id:6, cat:"maria",
+    title:"El rosario como práctica no bíblica",
+    objection:"El rosario consiste en repeticiones religiosas y oraciones a María, contrario al modelo de Cristo.",
+    response:"Jesús criticó las «vanas repeticiones» de los paganos (Mt 6:7), no la oración repetida con fervor. El Salterio entero es repetición orante. En Apocalipsis, los seres celestiales repiten sin cesar «Santo, santo, santo» (Ap 4:8). El rosario medita en los misterios de la vida de Cristo; María no es el fin sino la guía hacia Él. Las oraciones del rosario son mayormente bíblicas: el Padrenuestro, el Ave María (Lucas 1:28,42) y el Gloria.",
+    verse:"«¡Alégrate, llena de gracia, el Señor está contigo!» — Lucas 1:28 (base del Ave María)"
+  },
+  {
+    id:7, cat:"maria",
+    title:"Invocar a los santos para que intercedan",
+    objection:"La Biblia no enseña que debamos invocar a creyentes muertos.",
+    response:"Apocalipsis 5:8 muestra a los veinticuatro ancianos (santos) presentando ante Dios las oraciones de los fieles. Apocalipsis 8:3-4 muestra a un ángel ofreciendo incienso junto con esas oraciones. Si los ángeles pueden interceder, ¿por qué no los santos glorificados que viven con Dios? La comunión de los santos es un dogma antiguo: la muerte no rompe la unidad del Cuerpo de Cristo.",
+    verse:"«Los veinticuatro ancianos se postraron ante el Cordero, teniendo copas de oro llenas de incienso, que son las oraciones de los santos.» — Apocalipsis 5:8"
+  },
+  {
+    id:8, cat:"otros",
+    title:"Imágenes, estatuas y reliquias en la devoción",
+    objection:"La Biblia prohíbe inclinarse ante imágenes y rendirles culto.",
+    response:"El mandamiento prohíbe hacer ídolos para adorarlos como dioses. Sin embargo, el mismo Dios ordenó hacer imágenes sagradas: los querubines sobre el Arca (Ex 25:18) y la serpiente de bronce (Nm 21:8-9). Las estatuas católicas no son dioses; son representaciones del Dios hecho hombre y de sus santos. Arrodillarse como gesto de veneración es distinto a adorar. Toda familia tiene fotos de sus seres queridos; el católico tiene imágenes de los suyos en el cielo.",
+    verse:"«Harás también dos querubines de oro [...] sobre el propiciatorio.» — Éxodo 25:18"
+  },
+  {
+    id:9, cat:"otros",
+    title:"Confundir veneración con adoración",
+    objection:"Las prácticas populares funcionan como adoración aunque se diga que no.",
+    response:"La distinción teológica es real y antigua: latría (adoración a Dios solo), dulía (honor a los santos) e hiperdulía (honor especial a María). El abuso popular no invalida la doctrina correcta. La veneración es el honor que se da a quien es excelente, no la adoración de un dios. Honrar a la madre de Jesús es cumplir su propia profecía: «Me llamarán bienaventurada todas las generaciones» (Lc 1:48).",
+    verse:"«Desde ahora me llamarán bienaventurada todas las generaciones.» — Lucas 1:48"
+  },
+  {
+    id:10, cat:"sacramentos",
+    title:"El bautismo de niños",
+    objection:"El bautismo bíblico debe venir después de fe personal. Bautizar bebés no es apostólico.",
+    response:"El NT describe bautismos de «casas enteras» (Hch 16:15,33; 1 Cor 1:16), lo que incluiría niños. El bautismo es el nuevo equivalente de la circuncisión (Col 2:11-12), que en Israel se aplicaba a los infantes. Jesús dijo que para entrar al reino hay que nacer «de agua y Espíritu» (Jn 3:5) sin poner límite de edad. La fe de los padres y la comunidad sostiene al niño, como el paralítico fue traído en fe por sus amigos (Mc 2:5).",
+    verse:"«Bautizó a toda su familia.» — Hechos 16:15"
+  },
+  {
+    id:11, cat:"sacramentos",
+    title:"Los sacramentos como medios de gracia",
+    objection:"Esto oscurece la enseñanza de que la salvación es por gracia, no por ritos.",
+    response:"Los sacramentos no son obras humanas que merezcan la salvación; son actos de Dios que usan elementos materiales para comunicar gracia, igual que usó el barro para sanar al ciego (Jn 9:6). Dios es soberano en sus medios. La gracia sigue siendo gratuita; el sacramento es el canal, no el mérito. Sería como decir que leer la Biblia es «salvarse por una obra».",
+    verse:"«El que crea y sea bautizado, se salvará.» — Marcos 16:16"
+  },
+  {
+    id:12, cat:"sacramentos",
+    title:"La primera comunión como rito formal",
+    objection:"Es una tradición no establecida por Cristo ni los apóstoles.",
+    response:"La Eucaristía sí fue instituida por Cristo («Haced esto en memoria mía», Lc 22:19). La «primera comunión» es simplemente el momento en que un cristiano recibe este sacramento por primera vez con plena conciencia. La práctica de preparar a los fieles antes es apostólica: Pablo advierte sobre recibirlo indignamente (1 Cor 11:27-29). La edad y la catequesis son determinaciones pastorales, no cambios doctrinales.",
+    verse:"«Haced esto en memoria mía.» — Lucas 22:19"
+  },
+  {
+    id:13, cat:"sacramentos",
+    title:"La transubstanciación",
+    objection:"La Cena del Señor es memorial, no transformación literal del pan y el vino.",
+    response:"Jesús dijo «Esto ES mi cuerpo» (Mt 26:26), no «esto representa». En Juan 6, cuando la gente lo tomó literalmente y se escandalizó, Jesús no los corrigió diciendo «era metáfora»; al contrario, los dejó ir y repitió la enseñanza. Pablo dice que quien come indignamente es «reo del cuerpo y la sangre del Señor» (1 Cor 11:27), lenguaje imposible si fuera solo símbolo. Los Padres de la Iglesia enseñaron la presencia real desde el siglo I y II.",
+    verse:"«Mi carne es verdadera comida y mi sangre es verdadera bebida.» — Juan 6:55"
+  },
+  {
+    id:14, cat:"sacramentos",
+    title:"La misa como sacrificio",
+    objection:"Cristo se ofreció una sola vez; el sacrificio no necesita repetirse.",
+    response:"La Iglesia enseña que la misa no es un sacrificio nuevo ni una repetición, sino la actualización sacramental del único sacrificio de Cristo, que es eterno. Hebreos 7:25 dice que Cristo «siempre vive para interceder». Su sacrificio no quedó en el pasado; es una realidad eterna presente. La misa hace presente ese sacrificio único, como el memorial pascual judío hacía presente el Éxodo sin repetirlo.",
+    verse:"«Siempre vive para interceder por ellos.» — Hebreos 7:25"
+  },
+  {
+    id:15, cat:"sacramentos",
+    title:"La confesión ante un sacerdote",
+    objection:"El creyente puede acudir directamente a Dios; no necesita un sacerdote mediador.",
+    response:"Jesús mismo instituyó la confesión auricular cuando dijo a los apóstoles: «A quienes perdonéis los pecados, les serán perdonados» (Jn 20:23). Esta capacidad de perdonar o retener pecados implica conocerlos, lo que requiere confesión. Santiago ordena: «Confesaos los pecados unos a otros» (Sant 5:16). El sacerdote actúa in persona Christi, no como obstáculo sino como instrumento del perdón de Dios.",
+    verse:"«A quienes perdonéis los pecados, les son perdonados; a quienes se los retengáis, les son retenidos.» — Juan 20:23"
+  },
+  {
+    id:16, cat:"difuntos",
+    title:"El purgatorio",
+    objection:"No aparece claramente en el NT y debilita la suficiencia del sacrificio de Cristo.",
+    response:"El purgatorio no es un segundo intento de salvación; es la purificación de las imperfecciones de quien ya está salvado pero aún no es plenamente santo. Dios no puede ser visto con ninguna mancha (Ap 21:27). Pablo habla de una «prueba de fuego» que juzga la obra del creyente ya salvo (1 Cor 3:13-15). Mateo 12:32 menciona pecados no perdonados «ni en este siglo ni en el venidero», implicando que algo ocurre después de esta vida.",
+    verse:"«Él mismo se salvará, aunque como a través del fuego.» — 1 Corintios 3:15"
+  },
+  {
+    id:17, cat:"difuntos",
+    title:"Las indulgencias",
+    objection:"El perdón no puede depender de actos religiosos administrados por la Iglesia.",
+    response:"La indulgencia no perdona el pecado (eso lo hace la confesión) ni compra la salvación; remite la pena temporal que puede quedar tras el perdón. Es el equivalente a que un padre perdone a su hijo pero le pida reparar el daño causado. La Iglesia tiene poder de atar y desatar (Mt 16:19; 18:18). Las indulgencias actuales no se venden; los abusos del siglo XVI fueron condenados por el propio Concilio de Trento.",
+    verse:"«Todo lo que atéis en la tierra, será atado en el cielo.» — Mateo 16:19"
+  },
+  {
+    id:18, cat:"difuntos",
+    title:"Orar por los muertos",
+    objection:"Los vivos no pueden cambiar el destino eterno de una persona muerta.",
+    response:"La Iglesia enseña lo mismo: no se ora por los condenados. Se ora por quienes murieron en gracia pero están en proceso de purificación. Judas Macabeo oró y ofreció sacrificio por los muertos (2 Mac 12:43-45), y el texto lo presenta como acto piadoso. Los primeros cristianos inscribían en las catacumbas oraciones por sus difuntos. La tradición ininterrumpida de la Iglesia primitiva lo atestigua.",
+    verse:"«Rogaba por los muertos para que fueran librados del pecado.» — 2 Macabeos 12:45"
+  },
+  {
+    id:19, cat:"difuntos",
+    title:"Las nueve noches (novenario)",
+    objection:"Es una práctica no bíblica que no puede ayudar al alma del difunto.",
+    response:"El novenario tiene raíces en el luto bíblico. Israel lloró a Moisés treinta días (Dt 34:8) y a Aarón treinta días (Nm 20:29). La Iglesia primitiva tenía periodos definidos de oración por los difuntos. El novenario es una práctica pastoral de oración comunitaria; su finalidad principal es la consolación de la comunidad y la intercesión válida por el alma. El número nueve es costumbre cultural, no dogma.",
+    verse:"«Lloren treinta días todas las casas de Israel la muerte de Aarón.» — Números 20:29"
+  },
+  {
+    id:20, cat:"difuntos",
+    title:"Misas por los difuntos",
+    objection:"Ninguna ceremonia puede beneficiar espiritualmente a alguien que ya murió.",
+    response:"La misa ofrece ante Dios el sacrificio eterno de Cristo en favor del difunto que murió en su gracia. No crea la salvación del muerto desde cero; aplica la misericordia de Cristo a quien ya confió en Él. Los Padres de la Iglesia (Tertuliano, Agustín) mencionan las ofrendas por los difuntos como práctica apostólica. La madre de Agustín, Mónica, le pidió que ofreciera el sacrificio por ella después de morir.",
+    verse:"«Acordaos de los que os precedieron en el signo de la fe y duermen el sueño de la paz.» — Canon Romano (siglo IV)"
+  },
+  {
+    id:21, cat:"difuntos",
+    title:"Llevar a un difunto a la iglesia para las exequias",
+    objection:"El funeral no salva; no puede hacer por el muerto lo que no quiso en vida.",
+    response:"Nadie afirma que el funeral salva automáticamente. Las exequias son para la comunidad, para encomendar el alma a Dios y para que la familia ore. La Iglesia es honesta: solo Dios juzga. El funeral es un acto de esperanza y de caridad, no un boleto al cielo. Incluir el cuerpo en la oración de la comunidad es reconocer que esa persona fue portadora de la imagen de Dios.",
+    verse:"«Dichosos los muertos que mueren en el Señor.» — Apocalipsis 14:13"
+  },
+  {
+    id:22, cat:"difuntos",
+    title:"Falsa seguridad mediante ritos funerarios",
+    objection:"Los ritos hacen creer que el muerto quedó bien con Dios por la ceremonia.",
+    response:"Este es un problema de catequesis popular, no de doctrina oficial. La Iglesia enseña claramente que la salvación depende de la fe y la vida del individuo, no del funeral. La crítica correcta sería exigir mejor evangelización, no eliminar los sacramentos. Los evangélicos también tienen abusos populares. El abuso no invalida el uso correcto; la respuesta es catequesis fiel.",
+    verse:"«No todo el que me diga: Señor, Señor, entrará en el reino de los cielos.» — Mateo 7:21"
+  },
+  {
+    id:23, cat:"otros",
+    title:"Mezcla de cristianismo y supersticiones populares",
+    objection:"Velas para el alma, miedo a que «quede penando», mezclan religión con superstición.",
+    response:"El sincretismo popular es un problema real. Pero eso no es doctrina católica; es deformación popular que la Iglesia ha criticado siempre. La solución es evangelización, no abandono de la fe sacramental. También en el evangelicalismo popular proliferan supersticiones: prosperidad mágica, «siembra financiera», reprendidas demoníacas sobre la economía. Ninguna tradición es inmune al sincretismo; la respuesta es catequesis fiel.",
+    verse:"«Guardaos de los ídolos.» — 1 Juan 5:21"
+  },
+  {
+    id:24, cat:"sacramentos",
+    title:"Salvación ligada a ritos, obras y méritos",
+    objection:"La salvación depende de sacramentos, misas, indulgencias y méritos, no de Cristo solo.",
+    response:"La Iglesia enseña que la salvación es don gratuito de Dios (Ef 2:8-9), nunca ganada. El Concilio de Trento condenó expresamente la idea de merecer la salvación por obras propias. Los sacramentos son medios de la gracia de Cristo, no sustitutos. Las obras son fruto de la salvación, no su causa, aunque el juicio incluye las obras (Mt 25:31-46; Sant 2:24).",
+    verse:"«Porque por gracia habéis sido salvados por medio de la fe; y esto no de vosotros, es don de Dios.» — Efesios 2:8"
+  },
+  {
+    id:25, cat:"maria",
+    title:"Mediadores entre el creyente y Cristo",
+    objection:"María, santos, sacerdotes y sacramentos son mediadores que desplazan a Cristo.",
+    response:"Cristo es el único mediador en sentido absoluto (1 Tim 2:5), pero el mismo versículo pide intercesión de todos (v.1: «oren por todos»). Toda intercesión es mediación subordinada a Cristo, no rival. Los sacerdotes, los santos, la propia Escritura y la predicación son medios a través de los cuales Cristo actúa. La encarnación misma es Dios actuando a través de lo humano: esa es la lógica católica.",
+    verse:"«Exhorto a que se hagan rogativas, oraciones, peticiones y acciones de gracias por todos los hombres.» — 1 Timoteo 2:1"
+  }
+];
+
+const CAT_LABELS = {
+  todos:'Todos', escritura:'Escritura y Tradición', maria:'María y Santos',
+  sacramentos:'Sacramentos', difuntos:'Difuntos y Purgatorio', otros:'Otros'
+};
+
+let activeFilter = 'todos';
+let openCards = new Set();
+
+function setFilter(cat, btn) {
+  activeFilter = cat;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderCards();
+}
+
+function renderCards() {
+  const q = document.getElementById('search').value.toLowerCase().trim();
+  const visible = DATA.filter(d => {
+    const matchCat = activeFilter === 'todos' || d.cat === activeFilter;
+    const matchQ = !q || d.title.toLowerCase().includes(q) || d.response.toLowerCase().includes(q) || d.objection.toLowerCase().includes(q);
+    return matchCat && matchQ;
+  });
+
+  document.getElementById('count-bar').textContent = `Mostrando ${visible.length} de ${DATA.length} argumentos`;
+
+  const container = document.getElementById('cards-container');
+  if (!visible.length) {
+    container.innerHTML = '<div class="empty">No se encontraron argumentos con esa búsqueda.</div>';
+    return;
+  }
+
+  container.innerHTML = visible.map(d => {
+    const isOpen = openCards.has(d.id);
+    return `<div class="card${isOpen?' open':''}" id="card-${d.id}">
+      <div class="card-header" onclick="toggleCard(${d.id})">
+        <span class="card-num">#${d.id}</span>
+        <span class="card-cat">${CAT_LABELS[d.cat]}</span>
+        <span class="card-title">${d.title}</span>
+        <span class="chevron">▾</span>
+      </div>
+      <div class="card-body">
+        <div class="objection-box">
+          <div class="obj-label">⚔ La objeción evangélica</div>
+          <div class="obj-text">${d.objection}</div>
+        </div>
+        <div class="resp-label">✦ Respuesta Católica</div>
+        <div class="resp-text">${d.response}</div>
+        <div class="verse-box">📖 ${d.verse}</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function toggleCard(id) {
+  if (openCards.has(id)) openCards.delete(id);
+  else openCards.add(id);
+  const card = document.getElementById('card-'+id);
+  if (card) card.classList.toggle('open');
+}
+
+renderCards();
+</script>
+</body>
+</html>

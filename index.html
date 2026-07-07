@@ -24,6 +24,8 @@
 
     --oxblood:#4A1A22;
     --oxblood-light:#6B2733;
+    --violet:#382254;
+    --violet-light:#523374;
     --indigo:#1E2A4A;
     --indigo-light:#2E3E68;
     --forest:#22392B;
@@ -245,6 +247,7 @@
   .book:hover .open svg{transform:translateX(4px);}
 
   .book-ox{background:linear-gradient(160deg, var(--oxblood-light), var(--oxblood));}
+  .book-violet{background:linear-gradient(160deg, var(--violet-light), var(--violet));}
   .book-indigo{background:linear-gradient(160deg, var(--indigo-light), var(--indigo));}
   .book-forest{background:linear-gradient(160deg, var(--forest-light), var(--forest));}
   .book-azure{background:linear-gradient(160deg, var(--azure-light), var(--azure));}
@@ -329,7 +332,7 @@
   </div>
 
   <p class="verse">
-    <span class="mark">&ldquo;</span>Toda mi teología puede resumirse en cuatro pequeñas palabras: 'Cristo murió por mí'.<span class="mark">&rdquo;</span>
+    <span class="mark">&ldquo;</span>Toda mi teología puede resumirse en cuatro palabras: 'Cristo murió por mí'.<span class="mark">&rdquo;</span>
     <cite>Charles Spurgeon</cite>
   </p>
 
@@ -342,6 +345,7 @@
 <nav class="shelf-nav">
   <div class="nav-inner">
     <a href="#fundamental" class="nav-item"><span class="dot" style="background:var(--oxblood-light)"></span>Fundamental</a>
+    <a href="#trinitaria" class="nav-item"><span class="dot" style="background:var(--violet-light)"></span>Trinitaria</a>
     <a href="#soteriologia" class="nav-item"><span class="dot" style="background:var(--indigo-light)"></span>Soteriología</a>
     <a href="#sacramental" class="nav-item"><span class="dot" style="background:var(--forest-light)"></span>Sacramental</a>
     <a href="#mariologia" class="nav-item"><span class="dot" style="background:var(--azure-light)"></span>Mariología</a>
@@ -369,16 +373,34 @@
     </div>
   </section>
 
-  <section id="soteriologia" class="shelf">
+  <section id="trinitaria" class="shelf">
     <div class="shelf-head">
       <span class="shelf-num">II</span>
+      <h2>Teología Trinitaria</h2>
+    </div>
+    <p class="shelf-desc">El eje central de todo el cristianismo: un solo Dios en tres Personas realmente distintas. Definición dogmática, Credo Atanasiano, fundamento bíblico, herejías históricas, pedagogía pastoral, refutación de la Unicidad y las dos procesiones divinas.</p>
+    <div class="shelf-board"></div>
+    <div class="books">
+      <a class="book book-violet" href="trinidad.html" target="_blank" rel="noopener">
+        <div class="book-eyebrow">Tomo II</div>
+        <h3>De Trinitate</h3>
+        <div class="book-latin">Un solo Dios en tres Personas</div>
+        <p class="teaser">Siete tomos sobre la Santísima Trinidad: qué es y qué no es, el Credo Atanasiano clausula por clausula, su base bíblica, las herejías condenadas por los concilios, y la refutación sistemática de la Unicidad.</p>
+        <span class="open">Abrir tratado <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
+    </div>
+  </section>
+
+  <section id="soteriologia" class="shelf">
+    <div class="shelf-head">
+      <span class="shelf-num">III</span>
       <h2>Soteriología</h2>
     </div>
     <p class="shelf-desc">La doctrina de la salvación: cómo se aplica al hombre la redención obrada por Cristo, comparada entre las grandes tradiciones cristianas.</p>
     <div class="shelf-board"></div>
     <div class="books">
       <a class="book book-indigo" href="soteriologia.html" target="_blank" rel="noopener">
-        <div class="book-eyebrow">Tomo II</div>
+        <div class="book-eyebrow">Tomo III</div>
         <h3>Doctrina de la Salvación</h3>
         <div class="book-latin">A través de la historia</div>
         <p class="teaser">Bautismo, regeneración y justificación analizados en perspectiva histórica: catolicismo, ortodoxia y protestantismo en diálogo comparado.</p>
@@ -389,14 +411,14 @@
 
   <section id="sacramental" class="shelf">
     <div class="shelf-head">
-      <span class="shelf-num">III</span>
+      <span class="shelf-num">IV</span>
       <h2>Teología Sacramental</h2>
     </div>
     <p class="shelf-desc">Los signos eficaces de la gracia, instituidos por Cristo: su materia, forma, ministro y fundamento bíblico e histórico.</p>
     <div class="shelf-board"></div>
     <div class="books">
       <a class="book book-forest" href="sacramentos.html" target="_blank" rel="noopener">
-        <div class="book-eyebrow">Tomo III</div>
+        <div class="book-eyebrow">Tomo IV</div>
         <h3>Los Siete Sacramentos</h3>
         <div class="book-latin">Signa efficacia gratiæ</div>
         <p class="teaser">Bautismo, Confirmación, Eucaristía, Penitencia, Unción, Orden y Matrimonio: análisis técnico completo de cada sacramento con objeción y respuesta.</p>
@@ -407,14 +429,14 @@
 
   <section id="mariologia" class="shelf">
     <div class="shelf-head">
-      <span class="shelf-num">IV</span>
+      <span class="shelf-num">V</span>
       <h2>Mariología</h2>
     </div>
     <p class="shelf-desc">El lugar de María en el plan de la redención: los cuatro dogmas marianos y su fundamento bíblico, patrístico y conciliar.</p>
     <div class="shelf-board"></div>
     <div class="books">
       <a class="book book-azure" href="Mariologia.html" target="_blank" rel="noopener">
-        <div class="book-eyebrow">Tomo IV</div>
+        <div class="book-eyebrow">Tomo V</div>
         <h3>Mariología Católica</h3>
         <div class="book-latin">Las cuatro doctrinas mayores</div>
         <p class="teaser">Madre de Dios, Virginidad perpetua, Inmaculada Concepción y Asunción: las cuatro doctrinas marianas mayores, tratadas una por una en profundidad.</p>
@@ -425,28 +447,28 @@
 
   <section id="hagiologia" class="shelf">
     <div class="shelf-head">
-      <span class="shelf-num">V</span>
+      <span class="shelf-num">VI</span>
       <h2>Hagiología — El Culto a los Santos</h2>
     </div>
     <p class="shelf-desc">La comunión de los santos, su intercesión, su patronazgo y las procesiones que expresan públicamente esta piedad: tres tratados que forman un mismo conjunto.</p>
     <div class="shelf-board"></div>
     <div class="books">
       <a class="book book-umber1" href="Santos.html" target="_blank" rel="noopener">
-        <div class="book-eyebrow">Tomo V.1</div>
+        <div class="book-eyebrow">Tomo VI.1</div>
         <h3>Los Santos</h3>
         <div class="book-latin">Communio sanctorum</div>
         <p class="teaser">Fundamento bíblico, histórico y teológico de la comunión de los santos y de su intercesión por los vivos.</p>
         <span class="open">Abrir tratado <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
       </a>
       <a class="book book-umber2" href="patronos.html" target="_blank" rel="noopener">
-        <div class="book-eyebrow">Tomo V.2</div>
+        <div class="book-eyebrow">Tomo VI.2</div>
         <h3>Los Patronos</h3>
         <div class="book-latin">Patrocinium sanctorum</div>
         <p class="teaser">El origen, la teología y la práctica histórica del patronazgo de los santos sobre personas, oficios y lugares.</p>
         <span class="open">Abrir tratado <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
       </a>
       <a class="book book-umber3" href="Las_Procesiones_Tratado.html" target="_blank" rel="noopener">
-        <div class="book-eyebrow">Tomo V.3</div>
+        <div class="book-eyebrow">Tomo VI.3</div>
         <h3>Las Procesiones</h3>
         <div class="book-latin">Pietas publica</div>
         <p class="teaser">El culto público y la piedad popular: su fundamento bíblico e histórico dentro de la liturgia y la vida de la Iglesia.</p>
@@ -457,7 +479,7 @@
 
   <div class="closing">
     <div class="latin">Verbum Domini manet in æternum</div>
-    <p>Siete tratados, un mismo propósito: comprender la fe con el rigor que merece, para poder darla a conocer y defenderla con caridad y con verdad.</p>
+    <p>Ocho tratados, un mismo propósito: comprender la fe con el rigor que merece, para poder darla a conocer y defenderla con caridad y con verdad.</p>
   </div>
 
 </main>

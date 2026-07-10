@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>El Papado — Primado de Pedro | Biblioteca Teológica</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,900;1,500&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Cormorant+SC:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg-deep:#15100B;
+    --bg-panel:#1D1610;
+    --wood:#2A1F15;
+    --wood-light:#3C2A1A;
+    --shelf-edge:#463322;
+    --gold:#C9A449;
+    --gold-light:#E8C97A;
+    --gold-deep:#8A6A1F;
+    --gold-ink:#F1DFA9;
+    --parchment:#EFE3C8;
+    --ink-soft:#C9BBA0;
+    --ink-faint:#8B7C61;
+
+    /* acento propio de este tratado: bronce/marrón petrino */
+    --bronze:#8A5A34;
+    --bronze-light:#B27E4E;
+    --bronze-deep:#4E3018;
+    --bronze-ink:#E7C9A4;
+
+    --oxblood:#4A1A22;
+    --oxblood-light:#6B2733;
+    --violet:#382254;
+    --violet-light:#523374;
+    --indigo:#1E2A4A;
+    --indigo-light:#2E3E68;
+    --forest:#22392B;
+    --forest-light:#33543E;
+    --azure:#1B3A5C;
+    --azure-light:#28517E;
+
+    --font-display:'Playfair Display', serif;
+    --font-script:'Cormorant Garamond', serif;
+    --font-body:'EB Garamond', serif;
+    --font-caps:'Cormorant SC', serif;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:
+      radial-gradient(ellipse 900px 500px at 50% -10%, rgba(178,126,78,0.10), transparent 60%),
+      var(--bg-deep);
+    color:var(--parchment);
+    font-family:var(--font-body);
+    font-size:19px;
+    line-height:1.75;
+    -webkit-font-smoothing:antialiased;
+  }
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.001ms !important; transition-duration:0.001ms !important;}
+  }
+
+  h1,h2,h3,h4{font-family:var(--font-display); margin:0; color:var(--gold-ink);}
+  p{margin:0 0 1em 0;}
+  a{color:inherit; text-decoration:none;}
+  ::selection{background:rgba(178,126,78,0.35); color:#fff;}
+
+  /* ===== TOPBAR — volver a la biblioteca ===== */
+  .topbar{
+    position:sticky; top:0; z-index:950;
+    background:rgba(21,16,11,0.94);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid rgba(178,126,78,0.22);
+    padding:12px 22px;
+  }
+  .topbar-inner{
+    max-width:1180px; margin:0 auto;
+    display:flex; align-items:center; justify-content:space-between; gap:14px;
+  }
+  .back-home{
+    display:inline-flex; align-items:center; gap:10px;
+    font-family:var(--font-caps); letter-spacing:0.12em; text-transform:uppercase;
+    font-size:14px; color:var(--ink-soft);
+    transition:color 0.25s ease;
+  }
+  .back-home:hover{color:var(--bronze-ink);}
+  .back-home svg{width:16px; height:16px; flex:none;}
+  .home-cross{width:15px; height:15px; flex:none; position:relative;}
+  .home-cross::before, .home-cross::after{
+    content:""; position:absolute; background:var(--bronze-light);
+  }
+  .home-cross::before{left:6px; top:0; width:3px; height:15px; border-radius:1px;}
+  .home-cross::after{left:0; top:5px; width:15px; height:3px; border-radius:1px;}
+  .topbar-label{
+    font-family:var(--font-caps); letter-spacing:0.2em; text-transform:uppercase;
+    font-size:13px; color:var(--ink-faint);
+  }
+
+  /* ===== HERO ===== */
+  .hero{
+    position:relative;
+    padding:70px 22px 56px;
+    text-align:center;
+    overflow:hidden;
+    background:
+      radial-gradient(circle at 50% 18%, rgba(178,126,78,0.16), transparent 55%),
+      linear-gradient(180deg, var(--bg-panel), var(--bg-deep) 85%);
+    border-bottom:1px solid rgba(178,126,78,0.22);
+  }
+  .hero-texture{
+    position:absolute; inset:0; opacity:0.05; pointer-events:none;
+    background-image:repeating-linear-gradient(90deg, #000 0 2px, transparent 2px 5px);
+  }
+
+  .eyebrow{
+    font-family:var(--font-caps);
+    letter-spacing:0.35em; text-transform:uppercase;
+    font-size:14px; color:var(--bronze-light);
+    margin-bottom:14px;
+  }
+
+  .cross-wrap{
+    position:relative; width:96px; height:130px; margin:0 auto 24px;
+  }
+  .cross-glow{
+    position:absolute; inset:-46px;
+    background:radial-gradient(circle, rgba(178,126,78,0.38), transparent 65%);
+    filter:blur(8px);
+    animation:flicker 6s ease-in-out infinite;
+  }
+  @keyframes flicker{
+    0%,100%{opacity:0.5; transform:scale(1);}
+    50%{opacity:0.85; transform:scale(1.06);}
+  }
+  .cross-svg{position:relative; z-index:2; filter:drop-shadow(0 8px 16px rgba(0,0,0,0.55));}
+
+  .hero h1{
+    font-size:clamp(38px, 6.5vw, 62px);
+    font-weight:700; letter-spacing:0.01em;
+    background:linear-gradient(180deg, var(--bronze-ink), var(--bronze-light) 60%, var(--bronze-deep));
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .hero .latin{
+    font-family:var(--font-script);
+    font-style:italic; font-size:clamp(18px,2.4vw,23px);
+    color:var(--ink-soft); margin-top:8px;
+  }
+
+  .intro{
+    max-width:660px; margin:32px auto 0;
+    font-size:18.5px; color:var(--ink-soft); text-align:left;
+  }
+  .intro .dropcap::first-letter{
+    font-family:var(--font-display);
+    font-size:50px; float:left; line-height:0.75;
+    padding:6px 10px 0 0; color:var(--bronze-light); font-weight:700;
+  }
+
+  .verse{
+    max-width:580px; margin:32px auto 0; padding:0 30px;
+    font-family:var(--font-script); font-style:italic;
+    font-size:22px; color:var(--bronze-ink); position:relative;
+  }
+  .verse .mark{font-family:var(--font-display); font-size:34px; color:var(--bronze-light); line-height:0; position:relative; top:11px;}
+  .verse cite{
+    display:block; font-style:normal; font-family:var(--font-caps);
+    letter-spacing:0.15em; font-size:15px; color:var(--ink-faint); margin-top:12px;
+  }
+
+  .method-note{
+    max-width:660px; margin:34px auto 0; padding:18px 22px;
+    border:1px solid rgba(178,126,78,0.3); border-radius:8px;
+    background:rgba(178,126,78,0.06); text-align:left;
+    font-size:16px; color:var(--ink-soft);
+  }
+  .method-note strong{color:var(--bronze-ink); font-family:var(--font-caps); letter-spacing:0.05em;}
+
+  /* ===== CHAPTER NAV ===== */
+  nav.chapter-nav{
+    position:sticky; top:49px; z-index:900;
+    background:rgba(21,16,11,0.92);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid rgba(178,126,78,0.18);
+  }
+  .nav-inner{
+    max-width:1180px; margin:0 auto; display:flex; gap:4px;
+    overflow-x:auto; padding:10px 18px;
+  }
+  .nav-inner::-webkit-scrollbar{height:4px;}
+  .nav-inner::-webkit-scrollbar-thumb{background:var(--bronze-deep); border-radius:4px;}
+  .nav-item{
+    white-space:nowrap; padding:6px 13px; border-radius:999px;
+    font-family:var(--font-caps); font-size:14px; letter-spacing:0.03em;
+    color:var(--ink-soft); border:1px solid transparent;
+    transition:all 0.25s ease;
+  }
+  .nav-item:hover{background:rgba(178,126,78,0.12); color:var(--bronze-ink); border-color:rgba(178,126,78,0.3);}
+
+  /* ===== MAIN CONTENT ===== */
+  main{max-width:800px; margin:0 auto; padding:56px 22px 40px;}
+
+  section.chapter{scroll-margin-top:104px; margin-bottom:64px; padding-bottom:44px; border-bottom:1px solid rgba(178,126,78,0.14);}
+  section.chapter:last-of-type{border-bottom:none;}
+
+  .chapter-head{display:flex; align-items:baseline; gap:16px; margin-bottom:22px;}
+  .chapter-num{
+    font-family:var(--font-display); font-size:15px; color:var(--bronze-light);
+    letter-spacing:0.1em; border:1px solid var(--bronze-deep);
+    border-radius:50%; width:38px; height:38px; flex:none;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .chapter-head h2{font-size:clamp(23px,3.2vw,29px); line-height:1.25;}
+
+  h3{font-size:20px; color:var(--bronze-ink); margin:30px 0 12px; font-weight:600;}
+  h4{font-size:17px; color:var(--gold-ink); margin:20px 0 8px; font-family:var(--font-caps); letter-spacing:0.04em; text-transform:uppercase; font-weight:500;}
+
+  main p{color:var(--parchment); font-size:18px;}
+  main strong{color:var(--gold-ink); font-weight:600;}
+  main em{color:var(--ink-soft);}
+
+  .greek{
+    font-style:italic; color:var(--bronze-ink);
+  }
+
+  blockquote{
+    margin:20px 0; padding:16px 22px; border-left:3px solid var(--bronze-light);
+    background:rgba(178,126,78,0.06); border-radius:0 6px 6px 0;
+    font-family:var(--font-script); font-size:19px; font-style:italic; color:var(--parchment);
+  }
+  blockquote cite{
+    display:block; font-style:normal; font-family:var(--font-caps);
+    letter-spacing:0.1em; font-size:14px; color:var(--ink-faint); margin-top:10px;
+  }
+
+  .tag{
+    display:inline-block; font-family:var(--font-caps); letter-spacing:0.08em;
+    font-size:12.5px; text-transform:uppercase; padding:2px 10px;
+    border-radius:999px; margin:0 4px 4px 0; border:1px solid;
+  }
+  .tag-hecho{color:#8FBF9A; border-color:rgba(143,191,154,0.5); background:rgba(143,191,154,0.08);}
+  .tag-dogma{color:var(--gold-ink); border-color:rgba(232,201,122,0.5); background:rgba(232,201,122,0.08);}
+  .tag-comun{color:#9CB4D8; border-color:rgba(156,180,216,0.5); background:rgba(156,180,216,0.08);}
+  .tag-opinion{color:#D8B48C; border-color:rgba(216,180,140,0.5); background:rgba(216,180,140,0.08);}
+  .tag-apolog{color:#C99CB4; border-color:rgba(201,156,180,0.5); background:rgba(201,156,180,0.08);}
+
+  .traditions{
+    display:grid; grid-template-columns:repeat(auto-fit, minmax(200px,1fr));
+    gap:14px; margin:22px 0;
+  }
+  .tradition-card{
+    border-radius:8px; padding:16px 18px; font-size:16px;
+    box-shadow:0 8px 18px rgba(0,0,0,0.35);
+  }
+  .tradition-card h5{
+    font-family:var(--font-caps); letter-spacing:0.08em; text-transform:uppercase;
+    font-size:13.5px; margin:0 0 8px; font-weight:600;
+  }
+  .tradition-card p{margin:0; font-size:15.5px; color:rgba(255,255,255,0.85);}
+  .tc-cat{background:linear-gradient(160deg, var(--bronze-light), var(--bronze-deep)); }
+  .tc-cat h5{color:#F5E3CA;}
+  .tc-ort{background:linear-gradient(160deg, var(--azure-light), var(--azure));}
+  .tc-ort h5{color:#CFE1F2;}
+  .tc-prot{background:linear-gradient(160deg, var(--indigo-light), var(--indigo));}
+  .tc-prot h5{color:#CAD3E8;}
+
+  .objection{
+    margin:26px 0; border:1px solid rgba(178,126,78,0.22); border-radius:8px; overflow:hidden;
+  }
+  .objection .obj-head{
+    padding:12px 18px; background:rgba(107,39,51,0.28);
+    font-family:var(--font-caps); letter-spacing:0.06em; font-size:15px; color:#E8C4C4;
+  }
+  .objection .resp-head{
+    padding:12px 18px; background:rgba(178,126,78,0.14);
+    font-family:var(--font-caps); letter-spacing:0.06em; font-size:15px; color:var(--bronze-ink);
+    border-top:1px solid rgba(178,126,78,0.2);
+  }
+  .objection .obj-body, .objection .resp-body{padding:16px 18px 20px;}
+  .objection p{font-size:16.5px;}
+
+  .doc-list{list-style:none; margin:0; padding:0;}
+  .doc-list li{
+    padding:14px 0; border-bottom:1px solid rgba(178,126,78,0.14);
+    display:flex; flex-direction:column; gap:3px;
+  }
+  .doc-list li:last-child{border-bottom:none;}
+  .doc-list .doc-title{font-family:var(--font-display); color:var(--gold-ink); font-size:18px;}
+  .doc-list .doc-meta{font-family:var(--font-caps); letter-spacing:0.06em; font-size:13.5px; color:var(--bronze-light);}
+  .doc-list .doc-desc{font-size:15.5px; color:var(--ink-soft);}
+
+  .timeline-note{
+    display:flex; gap:12px; align-items:flex-start; margin:18px 0; padding:14px 18px;
+    border:1px dashed rgba(178,126,78,0.35); border-radius:8px; background:rgba(178,126,78,0.04);
+  }
+  .timeline-note .dot{width:9px; height:9px; border-radius:50%; background:var(--bronze-light); margin-top:7px; flex:none;}
+  .timeline-note p{margin:0; font-size:15.5px; color:var(--ink-soft);}
+
+  ul.plain, ol.plain{padding-left:22px;}
+  ul.plain li, ol.plain li{margin-bottom:8px; font-size:17.5px;}
+
+  /* closing */
+  .closing{
+    text-align:center; padding:50px 20px 20px;
+    border-top:1px solid rgba(178,126,78,0.18);
+    margin-top:20px; max-width:800px; margin-left:auto; margin-right:auto;
+  }
+  .closing .latin{font-family:var(--font-script); font-style:italic; color:var(--bronze-light); font-size:20px; margin-bottom:10px;}
+  .closing p{color:var(--ink-soft); max-width:560px; margin:0 auto; font-size:17px;}
+
+  footer{
+    text-align:center; padding:34px 20px 60px;
+    font-family:var(--font-caps); letter-spacing:0.12em;
+    color:var(--ink-faint); font-size:14.5px;
+  }
+
+  @media (max-width:640px){
+    main{padding:40px 18px 30px;}
+    .chapter-head{flex-direction:column; align-items:flex-start; gap:8px;}
+    blockquote{font-size:17px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <a href="index.html" class="back-home">
+      <span class="home-cross"></span>
+      Volver a la Biblioteca
+    </a>
+    <span class="topbar-label">Tomo VII · Eclesiología</span>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="hero-texture"></div>
+  <div class="eyebrow">Eclesiología · Primado de Pedro</div>
+
+  <div class="cross-wrap">
+    <div class="cross-glow"></div>
+    <svg class="cross-svg" width="96" height="130" viewBox="0 0 96 130">
+      <defs>
+        <linearGradient id="bronzeGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#D9AE7E"/>
+          <stop offset="50%" stop-color="#8A5A34"/>
+          <stop offset="100%" stop-color="#4E3018"/>
+        </linearGradient>
+        <filter id="softShadow2" x="-50%" y="-50%" width="200%" height="200%">
+          <feDropShadow dx="0" dy="3" stdDeviation="3" flood-color="#000" flood-opacity="0.4"/>
+        </filter>
+      </defs>
+      <g filter="url(#softShadow2)">
+        <rect x="40" y="8" width="16" height="114" rx="3" fill="url(#bronzeGrad)"/>
+        <rect x="14" y="38" width="68" height="16" rx="3" fill="url(#bronzeGrad)"/>
+      </g>
+    </svg>
+  </div>
+
+  <h1>El Papado</h1>
+  <div class="latin">Tu es Petrus</div>
+
+  <div class="intro">
+    <p class="dropcap">Tratado de eclesiología sobre el primado del obispo de Roma: sus fundamentos bíblicos y patrísticos, su desarrollo histórico y doctrinal, su definición dogmática en el Concilio Vaticano I, su recepción en el Vaticano II, y el estado del diálogo con las tradiciones ortodoxa y protestante. Un estudio de nivel universitario que distingue, en cada punto, entre hecho histórico, dogma definido, doctrina común, opinión teológica y argumento apologético.</p>
+  </div>
+
+  <p class="verse">
+    <span class="mark">&ldquo;</span>Tú eres Pedro, y sobre esta piedra edificaré mi Iglesia, y las puertas del infierno no prevalecerán contra ella.<span class="mark">&rdquo;</span>
+    <cite>Mateo 16:18</cite>
+  </p>
+
+  <div class="method-note">
+    <strong>Nota metodológica.</strong> A lo largo de este tratado se distinguen cinco categorías: <span class="tag tag-hecho">Hecho histórico</span> <span class="tag tag-dogma">Dogma definido</span> <span class="tag tag-comun">Doctrina común</span> <span class="tag tag-opinion">Opinión teológica</span> <span class="tag tag-apolog">Argumento apologético</span>. Esta distinción evita tratar como definido lo que es opinable, y como mera opinión lo que la Iglesia sostiene como vinculante.
+  </div>
+</header>
+
+<nav class="chapter-nav">
+  <div class="nav-inner">
+    <a href="#c1" class="nav-item">I. Contexto s. I</a>
+    <a href="#c2" class="nav-item">II. Fundamentos bíblicos</a>
+    <a href="#c3" class="nav-item">III. Exégesis</a>
+    <a href="#c4" class="nav-item">IV. Pedro en el NT</a>
+    <a href="#c5" class="nav-item">V. Sucesión</a>
+    <a href="#c6" class="nav-item">VI. Obispo de Roma</a>
+    <a href="#c7" class="nav-item">VII. Padres</a>
+    <a href="#c8" class="nav-item">VIII. Desarrollo doctrinal</a>
+    <a href="#c9" class="nav-item">IX. Primado y magisterio</a>
+    <a href="#c10" class="nav-item">X. Vaticano I</a>
+    <a href="#c11" class="nav-item">XI. Vaticano II</a>
+    <a href="#c12" class="nav-item">XII. Objeciones protestantes</a>
+    <a href="#c13" class="nav-item">XIII. Objeciones ortodoxas</a>
+    <a href="#c14" class="nav-item">XIV. Críticas históricas</a>
+    <a href="#c15" class="nav-item">XV. Documentos</a>
+    <a href="#c16" class="nav-item">XVI. Diálogo ecuménico</a>
+  </div>
+</nav>
+
+<main>
+
+  <section id="c1" class="chapter">
+    <div class="chapter-head"><span class="chapter-num">I</span><h2>Contexto histórico del siglo I</h2></div>
+
+    <p>El movimiento de Jesús nace dentro del judaísmo del Segundo Templo, en una Palestina ocupada por Roma, atravesada por fariseos, saduceos, esenios y zelotes. Los Doce forman un grupo simbólicamente estructurado —el número evoca las doce tribus de Israel (cf. Mt 19:28; Lc 22:30)— y en las cuatro listas apostólicas del Nuevo Testamento, <strong>Simón Pedro encabeza siempre el orden</strong> (Mt 10:2; Mc 3:16; Lc 6:14; Hch 1:13), incluso cuando el orden de los demás varía. <span class="tag tag-hecho">Hecho histórico</span></p>
+
+    <h3>Jerusalén y la dispersión apostólica</h3>
+    <p>Tras la resurrección, Hechos 1–5 presenta a Pedro como portavoz y líder inicial de la comunidad de Jerusalén, pero pronto emerge también Santiago "el hermano del Señor" como autoridad local creciente, visible sobre todo en el llamado Concilio de Jerusalén (Hch 15, hacia 49-50 d.C.). Aquí aparece ya la primera divergencia interpretativa entre tradiciones: la lectura católica ve a Pedro fijando la doctrina (Hch 15:7-11) y a Santiago aplicándola pastoralmente (15:13-21); algunas lecturas protestantes ven en Santiago, no en Pedro, la autoridad presidencial de facto de la asamblea.</p>
+
+    <h3>El desplazamiento hacia Roma</h3>
+    <p>Con la destrucción de Jerusalén en el 70 d.C., el centro de gravedad cristiano se desplaza hacia Antioquía, Éfeso, Corinto, Alejandría y Roma. Este dato es clave para entender por qué, con el tiempo, la sede romana —capital del Imperio— adquirió una relevancia que ninguna sede judeocristiana podía ya ofrecer.</p>
+
+    <h3>Pedro en Roma</h3>
+    <p>La tradición —Clemente de Roma, <em>1 Clemente</em> 5 (c. 96 d.C.); Ignacio de Antioquía, <em>A los Romanos</em> 4 (c. 107 d.C.); Ireneo de Lyon, <em>Adversus Haereses</em> III.1.1 y III.3.2 (c. 180 d.C.)— sitúa el martirio de Pedro en Roma bajo Nerón, hacia el 64-67 d.C. La arqueología de la necrópolis vaticana (excavaciones de 1939-1949; estudios de Margherita Guarducci) es compatible con una tumba venerada tempranamente bajo la actual Basílica de San Pedro, aunque la identificación exacta de los restos sigue siendo objeto de prudencia académica.</p>
+    <p>Hay consenso amplio, incluso entre historiadores no católicos (Oscar Cullmann, protestante; John Meier, católico), en que Pedro estuvo y murió en Roma. <span class="tag tag-hecho">Hecho histórico</span> Lo disputado no es el hecho en sí, sino sus <strong>consecuencias eclesiológicas</strong>.</p>
+  </section>
+
+  <section id="c2" class="chapter">
+    <div class="chapter-head"><span class="chapter-num">II</span><h2>Fundamentos bíblicos del papado</h2></div>
+
+    <p>Los textos invocados clásicamente por la tradición católica se agrupan en tres bloques:</p>
+    <ol class="plain">
+      <li><strong>Textos de promesa e institución:</strong> Mt 16:13-20 (Pedro como "roca" y portador de las llaves); Lc 22:31-32 (oración de Cristo por Pedro para "confirmar a sus hermanos"); Jn 21:15-17 (mandato de "apacentar" y "pastorear").</li>
+      <li><strong>Textos de ejercicio narrativo:</strong> la posición de Pedro en las listas apostólicas, su rol de portavoz (Mt 14:28-31; Jn 6:68-69), Pentecostés (Hch 2:14-40), la recepción de Cornelio (Hch 10), su intervención en el Concilio de Jerusalén (Hch 15:7-11).</li>
+      <li><strong>Textos de disciplina y corrección:</strong> la negación de Pedro (Mt 26:69-75) y su reprensión pública por Pablo en Antioquía (Gá 2:11-14) — usados por tradiciones no católicas para relativizar cualquier infalibilidad personal.</li>
+    </ol>
+    <p>Ninguna de las tres grandes tradiciones cristianas niega que Pedro tuviera un rol prominente entre los Doce. El desacuerdo real recae sobre la <strong>naturaleza, transmisibilidad y alcance jurídico</strong> de ese rol: ¿fue algo personal e irrepetible, o una oficina institucional destinada a perpetuarse en un sucesor?</p>
+  </section>
+
+  <section id="c3" class="chapter">
+    <div class="chapter-head"><span class="chapter-num">III</span><h2>Exégesis de Mt 16:13-20, Lc 22:31-32 y Jn 21:15-17</h2></div>
+    <p>Se presenta aquí la lectura católica de los tres textos petrinos centrales; las lecturas ortodoxa y protestante de estos mismos pasajes se retoman en los capítulos XII y XIII.</p>
+
+    <h3>3.1 Mateo 16:13-20</h3>
+    <blockquote>κἀγὼ δέ σοι λέγω ὅτι σὺ εἶ Πέτρος, καὶ ἐπὶ ταύτῃ τῇ πέτρᾳ οἰκοδομήσω μου τὴν ἐκκλησίαν, καὶ πύλαι ᾅδου οὐ κατισχύσουσιν αὐτῆς. καὶ δώσω σοι τὰς κλεῖδας τῆς βασιλείας τῶν οὐρανῶν...
+    <cite>Mt 16:18-19 (texto griego)</cite></blockquote>
+
+    <p><strong>Revelación, no mérito.</strong> La promesa nace de una revelación divina directa a Simón (v. 17), lo cual sitúa el privilegio petrino como gracia de elección soberana, no como premio a su perspicacia personal.</p>
+
+    <p><strong>Πέτρος/πέτρα y el sustrato arameo.</strong> La exégesis católica moderna no se apoya principalmente en el juego de palabras griego, precisamente porque reconoce la objeción del cambio de género gramatical entre <span class="greek">Πέτρος</span> (masc.) y <span class="greek">πέτρα</span> (fem.). El argumento fuerte es filológico-semítico: Jesús probablemente habló en arameo, donde <strong>la misma palabra <em>kepha'</em></strong> (כֵּיפָא) designaría tanto el nombre impuesto a Simón como la roca de la edificación — lo que explica que Pablo llame a Pedro invariablemente "Cefas" en griego transliterado (1 Co 1:12; 15:5; Gá 1:18; 2:9,11,14). Si en arameo no hay distinción de referente, el juego de palabras griego no introduce una disociación real: Simón es llamado literalmente "Roca", y sobre esa misma persona se edifica la Iglesia. Autores como Oscar Cullmann (protestante) aceptan este punto filológico, aunque extraen de él conclusiones distintas sobre la transmisibilidad del privilegio.</p>
+
+    <p><strong>Las llaves y el trasfondo de Isaías 22.</strong> El paralelismo con Is 22:15-22 —donde Eliaquim recibe "la llave de la casa de David" como mayordomo real, con poder de abrir y cerrar sin apelación— es aceptado como trasfondo por buena parte de la exégesis académica no confesional (R. T. France, D. A. Carson, Craig Keener). La figura del mayordomo real (heb. <em>'al ha-bayit</em>) es personal, delegada y, punto teológicamente decisivo, <strong>sucesible</strong>: el cargo sobrevivía a su titular. La teología católica ve aquí una prefiguración de por qué el oficio petrino, entendido como mayordomía sobre la "casa" de Dios (1 Tm 3:15), es intrínsecamente un oficio y no solo un carisma personal intransferible.</p>
+
+    <p><strong>Sobre Mt 18:18.</strong> El poder de atar y desatar se extiende después a todo el colegio apostólico (Mt 18:18). La exégesis católica integra este dato distinguiendo dos niveles: Pedro recibe individualmente las llaves como titular del oficio de mayordomo; los demás apóstoles reciben colegialmente el poder de atar y desatar como participación en la misión apostólica común, pero siempre —según <em>Lumen Gentium</em> 22— en unión con su cabeza.</p>
+
+    <h3>3.2 Lucas 22:31-32</h3>
+    <blockquote>Σίμων Σίμων, ἰδοὺ ὁ Σατανᾶς ἐξῃτήσατο ὑμᾶς τοῦ σινιάσαι ὡς τὸν σῖτον· ἐγὼ δὲ ἐδεήθην περὶ σοῦ ἵνα μὴ ἐκλίπῃ ἡ πίστις σου· καὶ σύ ποτε ἐπιστρέψας στήρισον τοὺς ἀδελφούς σου.
+    <cite>Lc 22:31-32 (texto griego)</cite></blockquote>
+    <p>El contraste gramatical es deliberado: el plural <span class="greek">ὑμᾶς</span> (a todos vosotros) frente al singular <span class="greek">ἐδεήθην περὶ σοῦ</span> (rogué por ti). Cristo no promete a Pedro que no fallará —anuncia explícitamente su caída futura—, sino que su fe no desfallecerá del todo, de modo que, restaurado, pueda ejercer sobre "sus hermanos" una función de <strong>confirmación</strong> (στήρισον). La tradición católica posterior conecta este versículo con el fundamento remoto de la infalibilidad papal definida en 1870 (cap. X): el "no desfallecer" de la fe de Pedro se lee como razón de que su sucesor, en condiciones estrictas, no pueda errar al definir doctrina, precisamente para poder "confirmar a sus hermanos".</p>
+
+    <h3>3.3 Juan 21:15-17</h3>
+    <blockquote>βόσκε τὰ ἀρνία μου (v.15) — ποίμαινε τὰ πρόβατά μου (v.16) — βόσκε τὰ πρόβατά μου (v.17)
+    <cite>Jn 21:15-17 (texto griego)</cite></blockquote>
+    <p>La restauración triple deshace simétricamente la triple negación (Jn 18:17,25,27): Pedro no solo es perdonado, sino reinstaurado activamente en una misión pastoral tras mostrar su fragilidad — signo, para la teología católica, de que el oficio no depende de la impecabilidad personal del titular. El verbo <span class="greek">ποίμαινε</span> (pastorear) es el mismo que usa Jesús para describirse como "el buen pastor" (Jn 10:11,14) y el que emplea Apocalipsis para el gobierno mesiánico (Ap 2:27; 19:15, citando Sal 2:9): no una simple tarea de cuidado afectivo, sino participación real en la autoridad pastoral y de gobierno de Cristo. A diferencia de Hch 20:28 o 1 P 5:2, donde el pastoreo se delimita territorialmente, en Jn 21 Jesús encomienda a Pedro "mis ovejas" sin restricción — indicio textual, para la lectura católica, de un alcance universal distinto en naturaleza, no solo en grado, del pastoreo local de cualquier otro obispo.</p>
+
+    <p><strong>Síntesis del tríptico:</strong> Mateo funda el oficio (roca, llaves, indefectibilidad institucional); Lucas asegura su ejercicio dinámico (confirmación, germen de la infalibilidad); Juan lo consuma como mandato pastoral universal restaurado. <em>Lumen Gentium</em> 18-22 retoma explícitamente esta lectura tripartita como fundamento bíblico remoto del primado, distinguiéndolo cuidadosamente de su formulación dogmática precisa, fruto de un desarrollo doctrinal posterior (cap. VIII).</p>
+  </section>
+
+  <section id="c4" class="chapter">
+    <div class="chapter-head"><span class="chapter-num">IV</span><h2>El papel de Pedro en los Evangelios y en los Hechos</h2></div>
+
+    <h3>4.1 En los Evangelios</h3>
+    <ul class="plain">
+      <li><strong>Primacía en las listas apostólicas:</strong> Pedro encabeza siempre el catálogo de los Doce, y Mateo lo llama explícitamente "el primero" (πρῶτος Σίμων, Mt 10:2), único apóstol calificado así.</li>
+      <li><strong>Cambio de nombre:</strong> solo Simón recibe un nuevo nombre de labios de Jesús (Jn 1:42; Mc 3:16), gesto que en la tradición bíblica (Abram→Abraham, Jacob→Israel) señala siempre una misión nueva.</li>
+      <li><strong>Portavoz del grupo:</strong> en la confesión de Cesarea de Filipo (Mt 16:16), en Mt 19:27, y ante la defección de discípulos tras el discurso del pan de vida (Jn 6:68-69: "Señor, ¿a quién iremos? Tú tienes palabras de vida eterna").</li>
+      <li><strong>Escenas de relieve individual:</strong> caminar sobre las aguas (Mt 14:28-31), el tributo del templo (Mt 17:24-27), presencia en el círculo íntimo de la Transfiguración y Getsemaní.</li>
+      <li><strong>Aparición pospascual privilegiada:</strong> 1 Co 15:5 (credo pre-paulino, c. 35 d.C.) sitúa la aparición a Cefas antes que a "los Doce"; Lc 24:34 confirma esta tradición independientemente.</li>
+    </ul>
+    <p>La teología católica no sostiene que cada dato aislado "pruebe" el primado; los presenta como una acumulación convergente de indicios que, leída junto a Mt 16, Lc 22 y Jn 21, configura un cuadro coherente. <span class="tag tag-apolog">Argumento apologético de congruencia</span></p>
+
+    <h3>4.2 En Hechos de los Apóstoles</h3>
+    <p>La primera mitad de Hechos (caps. 1-12) tiene a Pedro como protagonista casi constante:</p>
+    <ul class="plain">
+      <li><strong>Hch 1:15-26:</strong> Pedro dirige la elección del sucesor de Judas.</li>
+      <li><strong>Hch 2:14-40:</strong> primer discurso kerigmático público, "puesto en pie con los Once" — habla él, no el colegio en conjunto.</li>
+      <li><strong>Hch 5:1-11:</strong> autoridad disciplinar sobre Ananías y Safira.</li>
+      <li><strong>Hch 8:14-17:</strong> la comunidad de Jerusalén envía a Pedro y Juan a confirmar la recepción de la fe en Samaria.</li>
+      <li><strong>Hch 10-11:</strong> la conversión de Cornelio, primer gentil bautizado sin circuncisión, ocurre a través de Pedro específicamente.</li>
+      <li><strong>Hch 15:7-11 (Concilio de Jerusalén):</strong> Pedro habla primero con autoridad decisiva; "toda la multitud calló" (v. 12) antes de que Santiago tome la palabra para la aplicación pastoral.</li>
+    </ul>
+    <p>A partir de Hch 15, Pedro desaparece progresivamente de la narrativa, centrada ya en la misión de Pablo. La teología católica no ve esto como disminución de autoridad, sino como cambio del foco narrativo lucano, compatible con la tradición patrística que sitúa a Pedro yendo después a Roma.</p>
+  </section>
+
+  <section id="c5" class="chapter">
+    <div class="chapter-head"><span class="chapter-num">V</span><h2>Sucesión apostólica y sucesión petrina</h2></div>
+
+    <h3>5.1 Sucesión apostólica en general</h3>
+    <p>Cristo instituyó a los apóstoles como fundamento del edificio eclesial (Ef 2:20), y estos transmitieron su ministerio mediante la imposición de manos (2 Tm 1:6; 2:2; Hch 14:23; Tit 1:5). El episcopado monárquico se documenta con claridad creciente desde Ignacio de Antioquía (m. c. 107-110), quien insiste en la obediencia al obispo como garantía de unidad (<em>Esmirnenses</em> 8; <em>Magnesios</em> 6-7).</p>
+    <div class="timeline-note"><span class="dot"></span><p>La sucesión apostólica <em>en general</em> es afirmada tanto por católicos como por ortodoxos, y con matices por anglicanos y algunas iglesias luteranas escandinavas. Es la sucesión petrina específicamente romana la que constituye el punto propiamente católico distintivo.</p></div>
+
+    <h3>5.2 Sucesión petrina: el argumento católico específico</h3>
+    <p>La doctrina católica sostiene que el oficio particular de Pedro —no solo su condición de apóstol, sino su función de "roca", portador de llaves y confirmador de sus hermanos— continúa de forma permanente en el obispo que ocupa la sede que Pedro fundó y donde derramó su sangre. La fórmula clásica es <em>ubi Petrus, ibi Ecclesia</em> ("donde está Pedro, está la Iglesia"), síntesis del pensamiento de Ambrosio de Milán.</p>
+    <p>El razonamiento teológico, no un texto bíblico explícito sino una inferencia doctrinal desarrollada progresivamente, sostiene: (1) Cristo quiso que su Iglesia tuviera un principio visible y perpetuo de unidad; (2) ese principio, confiado a Pedro, tenía que ser transmisible porque la necesidad eclesiológica que lo motivó no desaparece con la muerte de los apóstoles; (3) la providencia dispuso que esta función continuara ligada al obispo de Roma. <span class="tag tag-apolog">Argumento teológico, no deducción exegética directa</span></p>
+    <p>Teólogos católicos serios (Congar, Rahner, Ratzinger) reconocen que el paso del punto 1 al 3 no es una deducción lógica necesaria del texto bíblico aislado, sino una lectura retrospectiva apoyada también en el desarrollo histórico (cap. VI) y el testimonio patrístico (cap. VII).</p>
+  </section>
+
+  <section id="c6" class="chapter">
+    <div class="chapter-head"><span class="chapter-num">VI</span><h2>El desarrollo histórico del obispo de Roma</h2></div>
+
+    <h3>6.1 El siglo I: la generación subapostólica</h3>
+    <p>No hay lista episcopal romana contemporánea al siglo I; la más antigua conocida es la de Ireneo de Lyon (c. 180 d.C.), que sitúa a Lino como primer sucesor de Pedro y Pablo. La historiografía académica reconoce que el gobierno de la Iglesia de Roma en esta primerísima etapa probablemente era el de un colegio de presbíteros-obispos, no aún el de un obispo monárquico único.</p>
+    <p><strong>1 Clemente (c. 96 d.C.):</strong> la Iglesia de Roma interviene con una carta de corrección doctrinal y disciplinar en la crisis de Corinto, sin haber sido solicitada: <em>"si alguno desobedeciere... se envolverá en no pequeña falta y peligro"</em> (1 Clem 59,1). Apenas treinta años después de la muerte de Pedro, Roma ya interviene con autoridad correctiva en una Iglesia de otra provincia. <span class="tag tag-hecho">Hecho histórico</span></p>
+
+    <h3>6.2 El siglo II</h3>
+    <p><strong>Ignacio de Antioquía</strong> se dirige a la Iglesia de Roma como la que "preside en el lugar de la región de los romanos" y "preside en el amor" (<em>Rom.</em>, salutación) — única carta ignaciana donde no imparte instrucciones disciplinares a la comunidad destinataria.</p>
+    <p><strong>El caso de Víctor I (c. 190-195):</strong> intenta imponer a toda la Iglesia la fecha romana de la Pascua frente a la práctica cuartodecimana de Asia Menor, y amenaza con excomulgar a las Iglesias asiáticas (Eusebio, <em>Historia Eclesiástica</em> V.24). Ireneo pide moderación, pero no cuestiona la autoridad de Víctor para actuar así, solo la prudencia de ejercerla en ese caso.</p>
+    <p><strong>Ireneo de Lyon</strong> (<em>Adv. Haer.</em> III.3.2) escribe que con la Iglesia romana, fundada por Pedro y Pablo, es necesario que converja toda Iglesia "a causa de su origen más poderoso" (<em>propter potiorem principalitatem</em>). El original griego se ha perdido; su matiz exacto sigue siendo objeto de debate filológico entre patrólogos.</p>
+
+    <h3>6.3 El siglo III</h3>
+    <p><strong>Cipriano de Cartago y la controversia bautismal (c. 255-256):</strong> el papa Esteban I sostenía la validez del bautismo administrado por herejes; Cipriano y los obispos africanos lo negaban. Esteban amenazó con romper la comunión con las Iglesias que no se sometieran; Cipriano no se sometió. El cisma se evitó solo por la muerte de Esteban. Este episodio evidencia, a la vez, que ya en el siglo III el obispo de Roma se sentía con autoridad para dictar disciplina vinculante fuera de Italia, <strong>y</strong> que esa autoridad no era recibida universalmente como instancia inapelable. El propio Cipriano, poco antes, había escrito en <em>De Unitate Ecclesiae</em> 4 una defensa vigorosa de la cátedra de Pedro como fuente de la unidad eclesial — su resistencia a Esteban fue una discrepancia disciplinar concreta, no un rechazo del principio del primado.</p>
+
+    <h3>6.4 Hacia Nicea (325)</h3>
+    <p>El canon 6 de Nicea reconoce la autoridad tradicional de Alejandría, Antioquía y Roma sobre sus regiones, en un esquema comparativo entre grandes sedes, sin formular todavía de manera explícita una doctrina de primado universal romano. La teología católica lo lee como reconocimiento conciliar de un statu quo ya existente; los historiadores ortodoxos lo leen como evidencia de que Roma era, en esa etapa, sede patriarcal "entre pares" (más honrada, pero sin jurisdicción universal formal) — divergencia retomada en el capítulo XIII.</p>
+
+    <div class="timeline-note"><span class="dot"></span><p><strong>Síntesis:</strong> no hay un "momento cero" de invención de la autoridad romana en el siglo IV o V, pero tampoco una jurisdicción universal explícitamente formulada ya en el siglo I con el vocabulario técnico del siglo XIX. Hay un crecimiento orgánico de una autoridad reconocida de facto en momentos de crisis disciplinar (Corinto, controversia pascual, bautismo de herejes).</p></div>
+  </section>
+
+  <section id="c7" class="chapter">
+    <div class="chapter-head"><span class="chapter-num">VII</span><h2>El testimonio de los Padres de la Iglesia</h2></div>
+    <p>Los Padres no son una voz monolítica ni escriben con la precisión conceptual de un concilio dogmático posterior. La teología católica sostiene que el <strong>testimonio acumulado</strong>, leído en su desarrollo, converge hacia el reconocimiento de una autoridad particular de la sede romana.</p>
+
+    <blockquote>"Si alguno desobedeciere las palabras dichas por él [Dios] por medio de nosotros, sepa que se envolverá en no pequeña falta y peligro."
+    <cite>Clemente de Roma, 1 Clemente 59,1 (c. 96 d.C.)</cite></blockquote>
+
+    <blockquote>"...a la Iglesia que preside en el lugar de la región de los romanos... que preside también en el amor..."
+    <cite>Ignacio de Antioquía, A los Romanos, salutación (c. 107-110 d.C.)</cite></blockquote>
+
+    <blockquote>"...la Iglesia grandísima, antiquísima y conocida de todos, fundada y constituida en Roma por los dos gloriosísimos apóstoles Pedro y Pablo... con esta Iglesia, a causa de su origen más poderoso, es necesario que concuerde toda Iglesia."
+    <cite>Ireneo de Lyon, Adversus Haereses III.3.2 (c. 180 d.C.)</cite></blockquote>
+    <p>Ireneo enumera además la lista sucesoria completa: Pedro y Pablo, Lino, Anacleto, Clemente, Evaristo... hasta Eleuterio, "duodécimo desde los apóstoles". <span class="tag tag-hecho">Testimonio patrístico temprano de una lista sucesoria ya fijada hacia el 180</span></p>
+
+    <blockquote>"El Pontífice Máximo, es decir el obispo de obispos, dice: 'Yo perdono también los pecados de adulterio y fornicación a los que han hecho penitencia'."
+    <cite>Tertuliano, De Pudicitia 1,6 (c. 220 d.C., período montanista, tono irónico y hostil)</cite></blockquote>
+    <p>Aunque sarcástico, este texto es valioso metodológicamente como <strong>testimonio hostil</strong>: incluso burlándose, Tertuliano da por sentado —sin necesidad de explicarlo a su audiencia— que el obispo de Roma ejercía un título y una autoridad extendida más allá de su propia diócesis.</p>
+
+    <blockquote>"Sobre él, uno solo, edifica su Iglesia... El primado se da a Pedro, para que se muestre que la Iglesia de Cristo es una sola, y una sola cátedra."
+    <cite>Cipriano de Cartago, De Unitate Ecclesiae 4 (c. 251 d.C.)</cite></blockquote>
+    <p>Existe una segunda versión de este capítulo, transmitida en algunos manuscritos, con lenguaje aún más explícito sobre la primacía romana; los especialistas debaten cuál es la redacción original de Cipriano (hipótesis de Maurice Bévenot). Es importante notar la tensión histórica real: el mismo Cipriano que escribe este elogio desobedece pocos años después al papa Esteban I en la controversia bautismal (cap. VI.3) — dato que la teología católica no oculta, sino que integra como parte de un desarrollo doctrinal todavía no completado en el siglo III.</p>
+
+    <p><strong>Concilio de Sárdica (343), cánones 3-5:</strong> establece el derecho de un obispo depuesto a apelar al obispo de Roma. Primer testimonio canónico-conciliar de un <strong>derecho de apelación formal</strong> a Roma como instancia superior.</p>
+
+    <p><strong>Agustín de Hipona:</strong> en el contexto de la controversia pelagiana, alude a que, llegadas de Roma las respuestas de los papas, "la causa está terminada" (paráfrasis de <em>Sermón</em> 131,10). En otros textos, sobre todo tardíos, matiza lecturas excesivamente "petrinas" de Mt 16:18, inclinándose en ciertos pasajes hacia identificar la "roca" con la fe confesada por Pedro — texto citado con frecuencia por ortodoxos y protestantes (caps. XII-XIII).</p>
+
+    <blockquote>"...cumple su oficio en aquel que él eligió como heredero de su propia dignidad."
+    <cite>León Magno, Sermón 3,3 (sobre su propio aniversario episcopal, c. 443-461)</cite></blockquote>
+    <p>León I formula ya explícitamente la doctrina de la "vicariedad perpetua" de Pedro en su sucesor. En el Concilio de Calcedonia (451), tras la lectura de su <em>Tomus ad Flavianum</em>, los obispos —en su mayoría orientales— exclamaron: <em>"¡Pedro ha hablado esto por boca de León!"</em> (ACO II.1.2, p. 81). Los historiadores ortodoxos matizan que esta aclamación se dio en un contexto conciliar donde la autoridad final residía, en la práctica, en el concilio ecuménico reunido, no solo en el papa actuando en solitario — dato retomado en el capítulo XIII.</p>
+
+    <div class="timeline-note"><span class="dot"></span><p><strong>Síntesis:</strong> el peso y la claridad de estos testimonios crece notablemente con el tiempo (mucho más explícito en León, s. V, que en Clemente, s. I), y en ningún autor patrístico anterior al siglo V aparece ya el vocabulario técnico preciso —"infalibilidad", "jurisdicción universal inmediata y ordinaria"— que el Vaticano I definirá en 1870.</p></div>
+  </section>
+
+  <section id="c8" class="chapter">
+    <div class="chapter-head"><span class="chapter-num">VIII</span><h2>El desarrollo doctrinal del primado papal</h2></div>
+
+    <h3>8.1 El marco teórico: desarrollo dogmático</h3>
+    <p>John Henry Newman, en su <em>Essay on the Development of Christian Doctrine</em> (1845), argumenta que una doctrina revelada puede permanecer idéntica en su sustancia mientras su formulación conceptual se desarrolla orgánicamente a lo largo del tiempo. La teología católica aplica este marco al primado: la sustancia (Pedro como fundamento, portador de llaves, pastor universal) está ya en el Nuevo Testamento, pero su formulación jurídica precisa —"jurisdicción universal inmediata y ordinaria", "infalibilidad ex cathedra"— es fruto de siglos de reflexión y controversia. <span class="tag tag-opinion">Marco teológico interpretativo, no dato bíblico directo</span></p>
+
+    <h3>8.2 Siglos V-VIII</h3>
+    <p>León Magno (m. 461) y Gelasio I (492-496, doctrina de las "dos espadas") consolidan la teoría. La autoridad papal seguía ejerciéndose de forma limitada en Oriente, donde el emperador bizantino tenía peso decisivo (cesaropapismo), dentro de la comunión de la <em>Pentarquía</em> (Roma, Constantinopla, Alejandría, Antioquía, Jerusalén).</p>
+
+    <h3>8.3 La Reforma Gregoriana (siglos XI-XII)</h3>
+    <p>Gregorio VII, en el <em>Dictatus Papae</em> (1075) —lista de 27 proposiciones de estatus discutido—, afirma que solo el pontífice romano puede ser llamado "universal", que solo él puede deponer obispos, y que "la Iglesia romana jamás erró ni errará jamás" (prop. 22), antecedente lingüístico remoto de la futura infalibilidad. El <em>Decreto de Graciano</em> (c. 1140) consolida jurídicamente el principio <em>prima sedes a nemine iudicatur</em> ("la primera sede no es juzgada por nadie").</p>
+
+    <h3>8.4 Escolástica y sistematización (siglos XIII-XIV)</h3>
+    <p>Tomás de Aquino, en <em>Contra errores Graecorum</em>, articula el primado con su eclesiología del cuerpo místico. El II Concilio de Lyon (1274) produjo la primera profesión de fe <strong>conciliar</strong> que afirma el "supremo y pleno primado y principado" romano; la unión con Bizancio, aceptada efímeramente, fracasó poco después. La bula <em>Unam Sanctam</em> (1302) de Bonifacio VIII lleva esta teoría a su expresión máxima; su alcance dogmático exacto sigue discutido teológicamente.</p>
+
+    <h3>8.5 La crisis conciliarista (siglos XIV-XV)</h3>
+    <p>El Gran Cisma de Occidente (1378-1417), con hasta tres papas rivales simultáneos, produjo el <strong>conciliarismo</strong> (Marsilio de Padua; decretos <em>Haec Sancta</em> y <em>Frequens</em> del Concilio de Constanza), que sostenía la autoridad suprema del concilio ecuménico incluso sobre el papa. Resuelto finalmente a favor de la primacía papal, este episodio muestra que el primado atravesó su mayor cuestionamiento <strong>interno</strong> —no proveniente de protestantes ni ortodoxos— precisamente en la baja Edad Media. <span class="tag tag-hecho">Hecho históricamente complejo, reconocido sin ambages por la propia Iglesia</span></p>
+
+    <h3>8.6 De Trento al Vaticano I (siglos XVI-XIX)</h3>
+    <p>El Concilio de Trento (1545-1563) reforzó la autoridad papal en la práctica sin definir sistemáticamente el primado. En el siglo XIX emerge el <strong>ultramontanismo</strong> (Joseph de Maistre, <em>Du Pape</em>, 1819) frente al galicanismo francés (<em>Declaración del Clero Galicano</em>, 1682, que negaba la infalibilidad sin consentimiento eclesial) — contexto inmediato de la convocatoria del Vaticano I.</p>
+  </section>
+
+  <section id="c9" class="chapter">
+    <div class="chapter-head"><span class="chapter-num">IX</span><h2>Primado, jurisdicción, autoridad, magisterio e infalibilidad</h2></div>
+
+    <div class="traditions" style="grid-template-columns:1fr;">
+      <div class="tradition-card tc-cat">
+        <h5>Primado (primatus)</h5>
+        <p>Posición de preeminencia del obispo de Roma en el colegio episcopal, en cuanto sucesor de Pedro. El <em>Codex Iuris Canonici</em> (can. 331) lo define como potestad "ordinaria suprema, plena, inmediata y universal". Es la categoría paraguas bajo la cual se articulan las demás.</p>
+      </div>
+    </div>
+
+    <h3>Jurisdicción (potestas iurisdictionis)</h3>
+    <p>Potestad de gobierno: legislar, juzgar, administrar. Se distingue de la <em>potestas ordinis</em> (poder sacramental de la ordenación, igual en todo obispo). La jurisdicción papal se califica como <strong>ordinaria</strong> (propia del oficio, no delegada), <strong>inmediata</strong> (no mediada por los obispos locales) y <strong>universal</strong> (toda la Iglesia). Es, junto a la infalibilidad, la afirmación más disputada por ortodoxos y protestantes.</p>
+
+    <h3>Autoridad (auctoritas)</h3>
+    <p>Término más amplio: peso moral y espiritual reconocido, con o sin potestad jurídica formal. Un Padre de la Iglesia tiene gran autoridad teológica sin jurisdicción canónica sobre nadie.</p>
+
+    <h3>Magisterio (magisterium)</h3>
+    <p>Función de enseñar auténticamente la fe, atribuida al colegio episcopal en comunión con el papa (magisterio ordinario y universal) y, de forma suprema, al papa y a los concilios ecuménicos (magisterio extraordinario). No todo acto de magisterio es infalible: la mayoría de la enseñanza papal cotidiana (encíclicas, homilías) pertenece al <strong>magisterio ordinario auténtico</strong>, que exige asentimiento religioso sin la irreformabilidad absoluta de las definiciones infalibles.</p>
+
+    <h3>Infalibilidad (infallibilitas)</h3>
+    <p>La categoría más restringida: el carisma por el cual el papa, hablando <em>ex cathedra</em>, está preservado del error al definir doctrina sobre fe o costumbres. Cuatro precisiones esenciales: <span class="tag tag-dogma">Dogma definido (1870)</span></p>
+    <ol class="plain">
+      <li>No es <strong>impecabilidad</strong>: el titular puede ser un pecador grave sin que ello contradiga el carisma del oficio.</li>
+      <li>No es <strong>inspiración</strong>: no hay nueva revelación, solo preservación negativa del error al formular lo ya contenido en Escritura y Tradición.</li>
+      <li>Es <strong>excepcionalísima en su ejercicio formal</strong>: desde 1870 se reconoce un solo caso indiscutido posterior — la Asunción de María (Pío XII, 1950).</li>
+      <li>Se distingue de la <strong>indefectibilidad</strong> de toda la Iglesia (Mt 16:18), categoría más amplia referida al conjunto, no solo al papa.</li>
+    </ol>
+  </section>
+
+  <section id="c10" class="chapter">
+    <div class="chapter-head"><span class="chapter-num">X</span><h2>El Concilio Vaticano I y la infalibilidad papal</h2></div>
+
+    <h3>10.1 Contexto de convocatoria (1869-1870)</h3>
+    <p>Convocado por Pío IX (<em>Aeterni Patris</em>, 1868), inaugurado el 8 de diciembre de 1869. El Estado Pontificio estaba siendo absorbido por el <em>Risorgimento</em> italiano; Roma sería ocupada apenas meses después de terminado el concilio (20 de septiembre de 1870), forzando su suspensión indefinida sin clausura formal. Hubo una minoría episcopal opuesta —Ignaz von Döllinger (que rompió con Roma, fundando el Viejo Catolicismo), Félix Dupanloup— no tanto al contenido cuanto a la oportunidad de la definición; la gran mayoría de esa minoría terminó sometiéndose al resultado final. <span class="tag tag-hecho">Hecho histórico</span></p>
+
+    <h3>10.2 El texto: Pastor Aeternus (18 de julio de 1870)</h3>
+    <blockquote>El Romano Pontífice, cuando habla ex cathedra, esto es, cuando en ejercicio de su oficio de pastor y doctor de todos los cristianos, en virtud de su suprema autoridad apostólica, define una doctrina sobre fe o costumbres que debe ser sostenida por toda la Iglesia, goza [...] de aquella infalibilidad de que el divino Redentor quiso dotar a su Iglesia [...] y por tanto, tales definiciones del Romano Pontífice son irreformables por sí mismas, y no en virtud del consentimiento de la Iglesia.
+    <cite>Pastor Aeternus, cap. 4 (Concilio Vaticano I, 1870)</cite></blockquote>
+
+    <p>Cada elemento de la fórmula es técnicamente relevante:</p>
+    <ul class="plain">
+      <li><strong>"Ex cathedra":</strong> excluye opiniones privadas del papa o escritos teológicos previos a su pontificado.</li>
+      <li><strong>"En ejercicio de su oficio de pastor y doctor":</strong> excluye actos administrativos, disciplinares o políticos.</li>
+      <li><strong>"Define":</strong> requiere acto formal y definitivo, no una simple sugerencia por autorizada que sea.</li>
+      <li><strong>"Sobre fe o costumbres":</strong> excluye cuestiones científicas, históricas no reveladas o políticas.</li>
+      <li><strong>"Ex sese, non ex consensu Ecclesiae":</strong> cláusula dirigida contra el galicanismo, que exigía ratificación episcopal posterior. No significa que el papa actúe aislado: la teología católica sostiene que define siempre apoyado en la fe ya vivida por el pueblo de Dios (<em>sensus fidei</em>).</li>
+    </ul>
+
+    <h3>10.3 La jurisdicción universal (capítulo 3)</h3>
+    <p><em>Pastor Aeternus</em> define también la jurisdicción papal como "ordinaria, inmediata, verdaderamente episcopal" sobre todas las Iglesias y todos los fieles — afirmación tan o más disputada por los ortodoxos que la propia infalibilidad (cap. XIII).</p>
+
+    <h3>10.4 Recepción histórica</h3>
+    <p>Tres reacciones documentadas: (1) la ruptura de una minoría que dio origen al Viejo Catolicismo; (2) el rechazo protestante, esperable; (3) el rechazo ortodoxo, coherente con una eclesiología de conciliaridad ya incompatible desde el Cisma de 1054.</p>
+
+    <h3>10.5 Precisión sobre el alcance real del carisma</h3>
+    <p>La infalibilidad, definida en 1870, <strong>solo se ha invocado formalmente una vez</strong> desde entonces con carácter indiscutido: la Asunción corporal de María (Pío XII, <em>Munificentissimus Deus</em>, 1950). Algunos teólogos incluyen también <em>Ineffabilis Deus</em> (1854, Inmaculada Concepción), anterior a la formulación técnica pero entendida retroactivamente como ejercicio del mismo carisma. La inmensa mayoría del magisterio pontificio ordinario no pretende ejercer este carisma extraordinario.</p>
+  </section>
+
+  <section id="c11" class="chapter">
+    <div class="chapter-head"><span class="chapter-num">XI</span><h2>El Concilio Vaticano II: papado y colegialidad</h2></div>
+
+    <p>El Vaticano II (1962-1965) se propuso explícitamente <strong>completar</strong> la obra doctrinal del Vaticano I, interrumpida en 1870 antes de tratar en profundidad la eclesiología del episcopado. No debe leerse como corrección o reversión del Vaticano I, sino como su culminación y equilibrio.</p>
+
+    <h3>Lumen Gentium 22: la colegialidad episcopal</h3>
+    <blockquote>El colegio u orden episcopal [...] es también, unido con su cabeza el Romano Pontífice, y nunca sin esta cabeza [...], sujeto de la potestad suprema y plena sobre toda la Iglesia.
+    <cite>Lumen Gentium 22 (1964)</cite></blockquote>
+    <p>Esta formulación introduce la doctrina del <strong>"doble sujeto" de la potestad suprema</strong>: el papa solo (Vaticano I) y el colegio episcopal con el papa como cabeza (nueva precisión del Vaticano II), sin implicar dos poderes rivales. Para evitar ambigüedad, la Comisión Doctrinal añadió la <em>Nota Explicativa Previa</em> (a instancias de Pablo VI): "colegio" no significa un grupo de iguales con una cabeza meramente primera entre pares, y el papa permanece libre en el ejercicio de su propio poder según su propio criterio.</p>
+
+    <h3>Sacramentalidad del episcopado</h3>
+    <p>El Vaticano II afirma que la consagración episcopal confiere, por derecho divino, la plenitud del sacramento del orden (<em>LG</em> 21), reforzando la sucesión apostólica de todo el episcopado como fundamento compartido sobre el cual se articula, sin disolverla, la primacía petrina propia de Roma.</p>
+
+    <h3>Subsidiariedad y descentralización</h3>
+    <p>El espíritu conciliar favoreció una revalorización de la autoridad de los obispos diocesanos y conferencias episcopales. Documentos posteriores han oscilado en el énfasis: <em>Apostolos Suos</em> (Juan Pablo II, 1998) limitó el peso doctrinal propio de las conferencias episcopales; el pontificado de Francisco (2013-2025) insistió en una "saludable descentralización" (<em>Evangelii Gaudium</em> 32) sin modificar formalmente la doctrina del Vaticano I sobre primado e infalibilidad.</p>
+
+    <h3>El papado como servicio</h3>
+    <p>Un rasgo central del Vaticano II y de la teología posterior es recuperar el título tradicional "siervo de los siervos de Dios" (<em>servus servorum Dei</em>, desde Gregorio Magno). Este acento encuentra su formulación más explícita en <em>Ut Unum Sint</em> (Juan Pablo II, 1995), donde el papa invita a las demás Iglesias a ayudar a repensar la <strong>forma concreta</strong> de ejercicio del primado — gesto sin precedentes que abrió el espacio ecuménico desarrollado en el capítulo XVI.</p>
+  </section>
+
+  <section id="c12" class="chapter">
+    <div class="chapter-head"><span class="chapter-num">XII</span><h2>Objeciones protestantes y respuestas católicas</h2></div>
+
+    <div class="objection">
+      <div class="obj-head">Objeción · La "roca" no es Pedro sino Cristo o su confesión</div>
+      <div class="obj-body"><p>Apoyándose en 1 Co 10:4 ("la roca era Cristo") y 1 P 2:4-8, los reformadores y comentaristas como D. A. Carson sostienen que identificar a Pedro como la roca introduce una fundación humana junto a Cristo, contrario a 1 Co 3:11. Muchos prefieren ver la roca como la confesión de fe de Pedro, reproducible por cualquier creyente.</p></div>
+      <div class="resp-head">Respuesta católica</div>
+      <div class="resp-body"><p>Se acepta ampliamente, por razones filológicas (sustrato arameo <em>kepha'</em>), que el referente inmediato es Pedro mismo. Pero esto no compite con la exclusividad fundacional de Cristo: Pedro es roca de forma derivada y ministerial. La Escritura usa metáforas de fundamento tanto para Cristo (1 Co 3:11) como, en sentido secundario, para "los apóstoles y profetas" (Ef 2:20) y los Doce nombres en la Jerusalén celestial (Ap 21:14).</p></div>
+    </div>
+
+    <div class="objection">
+      <div class="obj-head">Objeción · La falibilidad demostrada de Pedro (Gá 2:11-14)</div>
+      <div class="obj-body"><p>Pablo reprendió a Pedro "cara a cara, porque era de condenar" por su conducta hacia la comunión con gentiles en Antioquía. Si Pedro erraba y era corregido públicamente por otro apóstol, ¿cómo sostener un estatus infalible?</p></div>
+      <div class="resp-head">Respuesta católica</div>
+      <div class="resp-body"><p>La Iglesia acepta este episodio sin dificultad: prueba precisamente que la infalibilidad nunca ha significado impecabilidad personal. La corrección de Pablo se refiere a una incoherencia de <strong>conducta práctica</strong>, no a una definición doctrinal formal <em>ex cathedra</em>; de hecho Pedro ya había fijado la posición correcta en Hch 15:7-11 antes de este episodio.</p></div>
+    </div>
+
+    <div class="objection">
+      <div class="obj-head">Objeción · Sacerdocio de todos los creyentes, sin jerarquía mediadora</div>
+      <div class="obj-body"><p>Apoyándose en 1 P 2:9 y Hb 4:14-16, la tradición protestante clásica —particularmente bautista y congregacionalista— sostiene que el Nuevo Testamento no conoce una estructura jerárquica universal centralizada, sino comunidades locales autónomas gobernadas por ancianos/presbíteros-obispos.</p></div>
+      <div class="resp-head">Respuesta católica</div>
+      <div class="resp-body"><p>Se distingue el sacerdocio común de los fieles del sacerdocio ministerial ordenado, diferentes "en esencia y no solo en grado" (<em>LG</em> 10), no competitivos. Sobre la ausencia de estructura jerárquica explícita en el Nuevo Testamento, se recurre al desarrollo doctrinal (cap. VIII): el canon bíblico mismo y la cristología de dos naturalezas tampoco están en el Nuevo Testamento con vocabulario técnico, sin que el protestantismo clásico rechace esos desarrollos.</p></div>
+    </div>
+
+    <div class="objection">
+      <div class="obj-head">Objeción · Sola Scriptura y la insuficiencia del argumento patrístico</div>
+      <div class="obj-body"><p>Ninguna tradición eclesial posterior, por antigua que sea, puede tener autoridad normativa equivalente a la Escritura; y esta, leída sin la lente católica posterior, no establece con claridad indiscutible el primado romano de 1870.</p></div>
+      <div class="resp-head">Respuesta católica</div>
+      <div class="resp-body"><p>Se rechaza el principio mismo de <em>sola Scriptura</em> como no bíblico e insostenible: el propio canon del Nuevo Testamento fue discernido por la Iglesia (Concilios de Roma 382, Hipona 393, Cartago 397) mediante la misma autoridad de Tradición viva que después definiría el primado. Se sostiene, en cambio, un modelo de Escritura-Tradición-Magisterio inseparables (<em>Dei Verbum</em> 9-10).</p></div>
+    </div>
+
+    <div class="objection">
+      <div class="obj-head">Objeción · La corrupción histórica del papado como prueba de origen humano</div>
+      <div class="obj-body"><p>Particularmente viva en la Reforma (identificaciones polémicas del papado como "el Anticristo", Artículos de Esmalcalda, 1537): la corrupción histórica documentada del papado prueba que la institución es de origen eclesiástico-humano, no divino.</p></div>
+      <div class="resp-head">Respuesta católica</div>
+      <div class="resp-body"><p>Distinción entre validez del oficio y santidad del titular (cap. XIV). Se añade que ningún cristianismo histórico, protestante incluido, ha estado libre de escándalos en sus propias estructuras de liderazgo, sin que ello se use generalmente contra la legitimidad del ministerio pastoral como tal — aunque se reconoce que la magnitud de ciertos abusos papales concretos exige un reconocimiento honesto, no solo defensa estructural.</p></div>
+    </div>
+  </section>
+
+  <section id="c13" class="chapter">
+    <div class="chapter-head"><span class="chapter-num">XIII</span><h2>Objeciones ortodoxas y respuestas católicas</h2></div>
+
+    <p>A diferencia del protestantismo, que cuestiona la base bíblica misma de un primado transmisible, la Ortodoxia <strong>no niega</strong> que Pedro tuviera un primado real, ni que Roma haya gozado históricamente de un "primado de honor" (<em>presbeia timēs</em>). Lo que niega es la transformación de ese primado de honor en jurisdicción universal, inmediata y ordinaria, culminada en la infalibilidad personal.</p>
+
+    <div class="objection">
+      <div class="obj-head">Objeción · Primado de honor, no de jurisdicción</div>
+      <div class="obj-body"><p>El canon 6 de Nicea (325) y el canon 3 de Constantinopla I (381, que da a Constantinopla el primado de honor "después de Roma... por ser la nueva Roma") reflejan un sistema de Pentarquía de sedes "entre pares", donde Roma gozaba de la primera posición honorífica, pero sin poder de jurisdicción directa sobre las demás, cada una autocéfala, gobernada colegialmente por concilios ecuménicos.</p></div>
+      <div class="resp-head">Respuesta católica</div>
+      <div class="resp-body"><p>Se reconoce el dato canónico, pero se señala que esos mismos siglos muestran, junto al lenguaje de "honor", ejercicios efectivos de jurisdicción (amenazas de excomunión de Víctor I, intervención disciplinar de Esteban I, derecho de apelación en Sárdica) que exceden un primado meramente honorífico. La discusión gira en buena parte sobre términos griegos y latinos ambiguos (<em>potiorem principalitatem</em>), y sigue siendo objeto de investigación patrológica activa sin consenso definitivo.</p></div>
+    </div>
+
+    <div class="objection">
+      <div class="obj-head">Objeción · El canon 28 de Calcedonia</div>
+      <div class="obj-body"><p>Otorga a Constantinopla privilegios "iguales" a Roma, justificados explícitamente por ser "la nueva Roma", sede imperial — un criterio político, no teológico-petrino, que socava la pretensión de que el rango romano se debe a un fundamento único e insustituible.</p></div>
+      <div class="resp-head">Respuesta católica</div>
+      <div class="resp-body"><p>El legado papal protestó formalmente contra este canon en el propio concilio, y León Magno se negó a ratificarlo, alegando que el rango de las sedes debía fundarse en el origen apostólico, no en consideraciones político-administrativas (<em>Epístola</em> 105). Este canon nunca fue plenamente aceptado por Roma.</p></div>
+    </div>
+
+    <div class="objection">
+      <div class="obj-head">Objeción · La autoridad suprema reside en el concilio ecuménico, no en un obispo</div>
+      <div class="obj-body"><p>La aclamación "Pedro ha hablado por boca de León" en Calcedonia fue seguida de un proceso conciliar donde los obispos deliberaron, examinaron y finalmente aceptaron el <em>Tomus</em> de León tras contrastarlo con la fe de Cirilo de Alejandría: sometieron el texto papal a examen conciliar, no lo recibieron por autoridad automática.</p></div>
+      <div class="resp-head">Respuesta católica</div>
+      <div class="resp-body"><p>Se acepta el dato del proceso deliberativo, pero se replica con el precedente inverso: en la controversia bautismal con Cipriano, y en las definiciones de la Inmaculada (1854) y la Asunción (1950) —ninguna definida por concilio ecuménico sino por acto papal <em>ex cathedra</em>— la Iglesia sostiene que el papa puede ejercer autoridad definitoria sin proceso conciliar previo, aunque en la práctica pastoral normal suele darse en comunión activa con el episcopado.</p></div>
+    </div>
+
+    <div class="objection">
+      <div class="obj-head">Objeción · El Filioque como imposición unilateral</div>
+      <div class="obj-body"><p>La introducción de la cláusula <em>Filioque</em> en el Credo por la Iglesia latina, sin concilio ecuménico que incluyera a toda la Iglesia oriental, es el ejemplo paradigmático de ejercicio unilateral de autoridad romana — y la disputa desencadenante directa del Cisma de 1054.</p></div>
+      <div class="resp-head">Respuesta católica</div>
+      <div class="resp-body"><p>Se reconoce el problema procedimental (documento del Pontificio Consejo para la Unidad de los Cristianos, 1995) mientras se sostiene que el contenido doctrinal es compatible con la fe trinitaria común — reconocimiento autocrítico sobre el <strong>modo</strong> de ejercicio, distinto de una retractación del contenido.</p></div>
+    </div>
+
+    <div class="timeline-note"><span class="dot"></span><p><strong>Síntesis:</strong> el debate con la Ortodoxia se centra, de forma más precisa que con el protestantismo, en el <em>grado y la forma</em> de un primado ya aceptado en su núcleo por ambas partes: ¿primado de honor en una Iglesia esencialmente conciliar, o jurisdicción universal culminada en la infalibilidad personal? Este es hoy el eje concreto del diálogo católico-ortodoxo más avanzado (cap. XVI).</p></div>
+  </section>
+
+  <section id="c14" class="chapter">
+    <div class="chapter-head"><span class="chapter-num">XIV</span><h2>Críticas históricas al papado y sus respuestas</h2></div>
+
+    <h3>El caso del papa Honorio I y el monotelismo (siglo VII)</h3>
+    <p>Honorio I (625-638) pareció avalar, o al menos no condenó con claridad, la fórmula monotelita en su correspondencia con el patriarca Sergio de Constantinopla. El III Concilio de Constantinopla (680-681), sexto concilio ecuménico, <strong>anatematizó por nombre a Honorio</strong>, condena confirmada por los papas posteriores contemporáneos al concilio.</p>
+    <p><strong>Respuesta católica:</strong> Honorio no definió nada <em>ex cathedra</em> en sentido técnico —sus cartas eran correspondencia privada, no un acto solemne dirigido a toda la Iglesia—; su error fue de omisión y ambigüedad pastoral, no una definición positiva de herejía. El caso Honorio se cita precisamente como ejemplo de los <strong>límites</strong> de la infalibilidad tal como la definiría el Vaticano I ocho siglos después.</p>
+
+    <h3>El Cisma de Occidente (1378-1417)</h3>
+    <p>Cerca de cuarenta años con dos, y en un momento tres, papas simultáneos. La Iglesia reconoce el hecho sin ambages —la lista oficial de papas identifica retrospectivamente a los "antipapas" de ese período como ilegítimos— y sostiene que el episodio, gravísimo institucionalmente, no afectó la doctrina del primado en sí: nadie disputaba que debía existir un único papa legítimo; el problema era identificarlo, resuelto finalmente por la intervención de un concilio (Constanza).</p>
+
+    <h3>Papas moralmente indignos</h3>
+    <p>El período del <em>saeculum obscurum</em> (c. 904-964, control de la familia Teofilacto sobre la elección papal) y papas renacentistas como Alejandro VI (Rodrigo Borgia, 1492-1503) —vida personal ampliamente documentada por consenso historiográfico, no solo polémica confesional.</p>
+    <p><strong>Respuesta católica:</strong> apoyada en la distinción entre oficio y persona (cap. IX): la validez del oficio no depende de la santidad personal del ministro, principio antiguo formulado contra el donatismo por Agustín (<em>ex opere operato</em>). La crítica histórica se acepta plenamente como hecho, sin ocultarla ni reivindicarla moralmente.</p>
+
+    <h3>El poder temporal y los Estados Pontificios</h3>
+    <p>Desde la Donación de Constantino (falsificación del siglo VIII, demostrada por Lorenzo Valla en 1440) hasta episodios como el Saco de Roma (1527), la historia del papado como poder temporal incluye violencia e intriga política difícilmente conciliables con una imagen puramente espiritual del oficio. La teología católica contemporánea distingue con claridad el oficio espiritual de Pedro de las circunstancias históricas contingentes del poder temporal, resuelto jurídicamente en los Pactos de Letrán (1929).</p>
+
+    <h3>La Inquisición y la coerción religiosa</h3>
+    <p>Sucesivos papas autorizaron, promovieron o toleraron instituciones de coerción religiosa que la Iglesia actual reconoce como contrarias al Evangelio y por las que ha pedido perdón explícitamente (Juan Pablo II, Jubileo del año 2000, "Día del Perdón", 12 de marzo). Estas decisiones pertenecen al ámbito disciplinar y prudencial, no al magisterio doctrinal definido, ni fueron ejercidas bajo condiciones <em>ex cathedra</em> — aunque es justo señalar que esta distinción, técnicamente coherente, ha sido también objeto de crítica por historiadores y teólogos que la consideran a veces usada para eximir de responsabilidad histórica al oficio papal como tal. <span class="tag tag-apolog">Tensión reconocida por la propia teología católica</span></p>
+  </section>
+
+  <section id="c15" class="chapter">
+    <div class="chapter-head"><span class="chapter-num">XV</span><h2>Los principales documentos magisteriales</h2></div>
+    <p>Selección de los textos de referencia obligada para el estudio del primado, en orden cronológico.</p>
+
+    <ul class="doc-list">
+      <li>
+        <span class="doc-title">Pastor Aeternus</span>
+        <span class="doc-meta">Concilio Vaticano I · 18 de julio de 1870</span>
+        <span class="doc-desc">Constitución dogmática que define la institución del primado en Pedro, su perpetuidad en los romanos pontífices, la jurisdicción universal e inmediata, y la infalibilidad papal ex cathedra.</span>
+      </li>
+      <li>
+        <span class="doc-title">Lumen Gentium, cap. III</span>
+        <span class="doc-meta">Concilio Vaticano II · 21 de noviembre de 1964</span>
+        <span class="doc-desc">Constitución dogmática sobre la Iglesia. Desarrolla la doctrina de la colegialidad episcopal (n. 22) en articulación con el primado ya definido en 1870, y la sacramentalidad plena del episcopado (n. 21).</span>
+      </li>
+      <li>
+        <span class="doc-title">Christus Dominus</span>
+        <span class="doc-meta">Concilio Vaticano II · 28 de octubre de 1965</span>
+        <span class="doc-desc">Decreto sobre el oficio pastoral de los obispos: precisa la relación entre potestad papal y potestad episcopal ordinaria en el gobierno de las Iglesias particulares.</span>
+      </li>
+      <li>
+        <span class="doc-title">Unitatis Redintegratio</span>
+        <span class="doc-meta">Concilio Vaticano II · 21 de noviembre de 1964</span>
+        <span class="doc-desc">Decreto sobre el ecumenismo. Entrada oficial de la Iglesia católica en el movimiento ecuménico moderno; marco que hará posible, treinta años más tarde, la invitación de Ut Unum Sint.</span>
+      </li>
+      <li>
+        <span class="doc-title">Codex Iuris Canonici, cc. 330-335</span>
+        <span class="doc-meta">Código de Derecho Canónico · 1983</span>
+        <span class="doc-desc">Formulación jurídica vigente del oficio del Romano Pontífice y del Colegio de los Obispos.</span>
+      </li>
+      <li>
+        <span class="doc-title">Catecismo de la Iglesia Católica, nn. 880-887, 891</span>
+        <span class="doc-meta">1992</span>
+        <span class="doc-desc">Síntesis doctrinal oficial sobre el colegio episcopal, su cabeza, y el carisma de la infalibilidad.</span>
+      </li>
+      <li>
+        <span class="doc-title">Ut Unum Sint</span>
+        <span class="doc-meta">Juan Pablo II · 25 de mayo de 1995</span>
+        <span class="doc-desc">Encíclica sobre el compromiso ecuménico. Contiene la histórica invitación (n. 95-96) a los pastores y teólogos de otras Iglesias a "encontrar juntos" formas de ejercicio del primado que puedan ser reconocidas como servicio de amor por todos.</span>
+      </li>
+      <li>
+        <span class="doc-title">Apostolos Suos</span>
+        <span class="doc-meta">Juan Pablo II · 21 de mayo de 1998</span>
+        <span class="doc-desc">Carta apostólica sobre la naturaleza teológica y jurídica de las conferencias episcopales, matizando su peso magisterial propio frente a la autoridad de cada obispo y del papa.</span>
+      </li>
+      <li>
+        <span class="doc-title">Praedicate Evangelium</span>
+        <span class="doc-meta">Francisco · 19 de marzo de 2022</span>
+        <span class="doc-desc">Constitución apostólica de reforma de la Curia romana, que sustituye a Pastor Bonus (1988) e inscribe el principio de sinodalidad y "saludable descentralización" en el gobierno central de la Iglesia.</span>
+      </li>
+      <li>
+        <span class="doc-title">The Bishop of Rome — Primacy and Synodality in the Ecumenical Dialogues and in the Responses to the Encyclical "Ut Unum Sint"</span>
+        <span class="doc-meta">Dicasterio para la Promoción de la Unidad de los Cristianos · 13 de junio de 2024</span>
+        <span class="doc-desc">Documento de estudio, no magisterio definitivo, que sintetiza por primera vez treinta respuestas oficiales a Ut Unum Sint y cerca de cincuenta documentos de diálogo bilateral, con una propuesta final, "Hacia un ejercicio del primado en el siglo XXI". Desarrollado en el capítulo XVI.</span>
+      </li>
+    </ul>
+  </section>
+
+  <section id="c16" class="chapter">
+    <div class="chapter-head"><span class="chapter-num">XVI</span><h2>Estado actual del diálogo ecuménico</h2></div>
+    <p>Esta sección describe hechos y procesos verificables hasta la fecha de redacción de este tratado (2026); por su naturaleza, el diálogo ecuménico sigue en curso y puede haber avanzado desde entonces.</p>
+
+    <h3>16.1 El punto de partida: la invitación de Ut Unum Sint (1995)</h3>
+    <p>Juan Pablo II, consciente de que "la primacía del obispo de Roma ha causado y sigue causando" dificultades a otras Iglesias, invitó a los pastores y teólogos de las demás tradiciones cristianas a buscar juntos formas de ejercicio del primado que puedan ser reconocidas "como un servicio de amor reconocido por unos y otros". Fue un gesto sin precedentes: un papa pidiendo ayuda externa para repensar la forma concreta —no la sustancia doctrinal— de su propio oficio.</p>
+
+    <h3>16.2 Treinta años de respuestas: el documento "The Bishop of Rome" (2024)</h3>
+    <p>El 13 de junio de 2024, el Dicasterio para la Promoción de la Unidad de los Cristianos, bajo el cardenal Kurt Koch y con la aprobación de Francisco, publicó un documento de estudio de 147 páginas que sintetiza, por primera vez, el fruto de casi tres décadas de esa invitación: treinta respuestas oficiales recibidas de diecisiete Iglesias y nueve organismos ecuménicos —entre ellas la Comunión Anglicana, la Iglesia de Suecia y la Iglesia Presbiteriana de EE.UU.— junto con cerca de cincuenta documentos de diálogo bilateral, incluidos los sostenidos con la Ortodoxia.</p>
+    <div class="timeline-note"><span class="dot"></span><p>Dato significativo señalado por el propio documento: de las Iglesias ortodoxas y orientales <strong>no se recibió ninguna respuesta oficial</strong> directamente a Ut Unum Sint, aunque su posición sobre el primado sí queda reflejada en los documentos de diálogo bilateral bizantino-católico, como "Sinodalidad y Primado en el Segundo Milenio y Hoy" (2023), de la Comisión Mixta Internacional para el Diálogo Teológico entre la Iglesia Católica y la Iglesia Ortodoxa — texto que critica que la eclesiología subyacente a los dogmas del Vaticano I se aparta de la tradición canónica de los Padres y los concilios ecuménicos.</p></div>
+
+    <p>Entre las convergencias identificadas por el documento de 2024: la interdependencia mutua entre primado y sinodalidad en cada nivel de la Iglesia; la articulación entre la dimensión "comunal" (basada en el <em>sensus fidei</em> de todos los bautizados), la "colegial" (episcopal) y la "personal" (primacial); y el uso del primer milenio cristiano —antes del Cisma de 1054— como punto de referencia e inspiración, aunque el propio texto advierte que ese primer milenio "no debe idealizarse ni simplemente recrearse", porque un primado a nivel universal debe responder también a los desafíos contemporáneos.</p>
+
+    <p>Como gesto concreto de este proceso, el <em>Anuario Pontificio</em> reincorporó en 2024 el título histórico "Patriarca de Occidente" —suprimido por Benedicto XVI en 2006—, decisión leída por observadores ortodoxos como una señal de que Roma reconoce distinguir su rango patriarcal occidental de una jurisdicción indiferenciada sobre toda la Iglesia.</p>
+
+    <h3>16.3 El año 2025: el aniversario de Nicea y un paso simbólico mayor</h3>
+    <p>El año 2025 marcó el 1700.º aniversario del Concilio de Nicea (325-2025), el primer concilio ecuménico, ocasión que el propio documento de 2024 señalaba como oportunidad para practicar la sinodalidad entre cristianos de todas las tradiciones. Ese mismo año, por coincidencia del calendario lunar entre el calendario juliano y el gregoriano, <strong>todos los cristianos —católicos, ortodoxos y la mayoría de los protestantes— celebraron la Pascua el mismo día, el 20 de abril de 2025</strong>, algo infrecuente que tanto el papa Francisco como el patriarca ecuménico Bartolomeo I señalaron públicamente como ocasión para renovar el llamado a una fecha común y permanente.</p>
+
+    <p>Francisco murió el 21 de abril de 2025, un día después de esa Pascua compartida, antes de poder viajar a Turquía como tenía previsto. Su sucesor, <strong>León XIV</strong> (Robert Francis Prevost, elegido el 8 de mayo de 2025, primer papa estadounidense), retomó el viaje: del 27 de noviembre al 2 de diciembre de 2025 visitó Turquía y Líbano, y se reunió con el patriarca Bartolomeo I en Nicea (la actual İznik) y Estambul, donde ambos recitaron juntos el Credo Niceno-Constantinopolitano.</p>
+
+    <blockquote>Damos gracias a la Divina Providencia porque, en este año 2025, todo el mundo cristiano celebró la Pascua el mismo día. Es nuestro deseo compartido y ferviente que el proceso de búsqueda de una fecha común y permanente para la Fiesta de las Fiestas continúe.
+    <cite>Declaración Conjunta del Patriarca Ecuménico Bartolomeo I y el Papa León XIV, Fanar, 29 de noviembre de 2025 (traducción no oficial)</cite></blockquote>
+
+    <p>Esa Declaración Conjunta, firmada en la sede patriarcal del Fanar, reafirmó el compromiso hacia la plena comunión entre las Iglesias católica y ortodoxa, conmemoró también el 60.º aniversario de la Declaración Conjunta de Pablo VI y Atenágoras I (7 de diciembre de 1965), que había levantado las excomuniones mutuas de 1054, y expresó el deseo compartido de fijar una fecha pascual común permanente — el próximo año en que ambos calendarios coincidirán de forma natural es 2028.</p>
+
+    <h3>16.4 Balance: convergencia real, unidad institucional pendiente</h3>
+    <p>El estado actual del diálogo puede resumirse en una tensión honesta: existe hoy un consenso ecuménico amplio, incluido entre teólogos ortodoxos y protestantes que dialogan con Roma, sobre la <strong>necesidad</strong> de una instancia universal de referencia para la unidad de los cristianos; no existe, en cambio, consenso sobre la <strong>forma jurídica</strong> concreta —jurisdicción inmediata e infalibilidad personal, en los términos exactos del Vaticano I— en que esa instancia debería ejercerse. El propio documento de 2024 lo formula sin ambigüedad: la Iglesia católica no ha cambiado su doctrina definida sobre el primado y la infalibilidad, pero reconoce que la <strong>forma histórica concreta</strong> de su ejercicio —muy marcada por la centralización de los siglos XIX-XX— puede y quizás debe evolucionar sin tocar la sustancia dogmática, en diálogo con las demás tradiciones cristianas. <span class="tag tag-hecho">Estado del proceso a 2026</span></p>
+  </section>
+
+</main>
+
+<div class="closing">
+  <div class="latin">Tu es Petrus, et super hanc petram ædificabo Ecclesiam meam</div>
+  <p>Dieciséis capítulos, un mismo propósito: comprender el primado de Pedro con el rigor bíblico, histórico y doctrinal que merece, distinguiendo siempre lo definido de lo opinable, y el hecho de la interpretación.</p>
+</div>
+
+<footer>Biblioteca teológica personal · Tomo VII · Eclesiología</footer>
+
+</body>
+</html>
